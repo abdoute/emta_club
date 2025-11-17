@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Specialties of the Department of Electrotechnics and Automatics (EEA) — detailed tracks and outcomes.">
+  <meta name="keywords" content="Electrotechnics, Automatics, Electromechanics, Electric Power Networks, AII, PRE">
+  <meta name="author" content="E-MTA Club">
+  <title>Specialties | Department of Electrotechnics and Automatics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <style>
+    .site-modal-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.6); z-index: 1000; opacity: 0; transition: opacity .2s ease; }
+    .site-modal-overlay.open { opacity: 1; }
+    .site-modal { background: var(--card-bg, #121212); color: var(--text-color, #f5f5f5); width: min(900px, 92%); max-height: 85vh; overflow: auto; border-radius: 16px; border: 1px solid var(--border-color, rgba(255,255,255,.12)); box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+    .site-modal-header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; background: inherit; border-bottom: 1px solid var(--border-color, rgba(255,255,255,.12)); z-index: 1; }
+    .site-modal-body { padding: 16px 18px 20px; }
+    .site-modal-close { background: transparent; border: none; color: var(--text-secondary, #bdbdbd); font-size: 1.25rem; cursor: pointer; line-height: 1; border-radius: 8px; padding: 6px; }
+    .site-modal-close:hover { color: var(--text-color, #fff); background: rgba(255,255,255,.06); }
+    .site-modal-body .spec-img { width: 100%; height: auto; border-radius: 12px; margin: 6px 0 14px; display: block; border: 1px solid var(--border-color, rgba(255,255,255,.12)); }
+    .site-modal-body ul { padding-left: 18px; margin: 0; line-height: 1.6; }
+    .site-modal-body li { margin: 6px 0; }
+  </style>
+</head>
+<body>
+  <header id="navbar">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo.png" alt="E-MTA Logo" width="45" height="45" loading="lazy" decoding="async">
+      <span>E-MTA CLUB</span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="join.html">Join Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Language switcher">
+      <button id="en-btn" class="active">EN</button>
+      <button id="ar-btn">AR</button>
+    </div>
+  </header>
+
+  <section class="about-hero" style="background-image:url('assets/images/hero-about.jpg')">
+    <div class="overlay"></div>
+    <div class="hero-inner" data-aos="fade-up" data-aos-duration="700">
+      <div class="hero-badge" data-aos="zoom-in" data-aos-delay="50"><i class="fa-solid fa-graduation-cap"></i><span>Academic Specialties</span></div>
+      <h1 data-aos="fade-up" data-aos-delay="100">Specialties of the Department of Electrotechnics and Automatics</h1>
+      <p data-aos="fade-up" data-aos-delay="150">Explore a clear and professional overview of tracks from L3 to M2, including the 3‑year professional license PRE, with learning outcomes and career prospects.</p>
+      <div class="hero-buttons">
+        <a href="#tracks" class="btn" data-aos="fade-up" data-aos-delay="200"><i class="fa-solid fa-list"></i> Browse Tracks</a>
+        <a href="join.html" class="btn" data-aos="fade-up" data-aos-delay="250"><i class="fa-solid fa-user-plus"></i> Join Us</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="tracks" class="mv-section" data-aos="fade-up">
+      <div class="section-header">
+        <h2 class="section-title">Overview</h2>
+        <p class="section-subtitle">Tracks typically start at the third Bachelor year <strong>(L3)</strong> through <strong>(M2)</strong>, with a 3‑year Professional License (PRE).</p>
+      </div>
+
+      <div class="specialties-wrap">
+        <div class="left-rail" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="specialties-cards grid-2">
+          <article class="specialty-card" data-aos="fade-up" data-aos-delay="50">
+            <div class="badge">AUTO → AII</div>
+            <h3>Automatics (AUTO) — AII Master Track</h3>
+            <button class="btn show-more" data-spec="auto-aii"><i class="fa-solid fa-circle-plus"></i> Show More</button>
+          </article>
+
+          <article class="specialty-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="badge">ELM</div>
+            <h3>Electromechanics (ELM)</h3>
+            <button class="btn show-more" data-spec="elm"><i class="fa-solid fa-circle-plus"></i> Show More</button>
+          </article>
+
+          <article class="specialty-card" data-aos="fade-up" data-aos-delay="150">
+            <div class="badge">ELT → RE</div>
+            <h3>Electrotechnics → Electric Power Networks (RE)</h3>
+            <button class="btn show-more" data-spec="re"><i class="fa-solid fa-circle-plus"></i> Show More</button>
+          </article>
+
+          <article class="specialty-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="badge">PRE</div>
+            <h3>Professional License — Protection of Electric Networks (PRE)</h3>
+            <button class="btn show-more" data-spec="pre"><i class="fa-solid fa-circle-plus"></i> Show More</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Specialties Modal -->
+    <div id="specModalOverlay" class="site-modal-overlay" style="display:none">
+      <div class="site-modal" role="dialog" aria-modal="true" aria-labelledby="specModalTitle">
+        <div class="site-modal-header">
+          <h3 id="specModalTitle"><i class="fa-solid fa-book-open"></i> Details</h3>
+          <button class="site-modal-close" id="specModalClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="site-modal-body" id="specModalBody"></div>
+      </div>
+    </div>
+
+    <section class="team-section" data-aos="fade-up">
+      <div class="section-header">
+        <h2 class="section-title">Why this Department?</h2>
+        <p class="section-subtitle">Applied learning, real projects, and clear pathways to careers in energy, industry, and automation.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-aos="zoom-in" data-aos-delay="50">
+          <div class="feature-icon"><i class="fa-solid fa-flask"></i></div>
+          <h3>Labs & Experiments</h3>
+          <p>Hands‑on practice on control systems, machines, protection, and embedded systems.</p>
+        </div>
+        <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
+          <div class="feature-icon"><i class="fa-solid fa-diagram-project"></i></div>
+          <h3>Strong Capstone Projects</h3>
+          <p>Industry‑relevant topics such as SCADA, smart grids, and renewable energy integration.</p>
+        </div>
+        <div class="feature-card" data-aos="zoom-in" data-aos-delay="150">
+          <div class="feature-icon"><i class="fa-solid fa-briefcase"></i></div>
+          <h3>High Employability</h3>
+          <p>Skills in high demand by companies, technical offices, and public/industrial facilities.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" data-aos="fade-up">
+      <div class="container" style="padding:0">
+        <div class="cta-content">
+          <h2>Ready to get started?</h2>
+          <p>Learn more and join us to build your academic and professional path with confidence.</p>
+          <a href="join.html" class="cta-btn">
+            <span>Join Now</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img src="assets/images/logo.png" alt="E-MTA Club Logo" width="45" height="45" loading="lazy" decoding="async">
+        <span>E-MTA Club</span>
+      </div>
+      <div class="footer-right">
+        <div class="socials">
+          <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+        </div>
+        <div class="copyright">
+          © 2025 E-MTA Club — Université 8 Mai 1945 Guelma
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    if (window.AOS) { AOS.init({ once: true }); }
+    // navbar background on scroll
+    document.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (!nav) return;
+      if (window.scrollY > 10) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+    });
+    // Modal logic for specialties
+    (function(){
+      const data = {
+        'auto-aii': {
+          title: 'Automatics (AUTO) — AII Master Track',
+          html: `
+            <img class="spec-img" src="assets/images/specialties/auto.jpg" alt="AUTO / AII" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <ul>
+              <li><strong>Core modules</strong>: Digital control, state estimation, SCADA & HMI, PLC programming, multivariable & real‑time control.</li>
+              <li><strong>Key labs & tools</strong>: PLC/SCADA (Siemens/Allen‑Bradley), MATLAB/Simulink, real‑time targets, embedded controllers.</li>
+              <li><strong>Skills gained</strong>: Controller tuning (PID/LQR), supervisory architectures, RT scheduling, industrial communication.</li>
+              <li><strong>Typical projects</strong>: Process control benches, robotic arm control, SCADA dashboards, digital twins.</li>
+              <li><strong>Careers</strong>: Automation & control engineer, industrial systems developer, SCADA/PLC integrator, IIoT engineer.</li>
+            </ul>`
+        },
+        'elm': {
+          title: 'Electromechanics (ELM)',
+          html: `
+            <img class="spec-img" src="assets/images/specialties/elm.jpg" alt="ELM" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <ul>
+              <li><strong>Core modules</strong>: Electrical machines, power converters, mechatronics, drives & control, industrial maintenance and safety.</li>
+              <li><strong>Key labs & tools</strong>: Motors and drives benches, inverter control, vibration analysis, CAD/CAE basics.</li>
+              <li><strong>Skills gained</strong>: Condition monitoring, fault diagnosis, system integration, energy efficiency optimization.</li>
+              <li><strong>Typical projects</strong>: Drive retrofitting, mechatronic prototypes, predictive maintenance with sensors.</li>
+              <li><strong>Careers</strong>: Maintenance/production engineer, mechatronic integrator, reliability engineer, industrial commissioning.</li>
+            </ul>`
+        },
+        're': {
+          title: 'Electrotechnics → Electric Power Networks (RE)',
+          html: `
+            <img class="spec-img" src="assets/images/specialties/re.jpg" alt="RE" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <ul>
+              <li><strong>Core modules</strong>: Power system analysis, protection & coordination, power flow & contingency, stability & control, RES integration.</li>
+              <li><strong>Key labs & tools</strong>: Protection relays, short‑circuit analyzers, PSCAD/ETAP/Digsilent (where available), SCADA for power.</li>
+              <li><strong>Skills gained</strong>: Protection settings, grid modeling, fault studies, DER/RES interconnection & compliance.</li>
+              <li><strong>Typical projects</strong>: Substation protection schemes, feeder reconfiguration, microgrid studies.</li>
+              <li><strong>Careers</strong>: Power network engineer, grid planning & operation, smart grid solutions, utility protection engineer.</li>
+            </ul>`
+        },
+        'pre': {
+          title: 'Professional License — Protection of Electric Networks (PRE)',
+          html: `
+            <img class="spec-img" src="assets/images/specialties/pre.jpg" alt="PRE" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <ul>
+              <li><strong>Core modules</strong>: Protection relays, coordination, metering & fault analysis, switching operations, safety regulations.</li>
+              <li><strong>Key labs & tools</strong>: Relay testing sets, fault recorders, breakers & switchgear, safety procedures.</li>
+              <li><strong>Skills gained</strong>: Relay parametrization, incident analysis & reporting, safe operation protocols, field practices.</li>
+              <li><strong>Typical projects</strong>: Feeder/transformer protection settings, incident post‑mortem reports, safety SOPs.</li>
+              <li><strong>Careers</strong>: Protection technician/engineer, field maintenance, substation O&M, control room operator.</li>
+            </ul>`
+        }
+      };
+      const overlay = document.getElementById('specModalOverlay');
+      const titleEl = document.getElementById('specModalTitle');
+      const bodyEl = document.getElementById('specModalBody');
+      const closeBtn = document.getElementById('specModalClose');
+      function openModal(key){
+        const item = data[key]; if (!item) return;
+        titleEl.innerHTML = `<i class="fa-solid fa-book-open"></i> ${item.title}`;
+        bodyEl.innerHTML = item.html;
+        overlay.style.display = 'flex';
+        requestAnimationFrame(()=> overlay.classList.add('open'));
+      }
+      function closeModal(){
+        overlay.classList.remove('open');
+        setTimeout(()=>{ overlay.style.display='none'; bodyEl.innerHTML=''; }, 150);
+      }
+      document.querySelectorAll('.show-more').forEach(btn=>{
+        btn.addEventListener('click', ()=> openModal(btn.getAttribute('data-spec')));
+      });
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeModal(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+    })();
+  </script>
+  <script src="assets/js/i18n.js"></script>
+</body>
+</html>

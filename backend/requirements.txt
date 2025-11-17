@@ -1,0 +1,12 @@
+Flask
+Flask-Cors
+Flask-SQLAlchemy
+SQLAlchemy
+python-dotenv
+Flask-JWT-Extended
+gunicorn
+flask==3.0.0
+flask-cors==4.0.0
+python-dotenv==1.0.1
+flask-sqlalchemy==3.1.1
+flask-jwt-extended==4.6.0

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="E-MTA Club Member Dashboard - Access your profile, activities, projects, and more">
+    <meta name="keywords" content="E-MTA Club, Dashboard, Member Portal, Profile, Activities">
+    <meta name="author" content="E-MTA Club">
+    <title>Member Dashboard - E-MTA Club</title>
+    <meta property="og:title" content="Member Dashboard — E-MTA Club">
+    <meta property="og:description" content="Access your profile, activities, projects, and achievements in E-MTA Club.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Member Dashboard — E-MTA Club">
+    <meta name="twitter:description" content="Access your profile, activities, projects, and achievements in E-MTA Club.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- AOS (Animate on Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <script id="emta-api-base-config">
+      window.EMTA_API_BASE = 'http://127.0.0.1:5000';
+      window.API_BASE = window.EMTA_API_BASE;
+    </script>
+</head>
+<body>
+    <header id="navbar">
+        <a href="index.html" class="logo">
+            <img src="assets/images/logo.png" alt="E-MTA Logo" width="45" height="45">
+            <span>E-MTA CLUB</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html" data-key="home">Home</a></li>
+                <li><a href="about.html" data-key="about">About</a></li>
+                <li><a href="activities.html" data-key="activities">Activities</a></li>
+                <li><a href="join.html" data-key="join">Join-Us</a></li>
+                <li><a href="contact.html" data-key="contact">Contact</a></li>
+                <li><a href="dashboard.html" data-key="dashboard" class="active">Dashboard</a></li>
+            </ul>
+        </nav>
+        <div class="lang-switch" role="group" aria-label="Language switcher">
+            <button id="en-btn" aria-label="English" class="active">EN</button>
+            <button id="ar-btn" aria-label="Arabic">AR</button>
+        </div>
+    </header>
+
+    <!-- Dashboard Hero -->
+    <section class="dashboard-hero">
+        <div class="overlay"></div>
+        <div class="hero-inner">
+            <div class="hero-badge fade-up">
+                <i class="fa-solid fa-user-circle"></i>
+                <span>Member Portal</span>
+            </div>
+            <h1 class="fade-up">Welcome Back, <span id="memberName">Member</span>!</h1>
+            <p class="fade-up">Manage your profile, track your progress, and stay updated with club activities</p>
+        </div>
+    </section>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-container">
+        <!-- Quick Stats -->
+        <section class="dashboard-stats">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number" data-target="12">0</div>
+                    <div class="stat-label">Events Attended</div>
+                </div>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-project-diagram"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Active Projects</div>
+                </div>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-certificate"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number" data-target="4">0</div>
+                    <div class="stat-label">Certificates</div>
+                </div>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-label">Achievements</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Profile Card -->
+            <section class="dashboard-card profile-card" data-aos="fade-up">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-user"></i> Profile</h2>
+                    <button class="edit-btn" id="editProfileBtn">
+                        <i class="fa-solid fa-edit"></i> Edit
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div class="profile-avatar-large">
+                        <img src="assets/images/team/default.jpg" alt="Profile" id="profileAvatar">
+                        <button class="avatar-edit-btn" id="avatarEditBtn">
+                            <i class="fa-solid fa-camera"></i>
+                        </button>
+                        <input type="file" id="avatarFileInput" accept="image/*" style="display:none" />
+                    </div>
+                    <div class="profile-info">
+                        <h3 id="profileName">Member Name</h3>
+                        <p class="profile-role" id="profileRole">Student</p>
+                        <p class="profile-major" id="profileMajor">Specialty</p>
+                        <div class="profile-details">
+                            <div class="detail-item">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span id="profileEmail">email@example.com</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-phone"></i>
+                                <span id="profilePhone">+213</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-id-card"></i>
+                                <span id="profileRegNum">Registration Number</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <span id="profileLevel">Academic Level</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-calendar"></i>
+                                <span id="profileJoinDate">Joined: January 2024</span>
+                            </div>
+                        </div>
+                        <div class="profile-bio" id="profileBio" style="margin-top:16px;color:var(--text-secondary);font-size:0.95rem;"></div>
+                        
+                        <div class="profile-stats" id="profileStats"></div>
+                        <div class="profile-skills" id="profileSkills"></div>
+                        <div class="profile-links" id="profileLinks"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attendance Tracker -->
+            <section class="dashboard-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-clipboard-check"></i> Attendance Tracker</h2>
+                    <button class="add-btn" id="addAttendanceBtn">
+                        <i class="fa-solid fa-plus"></i> Log
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div class="attendance-list" id="attendanceList">
+                        <!-- Attendance will be injected by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certificates -->
+            <section class="dashboard-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-certificate"></i> My Certificates</h2>
+                    <button class="add-btn" id="addCertificateBtn">
+                        <i class="fa-solid fa-plus"></i> Add
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div class="certificates-grid" id="certificatesGrid">
+                        <!-- Certificates will be injected by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Portfolio -->
+            <section class="dashboard-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-briefcase"></i> My Portfolio</h2>
+                    <button class="add-btn" id="addPortfolioBtn">
+                        <i class="fa-solid fa-plus"></i> Add
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div class="portfolio-grid" id="portfolioGrid">
+                        <!-- Portfolio will be injected by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- My Projects -->
+            <section class="dashboard-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-folder-open"></i> My Projects</h2>
+                    <button class="add-btn" id="addProjectBtn">
+                        <i class="fa-solid fa-plus"></i> New
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div class="projects-list" id="projectsList">
+                        <!-- Projects will be injected by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Badges & Achievements -->
+            <section class="dashboard-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-award"></i> Badges</h2>
+                </div>
+                <div class="card-content">
+                    <div class="achievements-grid" id="achievementsGrid">
+                        <!-- Achievements will be injected by JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MODALS -->
+        <!-- Profile Edit Modal -->
+        <div id="profileEditOverlay" class="modal-overlay" style="display:none">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-user-pen"></i> Edit Profile</h3>
+                    <button class="modal-close" id="profileEditClose"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="profileEditForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="editName"><i class="fa-solid fa-user"></i> Name</label>
+                            <input type="text" id="editName" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="editEmail"><i class="fa-solid fa-envelope"></i> Email</label>
+                            <input type="email" id="editEmail" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="editPhone"><i class="fa-solid fa-phone"></i> Phone</label>
+                            <input type="tel" id="editPhone" />
+                        </div>
+                        <div class="form-group">
+                            <label for="editLevel"><i class="fa-solid fa-layer-group"></i> Level</label>
+                            <input type="text" id="editLevel" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="editSpecialty"><i class="fa-solid fa-graduation-cap"></i> Specialty</label>
+                            <input type="text" id="editSpecialty" required />
+                        </div>
+                        <div class="form-group" style="grid-column:1/-1">
+                            <label for="editBio"><i class="fa-solid fa-align-left"></i> Bio</label>
+                            <textarea id="editBio" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-actions">
+                    <button class="add-btn" id="profileEditSave"><i class="fa-solid fa-check"></i> Save</button>
+                    <button class="edit-btn" id="profileEditCancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance Modal -->
+        <div id="attendanceModalOverlay" class="modal-overlay" style="display:none">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-clipboard-check"></i> Log Attendance</h3>
+                    <button class="modal-close" id="attendanceModalClose"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="attendanceForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="attEventName"><i class="fa-solid fa-calendar"></i> Event</label>
+                            <input type="text" id="attEventName" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="attDate"><i class="fa-solid fa-calendar-day"></i> Date</label>
+                            <input type="date" id="attDate" required />
+                        </div>
+                        <div class="form-group" style="grid-column:1/-1">
+                            <label for="attType"><i class="fa-solid fa-tag"></i> Type</label>
+                            <select id="attType" required>
+                                <option value="Workshop">Workshop</option>
+                                <option value="Competition">Competition</option>
+                                <option value="Meeting">Meeting</option>
+                                <option value="Conference">Conference</option>
+                                <option value="Hackathon">Hackathon</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="grid-column:1/-1">
+                            <label for="attNotes"><i class="fa-solid fa-note-sticky"></i> Notes</label>
+                            <textarea id="attNotes" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-actions">
+                    <button class="add-btn" id="attendanceSaveBtn"><i class="fa-solid fa-check"></i> Save</button>
+                    <button class="edit-btn" id="attendanceCancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate Modal -->
+        <div id="certificateModalOverlay" class="modal-overlay" style="display:none">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-certificate"></i> Add Certificate</h3>
+                    <button class="modal-close" id="certificateModalClose"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="certificateForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="certTitle"><i class="fa-solid fa-award"></i> Title</label>
+                            <input type="text" id="certTitle" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="certIssuer"><i class="fa-solid fa-building"></i> Issuer</label>
+                            <input type="text" id="certIssuer" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="certDate"><i class="fa-solid fa-calendar"></i> Date</label>
+                            <input type="date" id="certDate" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="certId"><i class="fa-solid fa-hashtag"></i> ID</label>
+                            <input type="text" id="certId" />
+                        </div>
+                        <div class="form-group" style="grid-column:1/-1">
+                            <label for="certImage"><i class="fa-solid fa-image"></i> Image</label>
+                            <input type="file" id="certImage" accept="image/*" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-actions">
+                    <button class="add-btn" id="certificateSaveBtn"><i class="fa-solid fa-check"></i> Save</button>
+                    <button class="edit-btn" id="certificateCancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Modal -->
+        <div id="portfolioModalOverlay" class="modal-overlay" style="display:none">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-briefcase"></i> Add Portfolio Item</h3>
+                    <button class="modal-close" id="portfolioModalClose"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="portfolioForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="portTitle"><i class="fa-solid fa-heading"></i> Title</label>
+                            <input type="text" id="portTitle" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="portCategory"><i class="fa-solid fa-tag"></i> Category</label>
+                            <select id="portCategory" required>
+                                <option value="Project">Project</option>
+                                <option value="Design">Design</option>
+                                <option value="Code">Code</option>
+                                <option value="Research">Research</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="grid-column:1/-1">
+                            <label for="portDesc"><i class="fa-solid fa-align-left"></i> Description</label>
+                            <textarea id="portDesc" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="portLink"><i class="fa-solid fa-link"></i> Link</label>
+                            <input type="url" id="portLink" />
+                        </div>
+                        <div class="form-group">
+                            <label for="portTags"><i class="fa-solid fa-tags"></i> Tags</label>
+                            <input type="text" id="portTags" placeholder="AI, Python, Web" />
+                        </div>
+                        <div class="form-group" style="grid-column:1/-1">
+                            <label for="portImage"><i class="fa-solid fa-image"></i> Image</label>
+                            <input type="file" id="portImage" accept="image/*" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-actions">
+                    <button class="add-btn" id="portfolioSaveBtn"><i class="fa-solid fa-check"></i> Save</button>
+                    <button class="edit-btn" id="portfolioCancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Modal -->
+        <div id="projectModalOverlay" class="modal-overlay" style="display:none">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-folder-plus"></i> New Project</h3>
+                    <button class="modal-close" id="projectModalClose"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="projectForm" class="form-grid">
+                        <div class="form-group" style="grid-column:1/-1">
+                            <label for="projTitle"><i class="fa-solid fa-heading"></i> Title</label>
+                            <input type="text" id="projTitle" required />
+                        </div>
+                        <div class="form-group" style="grid-column:1/-1">
+                            <label for="projDesc"><i class="fa-solid fa-align-left"></i> Description</label>
+                            <textarea id="projDesc" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="projProgress"><i class="fa-solid fa-chart-line"></i> Progress (%)</label>
+                            <input type="number" id="projProgress" min="0" max="100" value="0" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="projTeam"><i class="fa-solid fa-users"></i> Team Size</label>
+                            <input type="number" id="projTeam" min="1" value="1" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="projDeadline"><i class="fa-solid fa-calendar"></i> Deadline</label>
+                            <input type="date" id="projDeadline" required />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-actions">
+                    <button class="add-btn" id="projectSaveBtn"><i class="fa-solid fa-check"></i> Save</button>
+                    <button class="edit-btn" id="projectCancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Modal -->
+        <div id="deleteModalOverlay" class="modal-overlay" style="display:none">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-triangle-exclamation"></i> Confirm Delete</h3>
+                    <button class="modal-close" id="deleteModalClose"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <p style="color:var(--text-secondary)">Are you sure? This action cannot be undone.</p>
+                </div>
+                <div class="modal-actions">
+                    <button class="edit-btn btn-danger" id="deleteConfirmBtn"><i class="fa-solid fa-trash"></i> Delete</button>
+                    <button class="edit-btn" id="deleteCancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-left">
+                <img src="assets/images/logo.png" alt="E-MTA Club Logo" width="45" height="45">
+                <span>E-MTA Club</span>
+            </div>
+            <div class="footer-right">
+                <div class="socials">
+                    <a href="https://www.facebook.com/profile.php?id=61569753516399" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/emta_club/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+                </div>
+                <div class="copyright">
+                    &copy; 2025 E-MTA Club — Université 8 Mai 1945 Guelma
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script src="assets/js/dashboard-enhanced.js"></script>
+    <script src="assets/js/i18n.js"></script>
+</body>
+</html>

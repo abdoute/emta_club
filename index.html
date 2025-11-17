@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="E-MTA Club - A dynamic scientific club fostering innovation and collaboration at Université 8 Mai 1945 – Guelma">
+    <meta name="keywords" content="E-MTA Club, Guelma University, Scientific Club, Electronics, Automation, Robotics, AI">
+    <meta name="author" content="E-MTA Club">
+    <meta property="og:title" content="E-MTA Club - Where innovation meets technology">
+    <meta property="og:description" content="A dynamic scientific club fostering innovation and collaboration">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="E-MTA Club - Where innovation meets technology">
+    <meta name="twitter:description" content="A dynamic scientific club fostering innovation and collaboration">
+    <title>E-MTA Club - Where innovation meets technology</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- AOS (Animate on Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <script id="emta-api-base-config">
+      window.EMTA_API_BASE = 'http://127.0.0.1:5000';
+      window.API_BASE = window.EMTA_API_BASE;
+    </script>
+</head>
+
+<body>
+    <header id="navbar">
+        <a href="index.html" class="logo">
+            <img src="assets/images/logo.png" alt="E-MTA Logo" width="45" height="45">
+            <span>E-MTA CLUB</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html" data-key="home" class="active">Home</a></li>
+                <li><a href="about.html" data-key="about">About</a></li>
+                <li><a href="activities.html" data-key="activities">Activities</a></li>
+                <li><a href="join.html" data-key="join">Join-Us</a></li>
+                <li><a href="contact.html" data-key="contact">Contact</a></li>
+                <li><a href="dashboard.html" data-key="dashboard">Dashboard</a></li>
+            </ul>
+        </nav>
+        <div class="lang-switch" role="group" aria-label="Language switcher">
+            <button id="en-btn" aria-label="English" class="active">EN</button>
+            <button id="ar-btn" aria-label="Arabic">AR</button>
+        </div>
+    </header>
+
+    <section class="hero" data-aos="fade-up" data-aos-duration="900">
+        <div class="hero-content" data-scroll>
+            <div class="hero-badge fade-up" data-scroll>
+                <i class="fa-solid fa-bolt"></i>
+                <span>Innovation & Technology</span>
+            </div>
+            <h1 data-key="welcome" class="fade-up" data-scroll>Welcome to <span>E-MTA Club</span></h1>
+            <p data-key="slogan" class="fade-up" data-scroll>Where innovation meets technology. Join us in shaping the future of science and engineering.</p>
+            <div class="hero-stats fade-up" data-scroll>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="150">0</div>
+                    <div class="stat-label">Active Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-label">Workshops</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="20">0</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+            </div>
+            <div class="hero-buttons fade-up" data-scroll>
+                <a href="about.html" class="btn" data-key="discover">
+                    <i class="fa-solid fa-compass"></i>
+                    Discover More
+                </a>
+                <a href="join.html" class="btn pulse" data-key="joinNow">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Join Now
+                </a>
+            </div>
+        </div>
+        <div class="floating-circles">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Department Specialties Section -->
+    <section class="specialties-section" data-aos="fade-up" data-aos-duration="900" data-scroll>
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-delay="100" data-scroll>
+                <h2 class="section-title">Department Specialties</h2>
+                <p class="section-subtitle">Discover the pathways in the Département d'Électrotechnique et Automatique</p>
+            </div>
+            <div class="specialties-wrap" data-aos="fade-up" data-scroll>
+                <div class="left-rail" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="specialties-cards">
+                    <article class="specialty-card">
+                        <div class="badge">AUTO</div>
+                        <h3>Automatique</h3>
+                        <p>
+                            From advanced control theory to real‑time systems and industrial automation. At Master level, the branch <strong>AII</strong>
+                            (Automatique et Informatique Industrielle) focuses on smart control, embedded supervision, and digital industry.
+                        </p>
+                    </article>
+                    <article class="specialty-card">
+                        <div class="badge">ELM</div>
+                        <h3>Électromécanique</h3>
+                        <p>
+                            A multidisciplinary track combining electrical engineering and mechanics: machines, drives, and mechatronic integration. The Master keeps the same strong identity with deep industrial applications.
+                        </p>
+                    </article>
+                    <article class="specialty-card">
+                        <div class="badge">ELT → RE</div>
+                        <h3>Électrotechnique</h3>
+                        <p>
+                            Power systems, machines, and energy conversion with a Master pathway in <strong>Réseaux Électriques (RE)</strong>:
+                            grid modeling, protection, stability, and smart grids.
+                        </p>
+                    </article>
+                    <article class="specialty-card">
+                        <div class="badge">PRE</div>
+                        <h3>Licence Pro — Protection des Réseaux Électriques</h3>
+                        <p>
+                            A professional 3‑year license dedicated to protection, safety, and operation of electrical networks, with practical
+                            training and industry‑aligned competencies.
+                        </p>
+                    </article>
+                </div>
+            </div>
+            <div class="specialties-cta" data-aos="fade-up" data-aos-delay="200" data-scroll>
+                <a class="cta-btn" href="specialties.html">
+                    <span>Explore Full Details</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <p class="note">The department pathways typically start at <strong>L3</strong> and continue through <strong>M2</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Domains Section -->
+    <section class="domains-showcase" data-aos="fade-up" data-aos-duration="900" data-scroll>
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-delay="50" data-scroll>
+                <h2 class="section-title">Our Domains</h2>
+                <p class="section-subtitle">Explore the fields we specialize in</p>
+            </div>
+            <div class="domains-grid-home" data-scroll>
+                <div class="domain-card-home" data-aos="fade-up" data-aos-delay="100" data-scroll>
+                    <div class="domain-icon-home">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3>Électronique</h3>
+                    <p>Circuit design, embedded systems, and electronic innovations</p>
+                </div>
+                <div class="domain-card-home" data-aos="fade-up" data-aos-delay="200" data-scroll>
+                    <div class="domain-icon-home">
+                        <i class="fa-solid fa-gears"></i>
+                    </div>
+                    <h3>Automatique</h3>
+                    <p>Control systems, automation, and industrial processes</p>
+                </div>
+                <div class="domain-card-home" data-aos="fade-up" data-aos-delay="300" data-scroll>
+                    <div class="domain-icon-home">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <h3>Robotique</h3>
+                    <p>Robotics, AI integration, and autonomous systems</p>
+                </div>
+                <div class="domain-card-home" data-aos="fade-up" data-aos-delay="400" data-scroll>
+                    <div class="domain-icon-home">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3>Informatique</h3>
+                    <p>Software development, algorithms, and computer science</p>
+                </div>
+                <div class="domain-card-home" data-aos="fade-up" data-aos-delay="500" data-scroll>
+                    <div class="domain-icon-home">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3>Intelligence Artificielle</h3>
+                    <p>Machine learning, neural networks, and AI applications</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" data-aos="fade-up" data-aos-duration="900" data-scroll>
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-delay="50" data-scroll>
+                <h2 class="section-title">Why Join Us?</h2>
+                <p class="section-subtitle">Discover what makes E-MTA Club special</p>
+            </div>
+            <div class="features-grid" data-scroll>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="100" data-scroll>
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <h3>Hands-on Workshops</h3>
+                    <p>Learn by doing with practical workshops on cutting-edge technologies</p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="200" data-scroll>
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h3>Networking</h3>
+                    <p>Connect with like-minded students and industry professionals</p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="300" data-scroll>
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation Projects</h3>
+                    <p>Work on real-world projects and bring your ideas to life</p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="400" data-scroll>
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3>Competitions</h3>
+                    <p>Participate in hackathons and technical competitions</p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="500" data-scroll>
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3>Skill Development</h3>
+                    <p>Enhance your technical and soft skills through various activities</p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="600" data-scroll>
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h3>Collaboration</h3>
+                    <p>Work in teams and learn the art of collaborative engineering</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" data-aos="fade-up" data-scroll>
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-scroll>
+                <div class="hero-badge fade-up">
+                    <i class="fa-solid fa-star"></i>
+                    <span>Success Stories</span>
+                </div>
+                <h2 class="section-title" data-scroll>What Our Members Say</h2>
+                <p class="section-subtitle" data-scroll>Hear from students who are part of our community</p>
+            </div>
+            <div class="testimonials-slider-wrapper" data-aos="fade-up" data-aos-delay="100" data-scroll>
+                <div class="testimonials-slider" id="testimonialsSlider">
+                    <!-- Testimonials will be injected by JavaScript -->
+                </div>
+                <button class="slider-btn slider-btn-prev" id="prevBtn" aria-label="Previous testimonial">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button class="slider-btn slider-btn-next" id="nextBtn" aria-label="Next testimonial">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <div class="slider-dots" id="sliderDots">
+                    <!-- Dots will be injected by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" data-aos="fade-up" data-aos-duration="900" data-scroll>
+        <div class="container">
+            <div class="cta-content" data-aos="fade-up" data-aos-delay="50" data-scroll>
+                <h2>Ready to Start Your Journey?</h2>
+                <p>Join E-MTA Club today and become part of an innovative community</p>
+                <a href="join.html" class="cta-btn">
+                    <span>Join Now</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-left">
+                <img src="assets/images/logo.png" alt="E-MTA Club Logo" width="45" height="45">
+                <span>E-MTA Club</span>
+            </div>
+            <div class="footer-right">
+                <div class="rating-widget" id="ratingWidget" aria-label="Rate E-MTA Club" data-aos="fade-up">
+                    <p class="rating-title">Rate E-MTA Club</p>
+                    <div class="stars" role="radiogroup" aria-label="Rate 1 to 5 stars">
+                        <button class="star" data-value="1" aria-label="1 star"><i class="fa-solid fa-star"></i></button>
+                        <button class="star" data-value="2" aria-label="2 stars"><i class="fa-solid fa-star"></i></button>
+                        <button class="star" data-value="3" aria-label="3 stars"><i class="fa-solid fa-star"></i></button>
+                        <button class="star" data-value="4" aria-label="4 stars"><i class="fa-solid fa-star"></i></button>
+                        <button class="star" data-value="5" aria-label="5 stars"><i class="fa-solid fa-star"></i></button>
+                    </div>
+                    <div class="rating-summary">
+                        <span id="yourRatingLabel">Your rating:</span>
+                        <span id="yourRatingValue">Not rated yet</span>
+                    </div>
+                    <div class="rating-message" id="ratingMessage" hidden>Thanks for your rating!</div>
+                </div>
+                <div class="socials">
+                    <a href="https://www.facebook.com/profile.php?id=61569753516399" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/emta_club/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+                </div>
+                <div class="copyright">
+                    © 2025 E-MTA Club — Université 8 Mai 1945 Guelma
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script src="assets/js/rating.js"></script>
+    <script src="assets/js/testimonials.js"></script>
+    <script src="assets/js/i18n.js"></script>
+
+</body>
+</html>

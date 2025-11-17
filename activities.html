@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Discover E-MTA Club activities - Workshops, Events, Projects, and Competitions">
+  <meta name="keywords" content="E-MTA Club, Activities, Workshops, Events, Projects, Competitions, Hackathons">
+  <title>Activities — E-MTA Club</title>
+  <meta property="og:title" content="Activities — E-MTA Club">
+  <meta property="og:description" content="Workshops, projects, competitions, and events — explore E-MTA Club activities.">
+  <meta property="og:type" content="website">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Activities — E-MTA Club">
+  <meta name="twitter:description" content="Workshops, projects, competitions, and events — explore E-MTA Club activities.">
+  
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- AOS (Animate on Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Main Style -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/activities.css">
+  <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <script id="emta-api-base-config">
+    window.EMTA_API_BASE = 'http://127.0.0.1:5000';
+    window.API_BASE = window.EMTA_API_BASE;
+  </script>
+
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <header id="navbar">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo.png" alt="E-MTA Logo" width="45" height="45">
+      <span>E-MTA Club</span>
+    </a>
+
+    <nav>
+      <ul>
+        <li><a href="index.html" data-key="home">Home</a></li>
+        <li><a href="about.html" data-key="about">About</a></li>
+        <li><a href="activities.html" data-key="activities" class="active">Activities</a></li>
+        <li><a href="join.html" data-key="join">Join-Us</a></li>
+        <li><a href="contact.html" data-key="contact">Contact</a></li>
+        <li><a href="dashboard.html" data-key="dashboard">Dashboard</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang-switch" role="group" aria-label="Language switcher">
+      <button id="en-btn" aria-label="English" class="active">EN</button>
+      <button id="ar-btn" aria-label="Arabic">AR</button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="about-hero" id="activitiesHero">
+    <div class="overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-badge fade-up">
+        <i class="fa-solid fa-calendar-check"></i>
+        <span data-key="our_events">Our Events</span>
+      </div>
+      <h1 data-key="activitiesTitle" class="fade-up">Activities & Events</h1>
+      <p data-key="activitiesIntro" class="fade-up">
+        Explore our workshops, projects, competitions, and scientific events. 
+        Stay updated with our latest activities and join us!
+      </p>
+      <div class="hero-stats fade-up">
+        <div class="stat-item">
+          <div class="stat-number" data-target="50">0</div>
+          <div class="stat-label" data-key="workshops">Workshops</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="20">0</div>
+          <div class="stat-label" data-key="projects">Projects</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="10">0</div>
+          <div class="stat-label" data-key="competitions">Competitions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- Activity Categories -->
+    <section class="activity-categories" data-aos="fade-up">
+      <div class="section-header">
+        <h2 class="section-title" data-key="activity_types">Activity Types</h2>
+        <p class="section-subtitle" data-key="discover_offer">Discover what we offer</p>
+      </div>
+      <div class="categories-grid">
+        <div class="category-card" data-aos="zoom-in" data-aos-delay="100">
+          <div class="category-icon">
+            <i class="fa-solid fa-flask"></i>
+          </div>
+          <h3 data-key="workshops">Workshops</h3>
+          <p data-key="workshops_desc">Hands-on learning sessions on cutting-edge technologies</p>
+        </div>
+        <div class="category-card" data-aos="zoom-in" data-aos-delay="200">
+          <div class="category-icon">
+            <i class="fa-solid fa-lightbulb"></i>
+          </div>
+          <h3 data-key="projects">Projects</h3>
+          <p data-key="projects_desc">Innovative projects and collaborative engineering solutions</p>
+        </div>
+        <div class="category-card" data-aos="zoom-in" data-aos-delay="300">
+          <div class="category-icon">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <h3 data-key="competitions">Competitions</h3>
+          <p data-key="competitions_desc">Hackathons, coding challenges, and technical competitions</p>
+        </div>
+        <div class="category-card" data-aos="zoom-in" data-aos-delay="400">
+          <div class="category-icon">
+            <i class="fa-solid fa-microphone"></i>
+          </div>
+          <h3 data-key="conferences">Conferences</h3>
+          <p data-key="conferences_desc">Scientific talks, seminars, and knowledge sharing events</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="upcoming-events" data-aos="fade-up">
+      <div class="section-header">
+        <h2 class="section-title" data-key="upcoming_events">Upcoming Events</h2>
+        <p class="section-subtitle" data-key="dont_miss">Don't miss our next activities</p>
+      </div>
+      <div id="upcomingEventsGrid" class="events-grid">
+        <!-- Events will be injected by JS -->
+      </div>
+    </section>
+
+    <!-- Past Events -->
+    <section class="past-events" data-aos="fade-up">
+      <div class="section-header">
+        <h2 class="section-title" data-key="past_events">Past Events</h2>
+        <p class="section-subtitle" data-key="highlights">Highlights from our previous activities</p>
+      </div>
+      <div id="pastEventsGrid" class="events-grid">
+        <!-- Events will be injected by JS -->
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" data-aos="fade-up">
+      <div class="section-header">
+        <h2 class="section-title" data-key="event_gallery">Event Gallery</h2>
+        <p class="section-subtitle" data-key="memories">Memories from our activities</p>
+      </div>
+      <div class="gallery-grid" id="eventGallery">
+        <!-- Gallery items will be injected by JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img src="assets/images/logo.png" alt="E-MTA Club Logo" width="45" height="45">
+        <span>E-MTA Club</span>
+      </div>
+      <div class="footer-right">
+        <div class="socials">
+          <a href="https://www.facebook.com/profile.php?id=61569753516399" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/emta_club/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+        </div>
+        <div class="copyright">
+          © 2025 E-MTA Club — Université 8 Mai 1945 Guelma
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/index.js"></script>
+  <script src="assets/js/activities.js"></script>
+  <script src="assets/js/i18n.js"></script>
+
+</body>
+</html>

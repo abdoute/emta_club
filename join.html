@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Join E-MTA Club - Become part of our scientific community. Apply for membership today!">
+  <meta name="keywords" content="E-MTA Club, Join, Membership, Application, University Club">
+  <title>Join — E-MTA Club</title>
+  <meta property="og:title" content="Join — E-MTA Club">
+  <meta property="og:description" content="Become part of E-MTA Club — collaborate, learn, and innovate together.">
+  <meta property="og:type" content="website">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Join — E-MTA Club">
+  <meta name="twitter:description" content="Become part of E-MTA Club — collaborate, learn, and innovate together.">
+  
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Main Style -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/join.css">
+  <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <script id="emta-api-base-config">
+    window.EMTA_API_BASE = 'http://127.0.0.1:5000';
+    window.API_BASE = window.EMTA_API_BASE;
+  </script>
+  
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <header id="navbar">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo.png" alt="E-MTA Logo" width="45" height="45">
+      <span>E-MTA Club</span>
+    </a>
+
+    <nav>
+      <ul>
+        <li><a href="index.html" data-key="home">Home</a></li>
+        <li><a href="about.html" data-key="about">About</a></li>
+        <li><a href="activities.html" data-key="activities">Activities</a></li>
+        <li><a href="join.html" class="active" data-key="join">Join Us</a></li>
+        <li><a href="contact.html" data-key="contact">Contact</a></li>
+        <li><a href="dashboard.html" data-key="dashboard">Dashboard</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang-switch" role="group" aria-label="Language switcher">
+      <button id="en-btn" aria-label="English" class="active">EN</button>
+      <button id="ar-btn" aria-label="Arabic">AR</button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="about-hero" id="joinHero">
+    <div class="overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-badge fade-up">
+        <i class="fa-solid fa-user-plus"></i>
+        <span>Join Our Community</span>
+      </div>
+      <h1 data-key="joinTitle" class="fade-up">Join E-MTA Club</h1>
+      <p data-key="joinIntro" class="fade-up">
+        Become part of our scientific community — collaborate, create and innovate together.
+      </p>
+      <div class="hero-stats fade-up">
+        <div class="stat-item">
+          <div class="stat-number" data-target="150">0</div>
+          <div class="stat-label">Active Members</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="50">0</div>
+          <div class="stat-label">Workshops</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="20">0</div>
+          <div class="stat-label">Projects</div>
+        </div>
+      </div>
+    </div>
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+  </section>
+
+  <!-- ===== INFO SECTION ===== -->
+  <section class="join-info-section">
+    <div class="container">
+      <div class="info-cards">
+        <div class="info-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="info-icon">
+            <i class="fa-solid fa-rocket"></i>
+          </div>
+          <h3>Quick Process</h3>
+          <p>Simple application form that takes just a few minutes to complete</p>
+        </div>
+        <div class="info-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="info-icon">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3>Secure & Private</h3>
+          <p>Your information is safe and will only be used for club purposes</p>
+        </div>
+        <div class="info-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="info-icon">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <h3>Fast Response</h3>
+          <p>We'll review your application and get back to you within 48 hours</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FORM SECTION ===== -->
+  <main class="container">
+    <section class="join-form-section" data-aos="fade-up">
+      <div class="form-header">
+        <div class="header-icon">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <h2 class="section-title">Membership Application</h2>
+        <p class="section-subtitle">
+          Fill in the form below to apply for joining <strong>E-MTA Club</strong>.  
+          We'll get back to you soon!
+        </p>
+      </div>
+      
+      <div class="form-features">
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+          <i class="fa-solid fa-check-circle"></i>
+          <span>Free Membership</span>
+        </div>
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+          <i class="fa-solid fa-check-circle"></i>
+          <span>Workshops & Events</span>
+        </div>
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+          <i class="fa-solid fa-check-circle"></i>
+          <span>Networking Opportunities</span>
+        </div>
+      </div>
+
+      <form id="joinForm" class="join-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name"><i class="fa-solid fa-user"></i> Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="registration"><i class="fa-solid fa-id-card"></i> Registration Number</label>
+            <input type="text" id="registration" name="registration" placeholder="e.g. 202136012345" required pattern="[0-9]{8,12}" title="Enter your university registration number">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email"><i class="fa-solid fa-envelope"></i> University Email</label>
+            <input type="email" id="email" name="email" placeholder="example@univ-guelma.dz" required>
+          </div>
+
+          <div class="form-group">
+            <label for="level"><i class="fa-solid fa-layer-group"></i> Academic Level</label>
+            <select id="level" name="level" required>
+              <option value="">Select your level</option>
+              <option value="L1">L1 (First Year)</option>
+              <option value="L2">L2 (Second Year)</option>
+              <option value="L3">L3 (Third Year)</option>
+              <option value="LP1-Pro">LP1-Pro (Licence Pro 1)</option>
+              <option value="LP2-Pro">LP2-Pro (Licence Pro 2)</option>
+              <option value="LP3-Pro">LP3-Pro (Licence Pro 3)</option>
+              <option value="M1">M1 (Master 1)</option>
+              <option value="M2">M2 (Master 2)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="specialty"><i class="fa-solid fa-graduation-cap"></i> Specialty</label>
+          <select id="specialty" name="specialty" required>
+            <option value="">Please select your academic level first</option>
+          </select>
+          <small class="field-hint">Select your academic level above to see available specialties</small>
+        </div>
+
+        <div class="form-group">
+          <label for="message"><i class="fa-solid fa-pen"></i> Motivation</label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell us briefly why you want to join..." required></textarea>
+          <span class="char-count"><span id="charCount">0</span> / 500 characters</span>
+        </div>
+
+        <div class="form-progress">
+          <div class="progress-bar" id="progressBar"></div>
+          <span class="progress-text" id="progressText">0% Complete</span>
+        </div>
+
+        <button type="submit" class="join-btn">
+          <span class="btn-text">Send Application</span>
+          <i class="fa-solid fa-paper-plane btn-icon"></i>
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img src="assets/images/logo.png" alt="E-MTA Club Logo" width="45" height="45">
+        <span>E-MTA Club</span>
+      </div>
+      <div class="footer-right">
+        <div class="rating-widget" id="ratingWidget" aria-label="Rate E-MTA Club" data-aos="fade-up">
+          <p class="rating-title">Rate E-MTA Club</p>
+          <div class="stars" role="radiogroup" aria-label="Rate 1 to 5 stars">
+            <button class="star" data-value="1" aria-label="1 star"><i class="fa-solid fa-star"></i></button>
+            <button class="star" data-value="2" aria-label="2 stars"><i class="fa-solid fa-star"></i></button>
+            <button class="star" data-value="3" aria-label="3 stars"><i class="fa-solid fa-star"></i></button>
+            <button class="star" data-value="4" aria-label="4 stars"><i class="fa-solid fa-star"></i></button>
+            <button class="star" data-value="5" aria-label="5 stars"><i class="fa-solid fa-star"></i></button>
+          </div>
+          <div class="rating-summary">
+            <span id="yourRatingLabel">Your rating:</span>
+            <span id="yourRatingValue">Not rated yet</span>
+          </div>
+          <div class="rating-message" id="ratingMessage" hidden>Thanks for your rating!</div>
+        </div>
+        <div class="socials">
+          <a href="https://www.facebook.com/profile.php?id=61569753516399" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/emta_club/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+        </div>
+        <div class="copyright">
+          © 2025 E-MTA Club — Université 8 Mai 1945 Guelma
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/join.js"></script>
+  <script src="assets/js/index.js"></script>
+  <script src="assets/js/rating.js"></script>
+  <script src="assets/js/i18n.js"></script>
+
+</body>
+</html>
