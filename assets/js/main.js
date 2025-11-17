@@ -8,6 +8,7 @@
 
   // Configurable API base for production without local server
   const API_BASE = (typeof window!=='undefined'&&window.API_BASE) || (function(){ try { return localStorage.getItem('emta_api_base'); } catch { return null; } })() || 'http://127.0.0.1:5000';
+  const DASHBOARD_ENABLED = false;
 
   // ===== Navbar Scroll Effect =====
   function initNavbarScroll() {
@@ -61,6 +62,7 @@
     const removeLi = (li) => { if (li && li.parentElement === ul) ul.removeChild(li); };
 
     const dashLi = findLiByHref('dashboard.html');
+    if (!DASHBOARD_ENABLED && dashLi) removeLi(dashLi);
     const adminLi = findLiByHref('admin.html');
     const loginLi = ul.querySelector('li#auth-login');
     const joinLi = ul.querySelector('li#auth-join');
@@ -68,7 +70,7 @@
 
     if (token) {
       // Show Dashboard, remove Login/Join, add Logout
-      if (!dashLi) ensureLiLink('dashboard.html', 'Dashboard');
+      if (DASHBOARD_ENABLED && !dashLi) ensureLiLink('dashboard.html', 'Dashboard');
       if (loginLi) removeLi(loginLi);
       if (joinLi) removeLi(joinLi);
       // Add Logout button as li
@@ -362,8 +364,7 @@
       {title:'Contact',desc:'Get in touch',icon:'fa-envelope',href:'contact.html'},
       {title:'Blog',desc:'News and articles',icon:'fa-newspaper',href:'404.html'},
       {title:'Resources',desc:'Guides, tools, links',icon:'fa-folder-open',href:'404.html'},
-      {title:'Gallery',desc:'Photos and videos',icon:'fa-images',href:'404.html'},
-      {title:'Dashboard',desc:'Member area',icon:'fa-user-circle',href:'dashboard.html'}
+      {title:'Gallery',desc:'Photos and videos',icon:'fa-images',href:'404.html'}
     ];
 
     function renderResults(query){

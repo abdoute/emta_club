@@ -49,24 +49,17 @@
       .then(async (data)=>{
         if(data && data.token){ localStorage.setItem(TOKEN_KEY, data.token); }
         showToast('Logged in successfully','success');
-        // If redirect query provided, honor it first
-        if (redirect) {
-          try {
-            const safe = decodeURIComponent(redirect).replace(/^[\/]+/, '');
-            window.location.href = safe || 'dashboard.html';
-            return;
-          } catch (_) { /* fall through to role-based redirect */ }
-        }
-        // Role-based redirect: admin -> admin.html, else dashboard
+        // This login page is reserved for admins; always send to admin panel
         try {
           const token = localStorage.getItem(TOKEN_KEY);
           const resMe = await fetch(`${API_BASE}/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } });
           const me = await resMe.json().catch(()=>({}));
           const isAdmin = !!(me && me.user && me.user.is_admin);
-          window.location.href = isAdmin ? 'admin.html' : 'dashboard.html';
-        } catch(_) {
-          window.location.href = 'dashboard.html';
-        }
+          if (!isAdmin) {
+            showToast('This login is reserved for admin accounts only.','error');
+          }
+        } catch(_) { /* ignore, still redirect to admin */ }
+        window.location.href = 'admin.html';
       })
       .catch((err)=>{ showToast(err.message||'Network error','error'); })
       .finally(()=>{ btn.disabled=false; if(original) original.textContent=originalText; else btn.textContent=originalText; });

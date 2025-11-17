@@ -26,6 +26,20 @@
       window.EMTA_API_BASE = 'https://emtaclub-production.up.railway.app';
       window.API_BASE = window.EMTA_API_BASE;
     </script>
+    <script>
+      // Dashboard temporarily disabled for members
+      (function(){
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function(){
+            alert('The member dashboard is currently disabled. You will be redirected to the home page.');
+            window.location.replace('index.html');
+          });
+        } else {
+          alert('The member dashboard is currently disabled. You will be redirected to the home page.');
+          window.location.replace('index.html');
+        }
+      })();
+    </script>
 </head>
 <body>
     <header id="navbar">

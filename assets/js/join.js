@@ -357,16 +357,7 @@
           showMessage(`✅ Thank you, ${name}! Your application has been received.`, 'success');
           form.reset();
           updateProgress();
-          // 3) Redirect based on role (admin -> admin.html, else dashboard)
-          try {
-            const token = localStorage.getItem('emta_token');
-            const resMe = await fetch(`${API_BASE}/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` }});
-            const dataMe = await resMe.json().catch(()=>({}));
-            const isAdmin = !!(dataMe && dataMe.user && dataMe.user.is_admin);
-            setTimeout(() => { window.location.href = isAdmin ? 'admin.html' : 'dashboard.html'; }, 800);
-          } catch (_) {
-            setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
-          }
+          // No automatic dashboard redirect for members; they stay on public pages
         })
         .catch((err) => {
           showMessage(`❌ Failed to submit: ${err.message || 'Network error'}`, 'error');
