@@ -23,22 +23,22 @@
     },
     {
       id: 2,
-      title: "AI & Machine Learning Seminar",
-      description: "Introduction to AI concepts and practical machine learning applications. Guest speaker from industry.",
-      date: new Date('2025-02-22'),
-      type: "Conference",
-      location: "Main Auditorium",
+      title: "proteus & blender workshop",
+      description: "Introduction to circuit simulation with Proteus and basic 3D modeling using Blender for creating simple project designs.",
+      date: new Date('2024-12-12'),
+      type: "Workshop",
+      location: "Amphi 5 - univ 8 mai 1945",
       time: "10:00 - 12:00",
       status: "upcoming"
     },
     {
       id: 3,
-      title: "Hackathon 2025 - Innovation Challenge",
-      description: "48-hour hackathon focusing on smart city solutions. Teams of 3-5 members. Prizes for top 3 teams.",
-      date: new Date('2025-03-10'),
-      type: "Competition",
-      location: "University Campus",
-      time: "09:00 - 17:00",
+      title: "Open Day 2025/2026",
+      description: "Discover our projects and activities in electronics, automation, and 3D modeling, with demonstrations and interactions.",
+      date: new Date('2025-11-25'),
+      type: "Open Day",
+      location: "Amphi 5 - univ 8 mai 1945",
+      time: "11:00 - 12:30",
       status: "upcoming"
     }
   ];

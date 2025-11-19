@@ -158,6 +158,16 @@
 
       <!-- JS injects supporting team cards -->
       <div id="supportingTeamGrid" class="team-grid" data-aos="fade-up"></div>
+      <div class="supporting-team-actions">
+        <button id="supportingShowMore" class="btn btn-outline" type="button">
+          <i class="fa-solid fa-chevron-down"></i>
+          Show more
+        </button>
+        <button id="supportingShowLess" class="btn btn-outline" type="button">
+          <i class="fa-solid fa-chevron-up"></i>
+          Show less
+        </button>
+      </div>
     </section>
 
     <!-- OUR DOMAINS -->
@@ -192,43 +202,42 @@
 
     <!-- TIMELINE -->
     <section class="timeline-section" data-aos="fade-up">
-      <div class="section-header">
-        <h2 class="section-title" data-key="timelineTitle">Our Journey</h2>
-        <p class="section-subtitle">Key milestones in our club's history</p>
+  <div class="section-header">
+    <h2 class="section-title" data-key="timelineTitle">Our Journey</h2>
+    <p class="section-subtitle">Key milestones in our club's history</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
+      <div class="year">Nov 2024</div>
+      <div class="desc">
+        <strong>Foundation</strong>
+        <p>Creation of the E-MTA Club</p>
       </div>
-      <div class="timeline">
-        <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
-          <div class="year">2018</div>
-          <div class="desc">
-            <strong>Foundation</strong>
-            <p>Création du club E-MTA</p>
-          </div>
-        </div>
-        <div class="timeline-item" data-aos="fade-right" data-aos-delay="200">
-          <div class="year">2019</div>
-          <div class="desc">
-            <strong>First Workshop</strong>
-            <p>Premier workshop Arduino</p>
-          </div>
-        </div>
-        <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
-          <div class="year">2022</div>
-          <div class="desc">
-            <strong>National Recognition</strong>
-            <p>Participation au Hackathon national</p>
-          </div>
-        </div>
-        <div class="timeline-item" data-aos="fade-right" data-aos-delay="400">
-          <div class="year">2024</div>
-          <div class="desc">
-            <strong>Scientific Day</strong>
-            <p>Organisation de la Journée Scientifique E-MTA</p>
-          </div>
-        </div>
+    </div>
+    <div class="timeline-item" data-aos="fade-right" data-aos-delay="200">
+      <div class="year">Dec 2024</div>
+      <div class="desc">
+        <strong>First Workshop</strong>
+        <p>First Arduino workshop</p>
       </div>
-    </section>
+    </div>
+    <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
+      <div class="year">Feb 2025</div>
+      <div class="desc">
+        <strong>National Recognition</strong>
+        <p>Participation in the national hackathon</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-aos="fade-right" data-aos-delay="400">
+      <div class="year">Nov 2025</div>
+      <div class="desc">
+        <strong>Scientific Day</strong>
+        <p>Organization of the E-MTA Scientific Day</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  </main>
 
   <!-- FOOTER -->
   <footer>
@@ -259,7 +268,7 @@
           <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
         </div>
         <div class="copyright">
-          © 2025 E-MTA Club — Université 8 Mai 1945 Guelma
+          &copy; 2025 E-MTA Club — Université 8 Mai 1945 Guelma
         </div>
       </div>
     </div>
@@ -272,6 +281,65 @@
   <script src="assets/js/index.js"></script>
   <script src="assets/js/rating.js"></script>
 
+  <script>
+    (function () {
+      const INITIAL_VISIBLE = 3;
+      const grid = document.getElementById('supportingTeamGrid');
+      const showMoreBtn = document.getElementById('supportingShowMore');
+      const showLessBtn = document.getElementById('supportingShowLess');
+      if (!grid || !showMoreBtn || !showLessBtn) return;
+
+      function getCards() {
+        return Array.from(grid.querySelectorAll('.supporting-card'));
+      }
+
+      function applyInitialState() {
+        const cards = getCards();
+        if (!cards.length) {
+          setTimeout(applyInitialState, 120);
+          return;
+        }
+
+        cards.forEach((card, index) => {
+          card.classList.remove('supporting-card-hidden', 'supporting-card-reveal');
+          if (index >= INITIAL_VISIBLE) {
+            card.classList.add('supporting-card-hidden');
+          }
+        });
+
+        if (cards.length <= INITIAL_VISIBLE) {
+          showMoreBtn.style.display = 'none';
+          showLessBtn.style.display = 'none';
+        } else {
+          showMoreBtn.style.display = '';
+          showLessBtn.style.display = 'none';
+        }
+      }
+
+      applyInitialState();
+
+      showMoreBtn.addEventListener('click', function () {
+        const cards = getCards();
+        cards.forEach((card, index) => {
+          if (index >= INITIAL_VISIBLE) {
+            card.classList.remove('supporting-card-hidden');
+            const delay = (index - INITIAL_VISIBLE) * 100;
+            card.style.setProperty('--supporting-reveal-delay', delay + 'ms');
+            card.classList.remove('supporting-card-reveal');
+            void card.offsetWidth;
+            card.classList.add('supporting-card-reveal');
+          }
+        });
+
+        showMoreBtn.style.display = 'none';
+        showLessBtn.style.display = '';
+      });
+
+      showLessBtn.addEventListener('click', function () {
+        applyInitialState();
+      });
+    })();
+  </script>
 
   <script src="assets/js/i18n.js"></script>
 </body>

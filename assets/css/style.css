@@ -922,6 +922,41 @@ footer .socials a:hover {
   transform: translateY(-8px);
 }
 
+.supporting-team-actions {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.supporting-team-actions .btn {
+  min-width: 190px;
+  padding: 11px 20px;
+  font-size: 1rem;
+}
+
+.supporting-card-hidden {
+  display: none;
+}
+
+.supporting-card-reveal {
+  animation: supportingReveal 1s ease forwards;
+  animation-delay: var(--supporting-reveal-delay, 0ms);
+}
+
+@keyframes supportingReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(26px) scale(0.96);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* responsive */
 @media (max-width: 900px) {
   .mv-grid { grid-template-columns: 1fr; }
