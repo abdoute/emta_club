@@ -191,15 +191,287 @@
     const table = document.getElementById('usersTable');
     const btnCsv = document.getElementById('exportUsersCsv');
     const btnXls = document.getElementById('exportUsersXls');
-    if(btnCsv){ btnCsv.addEventListener('click', ()=>{
+    if(btnCsv && table){ btnCsv.addEventListener('click', ()=>{
       const csv = tableToCSV(table);
       downloadBlob(csv, 'users.csv', 'text/csv;charset=utf-8;');
     }); }
-    if(btnXls){ btnXls.addEventListener('click', ()=>{
-      // Simple Excel-compatible HTML table
+    if(btnXls && table){ btnXls.addEventListener('click', ()=>{
       const html = `\uFEFF<table>${table.querySelector('thead').outerHTML}${table.querySelector('tbody').outerHTML}</table>`;
       downloadBlob(html, 'users.xls', 'application/vnd.ms-excel');
     }); }
+  }
+
+  function initAppsExport(){
+    const table = document.getElementById('appsTable');
+    const btnCsv = document.getElementById('exportAppsCsv');
+    const btnXls = document.getElementById('exportAppsXls');
+    if(btnCsv && table){ btnCsv.addEventListener('click', ()=>{
+      const csv = tableToCSV(table);
+      downloadBlob(csv, 'applications.csv', 'text/csv;charset=utf-8;');
+    }); }
+    if(btnXls && table){ btnXls.addEventListener('click', ()=>{
+      const html = `\uFEFF<table>${table.querySelector('thead').outerHTML}${table.querySelector('tbody').outerHTML}</table>`;
+      downloadBlob(html, 'applications.xls', 'application/vnd.ms-excel');
+    }); }
+  }
+
+  function initMsgsExport(){
+    const table = document.getElementById('msgsTable');
+    const btnCsv = document.getElementById('exportMsgsCsv');
+    const btnXls = document.getElementById('exportMsgsXls');
+    if(btnCsv && table){ btnCsv.addEventListener('click', ()=>{
+      const csv = tableToCSV(table);
+      downloadBlob(csv, 'messages.csv', 'text/csv;charset=utf-8;');
+    }); }
+    if(btnXls && table){ btnXls.addEventListener('click', ()=>{
+      const html = `\uFEFF<table>${table.querySelector('thead').outerHTML}${table.querySelector('tbody').outerHTML}</table>`;
+      downloadBlob(html, 'messages.xls', 'application/vnd.ms-excel');
+    }); }
+  }
+
+  // Basic CSV parser compatible with tableToCSV output
+  function parseCSV(text){
+    const rows = [];
+    let cur = '';
+    let inQuotes = false;
+    let row = [];
+    for(let i=0;i<text.length;i++){
+      const c = text[i];
+      if(c === '"'){
+        if(inQuotes && text[i+1] === '"'){
+          cur += '"';
+          i++;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if(c === ',' && !inQuotes){
+        row.push(cur);
+        cur = '';
+      } else if((c === '\n' || c === '\r') && !inQuotes){
+        if(c === '\r' && text[i+1] === '\n') i++;
+        row.push(cur);
+        cur = '';
+        if(row.length){
+          if(row.some(v => v.trim() !== '')) rows.push(row);
+        }
+        row = [];
+      } else {
+        cur += c;
+      }
+    }
+    if(cur.length || row.length){
+      row.push(cur);
+      if(row.some(v => v.trim() !== '')) rows.push(row);
+    }
+    return rows;
+  }
+
+  function initUsersImport(token){
+    const btn = document.getElementById('importUsersCsvBtn');
+    const input = document.getElementById('importUsersCsvInput');
+    if(!btn || !input) return;
+    btn.addEventListener('click', ()=> input.click());
+    input.addEventListener('change', async (e)=>{
+      const file = e.target.files && e.target.files[0];
+      if(!file) return;
+      if(!file.name.toLowerCase().endsWith('.csv')){
+        alert('Please select a .csv file for users import');
+        input.value = '';
+        return;
+      }
+      try{
+        const text = await file.text();
+        const rows = parseCSV(text);
+        if(!rows.length){ alert('CSV file is empty'); return; }
+        const header = rows[0].map(h => h.trim().toLowerCase());
+        const idxOf = (name) => header.indexOf(name.toLowerCase());
+        const nameIdx = idxOf('name');
+        const emailIdx = idxOf('email');
+        const regIdx = idxOf('registration');
+        const levelIdx = idxOf('level');
+        const specIdx = idxOf('specialty');
+        if(nameIdx === -1 || emailIdx === -1 || regIdx === -1){
+          alert('CSV header must contain at least Name, Email, and Registration columns.');
+          return;
+        }
+        if(!window.confirm('Import users from CSV? Existing users with same email/registration will be skipped if backend rejects them.')) return;
+        let okCount = 0;
+        let failCount = 0;
+        for(let i=1;i<rows.length;i++){
+          const r = rows[i];
+          const name = (r[nameIdx] || '').trim();
+          const email = (r[emailIdx] || '').trim();
+          const registration = String(r[regIdx] || '').trim();
+          const level = levelIdx !== -1 ? String(r[levelIdx] || '').trim() : '';
+          const specialty = specIdx !== -1 ? String(r[specIdx] || '').trim() : '';
+          if(!name && !email) continue;
+          try{
+            await fetchJSON(`${API_BASE}/api/auth/signup`, {
+              method:'POST',
+              headers:{ 'Content-Type':'application/json' },
+              body: JSON.stringify({ name, email, registration, level, specialty })
+            });
+            okCount++;
+          } catch(err){
+            console.error('Import user failed', err);
+            failCount++;
+          }
+        }
+        alert(`Users import finished. Success: ${okCount}, Failed: ${failCount}.`);
+        if(okCount) window.location.reload();
+      } finally {
+        input.value = '';
+      }
+    });
+  }
+
+  function initAppsImport(){
+    const btn = document.getElementById('importAppsCsvBtn');
+    const input = document.getElementById('importAppsCsvInput');
+    if(!btn || !input) return;
+    btn.addEventListener('click', ()=> input.click());
+    input.addEventListener('change', async (e)=>{
+      const file = e.target.files && e.target.files[0];
+      if(!file) return;
+      if(!file.name.toLowerCase().endsWith('.csv')){
+        alert('Please select a .csv file for applications import');
+        input.value = '';
+        return;
+      }
+      try{
+        const text = await file.text();
+        const rows = parseCSV(text);
+        if(!rows.length){ alert('CSV file is empty'); return; }
+        const header = rows[0].map(h => h.trim().toLowerCase());
+        const idxOf = (name) => header.indexOf(name.toLowerCase());
+        const nameIdx = idxOf('name');
+        const emailIdx = idxOf('email');
+        const regIdx = idxOf('registration');
+        const levelIdx = idxOf('level');
+        const specIdx = idxOf('specialty');
+        const msgIdx = idxOf('message');
+        if(nameIdx === -1 || emailIdx === -1 || regIdx === -1 || levelIdx === -1 || specIdx === -1){
+          alert('CSV header must contain Name, Email, Registration, Level, Specialty (and optionally Message).');
+          return;
+        }
+        if(!window.confirm('Import member applications from CSV?')) return;
+        let okCount = 0;
+        let failCount = 0;
+        for(let i=1;i<rows.length;i++){
+          const r = rows[i];
+          const name = (r[nameIdx] || '').trim();
+          const email = (r[emailIdx] || '').trim();
+          const registration = String(r[regIdx] || '').trim();
+          const level = String(r[levelIdx] || '').trim();
+          const specialty = String(r[specIdx] || '').trim();
+          const message = msgIdx !== -1 ? String(r[msgIdx] || '').trim() : '';
+          if(!name && !email) continue;
+          try{
+            await fetchJSON(`${API_BASE}/api/members/apply`, {
+              method:'POST',
+              headers:{ 'Content-Type':'application/json' },
+              body: JSON.stringify({ name, email, registration, level, specialty, message })
+            });
+            okCount++;
+          } catch(err){
+            console.error('Import application failed', err);
+            failCount++;
+          }
+        }
+        alert(`Applications import finished. Success: ${okCount}, Failed: ${failCount}.`);
+        if(okCount) window.location.reload();
+      } finally {
+        input.value = '';
+      }
+    });
+  }
+
+  function initMsgsImport(){
+    const btn = document.getElementById('importMsgsCsvBtn');
+    const input = document.getElementById('importMsgsCsvInput');
+    if(!btn || !input) return;
+    btn.addEventListener('click', ()=> input.click());
+    input.addEventListener('change', async (e)=>{
+      const file = e.target.files && e.target.files[0];
+      if(!file) return;
+      if(!file.name.toLowerCase().endsWith('.csv')){
+        alert('Please select a .csv file for messages import');
+        input.value = '';
+        return;
+      }
+      try{
+        const text = await file.text();
+        const rows = parseCSV(text);
+        if(!rows.length){ alert('CSV file is empty'); return; }
+        const header = rows[0].map(h => h.trim().toLowerCase());
+        const idxOf = (name) => header.indexOf(name.toLowerCase());
+        const nameIdx = idxOf('name');
+        const emailIdx = idxOf('email');
+        const subjectIdx = idxOf('subject');
+        const phoneIdx = idxOf('phone');
+        const msgIdx = idxOf('message');
+        if(nameIdx === -1 || emailIdx === -1 || subjectIdx === -1 || msgIdx === -1){
+          alert('CSV header must contain Name, Email, Subject, Message (and optionally Phone).');
+          return;
+        }
+        if(!window.confirm('Import contact messages from CSV?')) return;
+        let okCount = 0;
+        let failCount = 0;
+        for(let i=1;i<rows.length;i++){
+          const r = rows[i];
+          const name = (r[nameIdx] || '').trim();
+          const email = (r[emailIdx] || '').trim();
+          const subject = String(r[subjectIdx] || '').trim();
+          const phone = phoneIdx !== -1 ? String(r[phoneIdx] || '').trim() : '';
+          const message = String(r[msgIdx] || '').trim();
+          if(!name && !email && !message) continue;
+          try{
+            await fetchJSON(`${API_BASE}/api/contact/messages`, {
+              method:'POST',
+              headers:{ 'Content-Type':'application/json' },
+              body: JSON.stringify({ name, email, subject, phone, message })
+            });
+            okCount++;
+          } catch(err){
+            console.error('Import message failed', err);
+            failCount++;
+          }
+        }
+        alert(`Messages import finished. Success: ${okCount}, Failed: ${failCount}.`);
+        if(okCount) window.location.reload();
+      } finally {
+        input.value = '';
+      }
+    });
+  }
+
+  function initAddUserForm(token){
+    const btn = document.getElementById('addUserSubmit');
+    const form = document.getElementById('addUserForm');
+    if(!btn || !form) return;
+    btn.addEventListener('click', async ()=>{
+      const name = document.getElementById('addUserName')?.value.trim() || '';
+      const email = document.getElementById('addUserEmail')?.value.trim() || '';
+      const registration = document.getElementById('addUserRegistration')?.value.trim() || '';
+      const level = document.getElementById('addUserLevel')?.value.trim() || '';
+      const specialty = document.getElementById('addUserSpecialty')?.value.trim() || '';
+      if(!name || !email || !registration){
+        alert('Please fill Name, Email and Registration');
+        return;
+      }
+      try{
+        await fetchJSON(`${API_BASE}/api/auth/signup`, {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify({ name, email, registration, level, specialty })
+        });
+        alert('User added');
+        form.reset();
+        window.location.reload();
+      } catch(err){
+        alert(err.message || 'Failed to add user');
+      }
+    });
   }
 
   async function loadData(){
@@ -243,7 +515,6 @@
       attachUserActions(usersTbody, token);
       makeUsersSortable(usersTable);
       initUsersSearch();
-      initUsersExport();
 
       // Applications
       const appsTbody = document.querySelector('#appsTable tbody');
@@ -272,6 +543,14 @@
         created: fmtDate(m.created_at)
       }));
       renderTableBody(msgsTbody, msgsRows, ['id','name','email','subject','phone','message','created']);
+      // Export / Import initialisation after tables are rendered
+      initUsersExport();
+      initAppsExport();
+      initMsgsExport();
+      initUsersImport(token);
+      initAppsImport();
+      initMsgsImport();
+      initAddUserForm(token);
     } catch(err){
       console.error(err);
       alert('Failed to load admin data');

@@ -7,8 +7,15 @@
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script id="emta-api-base-config">
-    window.EMTA_API_BASE = 'https://emtaclub-production.up.railway.app';
-    window.API_BASE = window.EMTA_API_BASE;
+    (function(){
+      var isLocal = location.hostname === '127.0.0.1' ||
+                    location.hostname === 'localhost' ||
+                    location.protocol === 'file:';
+      var localBase = 'http://127.0.0.1:5000';
+      var prodBase = 'https://emtaclub-production.up.railway.app';
+      window.EMTA_API_BASE = isLocal ? localBase : prodBase;
+      window.API_BASE = window.EMTA_API_BASE;
+    })();
   </script>
 </head>
 <body>
@@ -21,9 +28,7 @@
         <a href="about.html">About</a>
         <a href="activities.html">Activities</a>
         <a href="join.html">Join-Us</a>
-        <a class="active" href="login.html">Login</a>
-        <a href="dashboard.html">Dashboard</a>
-      </nav>
+     </nav>
     </div>
   </header>
 

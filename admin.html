@@ -10,8 +10,15 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="icon" href="assets/images/logo.png" type="image/png">
   <script id="emta-api-base-config">
-    window.EMTA_API_BASE = 'https://emtaclub-production.up.railway.app';
-    window.API_BASE = window.EMTA_API_BASE;
+    (function(){
+      var isLocal = location.hostname === '127.0.0.1' ||
+                    location.hostname === 'localhost' ||
+                    location.protocol === 'file:';
+      var localBase = 'http://127.0.0.1:5000';
+      var prodBase = 'https://emtaclub-production.up.railway.app';
+      window.EMTA_API_BASE = isLocal ? localBase : prodBase;
+      window.API_BASE = window.EMTA_API_BASE;
+    })();
   </script>
 </head>
 <body>
@@ -58,10 +65,35 @@
           <input id="usersSearch" type="search" placeholder="Search users..." class="input input-search" aria-label="Search users">
           <button id="exportUsersCsv" class="btn btn-sm btn-icon" aria-label="Export CSV"><i class="fa-solid fa-file-csv"></i><span>Export CSV</span></button>
           <button id="exportUsersXls" class="btn btn-sm btn-icon" aria-label="Export Excel"><i class="fa-solid fa-file-excel"></i><span>Export Excel</span></button>
+          <button id="importUsersCsvBtn" class="btn btn-sm btn-icon" aria-label="Import CSV"><i class="fa-solid fa-file-import"></i><span>Import CSV</span></button>
+          <input type="file" id="importUsersCsvInput" accept=".csv" style="display:none">
         </div>
         <div id="adminMeta" class="text-muted" style="font-size:.9rem;margin-left:auto;"></div>
       </div>
       <div class="card-body">
+        <form id="addUserForm" class="form" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:flex-end;">
+          <div class="form-group" style="min-width:160px;">
+            <label for="addUserName">Name</label>
+            <input class="input" type="text" id="addUserName" placeholder="Full name">
+          </div>
+          <div class="form-group" style="min-width:200px;">
+            <label for="addUserEmail">Email</label>
+            <input class="input" type="email" id="addUserEmail" placeholder="you@example.com">
+          </div>
+          <div class="form-group" style="min-width:140px;">
+            <label for="addUserRegistration">Registration</label>
+            <input class="input" type="text" id="addUserRegistration" placeholder="Matricule">
+          </div>
+          <div class="form-group" style="min-width:140px;">
+            <label for="addUserLevel">Level</label>
+            <input class="input" type="text" id="addUserLevel" placeholder="L3 / M1 / ...">
+          </div>
+          <div class="form-group" style="min-width:160px;">
+            <label for="addUserSpecialty">Specialty</label>
+            <input class="input" type="text" id="addUserSpecialty" placeholder="Automatique / ...">
+          </div>
+          <button type="button" id="addUserSubmit" class="btn btn-primary btn-icon"><i class="fa-solid fa-user-plus"></i><span>Add User</span></button>
+        </form>
         <div class="table-wrap">
           <table class="table" id="usersTable" aria-label="Users table">
             <thead>
@@ -83,7 +115,17 @@
     </div>
 
     <div class="card" data-aos="fade-up" data-aos-delay="100" style="margin-top:24px;">
-      <div class="card-header"><h2 style="margin:0;">Member Applications</h2></div>
+      <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+        <h2 style="margin:0;">Member Applications</h2>
+        <div class="toolbar" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button id="exportAppsCsv" class="btn btn-sm btn-icon" aria-label="Export applications CSV"><i class="fa-solid fa-file-csv"></i><span>Export CSV</span></button>
+            <button id="exportAppsXls" class="btn btn-sm btn-icon" aria-label="Export applications Excel"><i class="fa-solid fa-file-excel"></i><span>Export Excel</span></button>
+            <button id="importAppsCsvBtn" class="btn btn-sm btn-icon" aria-label="Import applications CSV"><i class="fa-solid fa-file-import"></i><span>Import CSV</span></button>
+            <input type="file" id="importAppsCsvInput" accept=".csv" style="display:none">
+          </div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="table-wrap">
           <table class="table" id="appsTable" aria-label="Applications table">
@@ -107,7 +149,17 @@
     </div>
 
     <div class="card" data-aos="fade-up" data-aos-delay="150" style="margin-top:24px;">
-      <div class="card-header"><h2 style="margin:0;">Contact Messages</h2></div>
+      <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+        <h2 style="margin:0;">Contact Messages</h2>
+        <div class="toolbar" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button id="exportMsgsCsv" class="btn btn-sm btn-icon" aria-label="Export messages CSV"><i class="fa-solid fa-file-csv"></i><span>Export CSV</span></button>
+            <button id="exportMsgsXls" class="btn btn-sm btn-icon" aria-label="Export messages Excel"><i class="fa-solid fa-file-excel"></i><span>Export Excel</span></button>
+            <button id="importMsgsCsvBtn" class="btn btn-sm btn-icon" aria-label="Import messages CSV"><i class="fa-solid fa-file-import"></i><span>Import CSV</span></button>
+            <input type="file" id="importMsgsCsvInput" accept=".csv" style="display:none">
+          </div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="table-wrap">
           <table class="table" id="msgsTable" aria-label="Messages table">
