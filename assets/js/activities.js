@@ -27,7 +27,7 @@
       description: "Introduction to circuit simulation with Proteus and basic 3D modeling using Blender for creating simple project designs.",
       date: new Date('2024-12-12'),
       type: "Workshop",
-      location: "Amphi 5 - univ 8 mai 1945",
+      location: "Amphi 1 - univ 8 mai 1945",
       time: "10:00 - 12:00",
       status: "upcoming"
     },
@@ -43,7 +43,7 @@
     }
   ];
 
-  // ===== Load events from Backend API =====
+  // ===== Load events from Backend API ====
   function loadEventsFromAPI() {
     const toEvent = (item) => ({
       id: item.id,
