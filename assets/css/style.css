@@ -1385,11 +1385,19 @@ table.table { width: 100%; border-collapse: separate; border-spacing: 0; }
 
 /* CTA Section */
 .cta-section {
-  padding: 100px 20px;
-  background: linear-gradient(135deg, rgba(255, 183, 3, 0.1), rgba(14, 14, 20, 0.9));
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
+  padding: 200px 15px
+ 
+
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+
+  /* تحسين الحركة */
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.cta-section:hover {
+  transform: translateY(-3px);
+  opacity: 0.98;
 }
 
 .cta-section::before {

@@ -224,7 +224,11 @@
 
     // Buttons by known IDs (if present)
     const joinCtas = document.querySelectorAll('.cta-btn span');
-    joinCtas.forEach(s => { if (d['join_now']) s.textContent = d['join_now']; });
+    joinCtas.forEach(s => { 
+      const k = s.getAttribute('data-key');
+      const val = d[k];
+      if (k && val) s.textContent = val;
+    });
 
     // Known IDs placeholders/text when data attributes are not present
     const mapAttrs = [
