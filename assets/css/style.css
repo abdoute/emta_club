@@ -1386,15 +1386,11 @@ table.table { width: 100%; border-collapse: separate; border-spacing: 0; }
 /* CTA Section */
 .cta-section {
   padding: 200px 15px
- 
-
   border-radius: 20px;
   backdrop-filter: blur(4px);
-
   /* تحسين الحركة */
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
-
 .cta-section:hover {
   transform: translateY(-3px);
   opacity: 0.98;
