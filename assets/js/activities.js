@@ -5,23 +5,22 @@
 
 (function(){
   'use strict';
-
   // Backend API base URL
   const API_BASE = (typeof window!=='undefined'&&window.API_BASE) || (function(){ try { return localStorage.getItem('emta_api_base'); } catch { return null; } })() || 'http://127.0.0.1:5000';
-
   // ===== Events Data =====
   const upcomingEvents = [
+    
     {
-      id: 1,
-      title: "Arduino Workshop - Advanced Projects",
-      description: "Learn advanced Arduino programming and build complex projects. Perfect for intermediate to advanced students.",
-      date: new Date('2025-02-15'),
-      type: "Workshop",
-      location: "Lab A - Building 1",
-      time: "14:00 - 17:00",
+      id: 3,
+      title: "Open Day 2025/2026",
+      description: "Discover our projects and activities in electronics, automation, and 3D modeling, with demonstrations and interactions.",
+      date: new Date('2025-11-25'),
+      type: "Open Day",
+      location: "Amphi 5 - univ 8 mai 1945",
+      time: "11:00 - 12:30",
       status: "upcoming"
     },
-    {
+        {
       id: 2,
       title: "proteus & blender workshop",
       description: "Introduction to circuit simulation with Proteus and basic 3D modeling using Blender for creating simple project designs.",
@@ -32,13 +31,13 @@
       status: "upcoming"
     },
     {
-      id: 3,
-      title: "Open Day 2025/2026",
-      description: "Discover our projects and activities in electronics, automation, and 3D modeling, with demonstrations and interactions.",
-      date: new Date('2025-11-25'),
-      type: "Open Day",
-      location: "Amphi 5 - univ 8 mai 1945",
-      time: "11:00 - 12:30",
+      id: 1,
+      title: "Arduino Workshop - Advanced Projects",
+      description: "Learn advanced Arduino programming and build complex projects. Perfect for intermediate to advanced students.",
+      date: new Date('2025-02-15'),
+      type: "Workshop",
+      location: "Lab A - Building 1",
+      time: "14:00 - 17:00",
       status: "upcoming"
     }
   ];

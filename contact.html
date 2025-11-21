@@ -55,9 +55,11 @@
         <li><a href="activities.html" data-key="activities">Activities</a></li>
         <li><a href="join.html" data-key="join">Join-Us</a></li>
         <li><a href="contact.html" data-key="contact" class="active">Contact</a></li>
-              </ul>
+       
+       </ul>
     </nav>
 
+    
     <div class="lang-switch" role="group" aria-label="Language switcher">
       <button id="en-btn" aria-label="English" class="active">EN</button>
       <button id="ar-btn" aria-label="Arabic">AR</button>
@@ -262,6 +264,7 @@
   <!-- ===== SCRIPTS ===== -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/main.js"></script>
   <script>
     // Initialize AOS and i18n
     document.addEventListener('DOMContentLoaded', function() {
@@ -271,9 +274,26 @@
         once: true
       });
       
+      // Ensure current language is applied immediately (so FAQ renders in correct language)
+      if (window.EMTA_I18N && typeof window.EMTA_I18N.getCurrentLang === 'function' && typeof window.EMTA_I18N.setLanguage === 'function') {
+        var cur = window.EMTA_I18N.getCurrentLang();
+        window.EMTA_I18N.setLanguage(cur);
+      }
+
       // Apply translations when language changes
       document.getElementById('en-btn').addEventListener('click', () => window.EMTA_I18N.setLanguage('en'));
       document.getElementById('ar-btn').addEventListener('click', () => window.EMTA_I18N.setLanguage('ar'));
+
+      // Search button
+      var sbtn = document.getElementById('search-btn');
+      if (sbtn) {
+        sbtn.addEventListener('click', function(e){
+          e.preventDefault();
+          if (window.emta && typeof window.emta.openSearch === 'function') {
+            window.emta.openSearch();
+          }
+        });
+      }
     });
   </script>
   <script src="assets/js/contact.js"></script>

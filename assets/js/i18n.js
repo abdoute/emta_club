@@ -259,6 +259,20 @@
       contact_need_help_text: 'If you have urgent questions or need immediate assistance, feel free to reach out through our social media channels or visit our office during working hours.',
       contact_faq_title: 'Frequently Asked Questions',
       contact_faq_subtitle: 'Find answers to common questions',
+
+      // FAQ Questions and Answers in English
+      faq_join_question: 'How can I join E-MTA Club?',
+      faq_join_answer: "You can join by filling out the membership form on the 'Join Us' page. We'll review your application and get back to you within 48 hours.",
+      faq_student_requirement_question: 'Do I have to be a student at University 8 Mai 1945 to join?',
+      faq_student_requirement_answer: 'Yes, E-MTA Club is exclusively for students of University 8 Mai 1945 – Guelma. You will need to provide your university email when registering.',
+      faq_membership_cost_question: 'Is the membership free?',
+      faq_membership_cost_answer: 'Yes, membership is completely free! We believe in making tech education accessible to all students.',
+      faq_activities_question: 'What activities does the club organize?',
+      faq_activities_answer: 'We organize workshops in various topics (Arduino, Web Development, AI, etc.), hackathons, scientific talks, and collaborative projects. Check our Activities page for upcoming events.',
+      faq_workshop_frequency_question: 'How often are workshops held?',
+      faq_workshop_frequency_answer: 'We usually hold workshops every 2–3 weeks during the academic year. Follow us on social media to stay updated.',
+      faq_beginner_friendly_question: 'Can I participate if I am a beginner?',
+      faq_beginner_friendly_answer: 'Absolutely! We welcome students of all levels. Our workshops are designed for beginners as well as advanced students.',
     },
     ar: {
       home: 'الرئيسية',
