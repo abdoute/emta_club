@@ -33,11 +33,11 @@
     </a>
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="activities.html">Activities</a></li>
-        <li><a href="join.html">Join Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.html" data-key="home">Home</a></li>
+        <li><a href="about.html" data-key="about">About</a></li>
+        <li><a href="activities.html" data-key="activities">Activities</a></li>
+        <li><a href="join.html" data-key="join">Join Us</a></li>
+        <li><a href="contact.html" data-key="contact">Contact</a></li>
       </ul>
     </nav>
     <div class="lang-switch" role="group" aria-label="Language switcher">
@@ -49,12 +49,12 @@
   <section class="about-hero" style="background-image:url('assets/images/hero-about.jpg')">
     <div class="overlay"></div>
     <div class="hero-inner" data-aos="fade-up" data-aos-duration="700">
-      <div class="hero-badge" data-aos="zoom-in" data-aos-delay="50"><i class="fa-solid fa-graduation-cap"></i><span>Academic Specialties</span></div>
-      <h1 data-aos="fade-up" data-aos-delay="100">Specialties of the Department of Electrotechnics and Automatics</h1>
-      <p data-aos="fade-up" data-aos-delay="150">Explore a clear and professional overview of tracks from L3 to M2, including the 3‑year professional license PRE, with learning outcomes and career prospects.</p>
+      <div class="hero-badge" data-aos="zoom-in" data-aos-delay="50"><i class="fa-solid fa-graduation-cap"></i><span data-key="specialties_home_title">Academic Specialties</span></div>
+      <h1 data-aos="fade-up" data-aos-delay="100" data-key="specialties_title">Specialties of the Department of Electrotechnics and Automatics</h1>
+      <p data-aos="fade-up" data-aos-delay="150" data-key="specialties_intro">Explore a clear and professional overview of tracks from L3 to M2, including the 3‑year professional license PRE, with learning outcomes and career prospects.</p>
       <div class="hero-buttons">
-        <a href="#tracks" class="btn" data-aos="fade-up" data-aos-delay="200"><i class="fa-solid fa-list"></i> Browse Tracks</a>
-        <a href="join.html" class="btn" data-aos="fade-up" data-aos-delay="250"><i class="fa-solid fa-user-plus"></i> Join Us</a>
+        <a href="#tracks" class="btn" data-aos="fade-up" data-aos-delay="200"><i class="fa-solid fa-list"></i> <span data-key="browse_tracks">Browse Tracks</span></a>
+        <a href="join.html" class="btn" data-aos="fade-up" data-aos-delay="250"><i class="fa-solid fa-user-plus"></i> <span data-key="join">Join Us</span></a>
       </div>
     </div>
   </section>
@@ -62,8 +62,8 @@
   <main class="container">
     <section id="tracks" class="mv-section" data-aos="fade-up">
       <div class="section-header">
-        <h2 class="section-title">Overview</h2>
-        <p class="section-subtitle">Tracks typically start at the third Bachelor year <strong>(L3)</strong> through <strong>(M2)</strong>, with a 3‑year Professional License (PRE).</p>
+        <h2 class="section-title" data-key="overview">Overview</h2>
+        <p class="section-subtitle" data-key="specialties_note">Tracks typically start at the third Bachelor year <strong>(L3)</strong> through <strong>(M2)</strong>, with a 3‑year Professional License (PRE).</p>
       </div>
 
       <div class="specialties-wrap">
@@ -75,26 +75,26 @@
         <div class="specialties-cards grid-2">
           <article class="specialty-card" data-aos="fade-up" data-aos-delay="50">
             <div class="badge">AUTO → AII</div>
-            <h3>Automatics (AUTO) — AII Master Track</h3>
-            <button class="btn show-more" data-spec="auto-aii"><i class="fa-solid fa-circle-plus"></i> Show More</button>
+            <h3 data-key="specialties_auto_title">Automatics (AUTO)</h3>
+            <button class="btn show-more" data-spec="auto-aii"><i class="fa-solid fa-circle-plus"></i> <span data-key="supporting_show_more">Show More</span></button>
           </article>
 
           <article class="specialty-card" data-aos="fade-up" data-aos-delay="100">
             <div class="badge">ELM</div>
-            <h3>Electromechanics (ELM)</h3>
-            <button class="btn show-more" data-spec="elm"><i class="fa-solid fa-circle-plus"></i> Show More</button>
+            <h3 data-key="specialties_elm_title">Electromechanics (ELM)</h3>
+            <button class="btn show-more" data-spec="elm"><i class="fa-solid fa-circle-plus"></i> <span data-key="supporting_show_more">Show More</span></button>
           </article>
 
           <article class="specialty-card" data-aos="fade-up" data-aos-delay="150">
             <div class="badge">ELT → RE</div>
-            <h3>Electrotechnics → Electric Power Networks (RE)</h3>
-            <button class="btn show-more" data-spec="re"><i class="fa-solid fa-circle-plus"></i> Show More</button>
+            <h3 data-key="specialties_elt_title">Electrotechnics → Electric Power Networks (RE)</h3>
+            <button class="btn show-more" data-spec="re"><i class="fa-solid fa-circle-plus"></i> <span data-key="supporting_show_more">Show More</span></button>
           </article>
 
           <article class="specialty-card" data-aos="fade-up" data-aos-delay="200">
             <div class="badge">PRE</div>
-            <h3>Professional License — Protection of Electric Networks (PRE)</h3>
-            <button class="btn show-more" data-spec="pre"><i class="fa-solid fa-circle-plus"></i> Show More</button>
+            <h3 data-key="specialties_pre_title">Professional License — Protection of Electric Networks (PRE)</h3>
+            <button class="btn show-more" data-spec="pre"><i class="fa-solid fa-circle-plus"></i> <span data-key="supporting_show_more">Show More</span></button>
           </article>
         </div>
       </div>
@@ -113,24 +113,24 @@
 
     <section class="team-section" data-aos="fade-up">
       <div class="section-header">
-        <h2 class="section-title">Why this Department?</h2>
-        <p class="section-subtitle">Applied learning, real projects, and clear pathways to careers in energy, industry, and automation.</p>
+        <h2 class="section-title" data-key="why_join_us">Why this Department?</h2>
+        <p class="section-subtitle" data-key="discover_what_special">Applied learning, real projects, and clear pathways to careers in energy, industry, and automation.</p>
       </div>
       <div class="features-grid">
         <div class="feature-card" data-aos="zoom-in" data-aos-delay="50">
           <div class="feature-icon"><i class="fa-solid fa-flask"></i></div>
-          <h3>Labs & Experiments</h3>
-          <p>Hands‑on practice on control systems, machines, protection, and embedded systems.</p>
+          <h3 data-key="feature_workshops_title">Labs & Experiments</h3>
+          <p data-key="feature_workshops_desc">Hands‑on practice on control systems, machines, protection, and embedded systems.</p>
         </div>
         <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
           <div class="feature-icon"><i class="fa-solid fa-diagram-project"></i></div>
-          <h3>Strong Capstone Projects</h3>
-          <p>Industry‑relevant topics such as SCADA, smart grids, and renewable energy integration.</p>
+          <h3 data-key="feature_projects_title">Strong Capstone Projects</h3>
+          <p data-key="feature_projects_desc">Industry‑relevant topics such as SCADA, smart grids, and renewable energy integration.</p>
         </div>
         <div class="feature-card" data-aos="zoom-in" data-aos-delay="150">
           <div class="feature-icon"><i class="fa-solid fa-briefcase"></i></div>
-          <h3>High Employability</h3>
-          <p>Skills in high demand by companies, technical offices, and public/industrial facilities.</p>
+          <h3 data-key="feature_skills_title">High Employability</h3>
+          <p data-key="feature_skills_desc">Skills in high demand by companies, technical offices, and public/industrial facilities.</p>
         </div>
       </div>
     </section>
@@ -138,8 +138,8 @@
     <section class="cta-section" data-aos="fade-up">
       <div class="container" style="padding:0">
         <div class="cta-content">
-          <h2>Ready to get started?</h2>
-          <p>Learn more and join us to build your academic and professional path with confidence.</p>
+          <h2 data-key="ready_to_start">Ready to get started?</h2>
+          <p data-key="join_cta">Learn more and join us to build your academic and professional path with confidence.</p>
           <a href="join.html" class="cta-btn">
             <span data-key="join_now">Join Now</span>
             <i class="fa-solid fa-arrow-right"></i>
@@ -179,11 +179,11 @@
     });
     // Modal logic for specialties
     (function(){
-      const data = {
+      const data_en = {
         'auto-aii': {
           title: 'Automatics (AUTO) — AII Master Track',
           html: `
-            <img class="spec-img" src="assets/images/specialties/auto.jpg" alt="AUTO / AII" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <img class=\"spec-img\" src=\"assets/images/specialties/auto.jpg\" alt=\"AUTO / AII\" loading=\"lazy\" decoding=\"async\" onerror=\"this.style.display='none'\">
             <ul>
               <li><strong>Core modules</strong>: Digital control, state estimation, SCADA & HMI, PLC programming, multivariable & real‑time control.</li>
               <li><strong>Key labs & tools</strong>: PLC/SCADA (Siemens/Allen‑Bradley), MATLAB/Simulink, real‑time targets, embedded controllers.</li>
@@ -195,7 +195,7 @@
         'elm': {
           title: 'Electromechanics (ELM)',
           html: `
-            <img class="spec-img" src="assets/images/specialties/elm.jpg" alt="ELM" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <img class=\"spec-img\" src=\"assets/images/specialties/elm.jpg\" alt=\"ELM\" loading=\"lazy\" decoding=\"async\" onerror=\"this.style.display='none'\">
             <ul>
               <li><strong>Core modules</strong>: Electrical machines, power converters, mechatronics, drives & control, industrial maintenance and safety.</li>
               <li><strong>Key labs & tools</strong>: Motors and drives benches, inverter control, vibration analysis, CAD/CAE basics.</li>
@@ -207,7 +207,7 @@
         're': {
           title: 'Electrotechnics → Electric Power Networks (RE)',
           html: `
-            <img class="spec-img" src="assets/images/specialties/re.jpg" alt="RE" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <img class=\"spec-img\" src=\"assets/images/specialties/re.jpg\" alt=\"RE\" loading=\"lazy\" decoding=\"async\" onerror=\"this.style.display='none'\">
             <ul>
               <li><strong>Core modules</strong>: Power system analysis, protection & coordination, power flow & contingency, stability & control, RES integration.</li>
               <li><strong>Key labs & tools</strong>: Protection relays, short‑circuit analyzers, PSCAD/ETAP/Digsilent (where available), SCADA for power.</li>
@@ -219,7 +219,7 @@
         'pre': {
           title: 'Professional License — Protection of Electric Networks (PRE)',
           html: `
-            <img class="spec-img" src="assets/images/specialties/pre.jpg" alt="PRE" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <img class=\"spec-img\" src=\"assets/images/specialties/pre.jpg\" alt=\"PRE\" loading=\"lazy\" decoding=\"async\" onerror=\"this.style.display='none'\">
             <ul>
               <li><strong>Core modules</strong>: Protection relays, coordination, metering & fault analysis, switching operations, safety regulations.</li>
               <li><strong>Key labs & tools</strong>: Relay testing sets, fault recorders, breakers & switchgear, safety procedures.</li>
@@ -229,11 +229,64 @@
             </ul>`
         }
       };
+
+      const data_ar = {
+        'auto-aii': {
+          title: 'الأتمتة (AUTO) — مسار ماستر AII',
+          html: `
+            <img class=\"spec-img\" src=\"assets/images/specialties/auto.jpg\" alt=\"AUTO / AII\" loading=\"lazy\" decoding=\"async\" onerror=\"this.style.display='none'\">
+            <ul>
+              <li><strong>وحدات أساسية</strong>: التحكم الرقمي، تقدير الحالات، SCADA وواجهات HMI، برمجة المتحكمات PLC، التحكم متعدد المتغيرات والآني.</li>
+              <li><strong>مخابر وأدوات</strong>: PLC/SCADA (سيمنس/ألن برادلي)، MATLAB/Simulink، أهداف آنية، متحكمات مدمجة.</li>
+              <li><strong>مهارات مكتسبة</strong>: ضبط المتحكمات (PID/LQR)، هياكل الإشراف، جدولة آنية، الاتصال الصناعي.</li>
+              <li><strong>مشاريع نموذجية</strong>: منصات تحكم في العمليات، التحكم في ذراع روبوت، لوحات SCADA، توائم رقمية.</li>
+              <li><strong>منافذ مهنية</strong>: مهندس أتمتة وتحكم، مطور أنظمة صناعية، مدمج SCADA/PLC، مهندس IIoT.</li>
+            </ul>`
+        },
+        'elm': {
+          title: 'الإلكتروميكانيك (ELM)',
+          html: `
+            <img class=\"spec-img\" src=\"assets/images/specialties/elm.jpg\" alt=\"ELM\" loading=\"lazy\" decoding=\"async\" onerror=\"this.style.display='none'\">
+            <ul>
+              <li><strong>وحدات أساسية</strong>: الآلات الكهربائية، محوّلات القدرة، الميكاترونيك، المحركات والتحكم، الصيانة الصناعية والسلامة.</li>
+              <li><strong>مخابر وأدوات</strong>: منصات المحركات والمبدلات، التحكم في العواكس، تحليل الاهتزاز، أساسيات CAD/CAE.</li>
+              <li><strong>مهارات مكتسبة</strong>: مراقبة الحالة، تشخيص الأعطال، تكامل الأنظمة، تحسين كفاءة الطاقة.</li>
+              <li><strong>مشاريع نموذجية</strong>: تحديث منظومات القيادة، نماذج ميكاترونية، صيانة تنبؤية بالحساسات.</li>
+              <li><strong>منافذ مهنية</strong>: مهندس صيانة/إنتاج، مدمج ميكاترونيك، مهندس موثوقية، تكليف صناعي.</li>
+            </ul>`
+        },
+        're': {
+          title: 'الإلكتروتقني → شبكات القدرة الكهربائية (RE)',
+          html: `
+            <img class=\"spec-img\" src=\"assets/images/specialties/re.jpg\" alt=\"RE\" loading=\"lazy\" decoding=\"async\" onerror=\"this.style.display='none'\">
+            <ul>
+              <li><strong>وحدات أساسية</strong>: تحليل أنظمة القدرة، الحماية والتنسيق، تدفق القدرة والطوارئ، الاستقرار والتحكم، دمج الطاقات المتجددة.</li>
+              <li><strong>مخابر وأدوات</strong>: مرحلات حماية، محللات قصر، PSCAD/ETAP/Digsilent (عند التوفر)، SCADA لأنظمة القدرة.</li>
+              <li><strong>مهارات مكتسبة</strong>: إعدادات الحماية، نمذجة الشبكات، دراسات الأعطال، ربط مصادر الطاقة الموزعة والامتثال.</li>
+              <li><strong>مشاريع نموذجية</strong>: مخططات حماية محطات التحويل، إعادة تهيئة المغذيات، دراسات الميكروغريد.</li>
+              <li><strong>منافذ مهنية</strong>: مهندس شبكات كهربائية، تخطيط وتشغيل الشبكات، حلول الشبكات الذكية، مهندس حماية بالمؤسسات.</li>
+            </ul>`
+        },
+        'pre': {
+          title: 'ليسانس مهنية — حماية الشبكات الكهربائية (PRE)',
+          html: `
+            <img class=\"spec-img\" src=\"assets/images/specialties/pre.jpg\" alt=\"PRE\" loading=\"lazy\" decoding=\"async\" onerror=\"this.style.display='none'\">
+            <ul>
+              <li><strong>وحدات أساسية</strong>: مرحلات الحماية، التنسيق، القياس وتحليل الأعطال، عمليات الفصل والوصل، أنظمة السلامة.</li>
+              <li><strong>مخابر وأدوات</strong>: أجهزة اختبار المرحلات، مسجلات الأعطال، القواطع ومعدات الربط، إجراءات السلامة.</li>
+              <li><strong>مهارات مكتسبة</strong>: إعداد المرحلات، تحليل الحوادث وإعداد التقارير، بروتوكولات التشغيل الآمن، ممارسات ميدانية.</li>
+              <li><strong>مشاريع نموذجية</strong>: إعدادات حماية المغذيات/المحوّلات، تقارير ما بعد الحوادث، إجراءات عمل قياسية للسلامة.</li>
+              <li><strong>منافذ مهنية</strong>: تقني/مهندس حماية، صيانة ميدانية، استغلال المحطات، عامل قاعة التحكم.</li>
+            </ul>`
+        }
+      };
       const overlay = document.getElementById('specModalOverlay');
       const titleEl = document.getElementById('specModalTitle');
       const bodyEl = document.getElementById('specModalBody');
       const closeBtn = document.getElementById('specModalClose');
       function openModal(key){
+        const lang = (window.EMTA_I18N && typeof window.EMTA_I18N.getCurrentLang==='function') ? window.EMTA_I18N.getCurrentLang() : 'en';
+        const data = lang === 'ar' ? data_ar : data_en;
         const item = data[key]; if (!item) return;
         titleEl.innerHTML = `<i class="fa-solid fa-book-open"></i> ${item.title}`;
         bodyEl.innerHTML = item.html;

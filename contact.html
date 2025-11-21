@@ -71,12 +71,12 @@
     <div class="hero-inner">
       <div class="hero-badge fade-up">
         <i class="fa-solid fa-envelope"></i>
-        <span>Get In Touch</span>
+        <span data-key="contactHeroBadge">Get In Touch</span>
       </div>
       <h1 data-key="contactTitle" class="fade-up">Contact Us</h1>
-      <p data-key="contactIntro" class="fade-up">
-        Have questions? Want to collaborate? We're here to help! 
-        Reach out to us through any of the channels below.
+      <p class="fade-up">
+        <span data-key="contactIntro">Have questions? Want to collaborate? We're here to help!</span>
+        <span data-key="contactIntro2">Reach out to us through any of the channels below.</span>
       </p>
     </div>
   </section>
@@ -89,42 +89,42 @@
           <div class="contact-icon">
             <i class="fa-solid fa-map-marker-alt"></i>
           </div>
-          <h3>Location</h3>
-          <p>University of 8 Mai 1945 </p>
-          <p>Guelma, Algeria</p>
-          <a href="https://maps.app.goo.gl/Akx29gU8TKZNjxe69" class="contact-link">View on Map <i class="fa-solid fa-arrow-right"></i></a>
+          <h3 data-key="contact_location_title">Location</h3>
+          <p data-key="contact_location_university">University of 8 Mai 1945 </p>
+          <p data-key="contact_location_city">Guelma, Algeria</p>
+          <a href="https://maps.app.goo.gl/Akx29gU8TKZNjxe69" class="contact-link"><span data-key="contact_location_view_map">View on Map</span> <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
         <div class="contact-card" data-aos="zoom-in" data-aos-delay="200">
           <div class="contact-icon">
             <i class="fa-solid fa-envelope"></i>
           </div>
-          <h3>Email</h3>
+          <h3 data-key="contact_email_title">Email</h3>
           <p>emtaclub@gmail.com</p>
           
-          <a href="mailto:emta.club@univ-guelma.dz" class="contact-link">Send Email <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="mailto:emta.club@univ-guelma.dz" class="contact-link"><span data-key="contact_email_cta">Send Email</span> <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
         <div class="contact-card" data-aos="zoom-in" data-aos-delay="300">
           <div class="contact-icon">
             <i class="fa-solid fa-phone"></i>
           </div>
-          <h3>Phone</h3>
+          <h3 data-key="contact_phone_title">Phone</h3>
           <p>+213 672494793</p>
-          <p>Available: Mon-Fri, 9AM-5PM</p>
-          <a href="tel:+213" class="contact-link">Call Now <i class="fa-solid fa-arrow-right"></i></a>
+          <p data-key="contact_phone_available">Available: Mon-Fri, 9AM-5PM</p>
+          <a href="tel:+213" class="contact-link"><span data-key="contact_phone_cta">Call Now</span> <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
         <div class="contact-card" data-aos="zoom-in" data-aos-delay="400">
           <div class="contact-icon">
             <i class="fa-solid fa-clock"></i>
           </div>
-          <h3>Office Hours</h3>
-          <p>Monday - Friday</p>
-          <p>9:00 AM - 5:00 PM</p>
+          <h3 data-key="contact_office_hours_title">Office Hours</h3>
+          <p data-key="contact_office_hours_days">Monday - Friday</p>
+          <p data-key="contact_office_hours_time">9:00 AM - 5:00 PM</p>
           <span class="contact-status">
             <i class="fa-solid fa-circle"></i>
-            <span id="officeStatus">Check Status</span>
+            <span id="officeStatus" data-key="contact_office_status_check">Check Status</span>
           </span>
         </div>
       </div>
@@ -136,50 +136,50 @@
         <!-- Contact Form -->
         <div class="contact-form-container">
           <div class="form-header">
-            <h2 class="section-title">Send Us a Message</h2>
-            <p class="section-subtitle">Fill out the form below and we'll get back to you as soon as possible</p>
+            <h2 class="section-title" data-key="contact_form_title">Send Us a Message</h2>
+            <p class="section-subtitle" data-key="contact_form_subtitle">Fill out the form below and we'll get back to you as soon as possible</p>
           </div>
 
           <form id="contactForm" class="contact-form">
             <div class="form-row">
               <div class="form-group">
-                <label for="contactName"><i class="fa-solid fa-user"></i> Your Name</label>
+                <label for="contactName"><i class="fa-solid fa-user"></i> <span data-key="contact_label_name">Your Name</span></label>
                 <input type="text" id="contactName" name="contactName" placeholder="Enter your name" required>
               </div>
 
               <div class="form-group">
-                <label for="contactEmail"><i class="fa-solid fa-envelope"></i> Email Address</label>
+                <label for="contactEmail"><i class="fa-solid fa-envelope"></i> <span data-key="contact_label_email">Email Address</span></label>
                 <input type="email" id="contactEmail" name="contactEmail" placeholder="your.email@example.com" required>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label for="contactSubject"><i class="fa-solid fa-tag"></i> Subject</label>
+                <label for="contactSubject"><i class="fa-solid fa-tag"></i> <span data-key="contact_label_subject">Subject</span></label>
                 <select id="contactSubject" name="contactSubject" required>
-                  <option value="">Select a subject</option>
-                  <option value="general">General Inquiry</option>
-                  <option value="membership">Membership</option>
-                  <option value="collaboration">Collaboration</option>
-                  <option value="event">Event Inquiry</option>
-                  <option value="other">Other</option>
+                  <option value="" data-key="contact_select_subject">Select a subject</option>
+                  <option value="general" data-key="contact_subject_general">General Inquiry</option>
+                  <option value="membership" data-key="contact_subject_membership">Membership</option>
+                  <option value="collaboration" data-key="contact_subject_collaboration">Collaboration</option>
+                  <option value="event" data-key="contact_subject_event">Event Inquiry</option>
+                  <option value="other" data-key="contact_subject_other">Other</option>
                 </select>
               </div>
 
               <div class="form-group">
-                <label for="contactPhone"><i class="fa-solid fa-phone"></i> Phone (Optional)</label>
+                <label for="contactPhone"><i class="fa-solid fa-phone"></i> <span data-key="contact_label_phone">Phone (Optional)</span></label>
                 <input type="tel" id="contactPhone" name="contactPhone" placeholder="+213 XXX XXX XXX">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="contactMessage"><i class="fa-solid fa-message"></i> Message</label>
-              <textarea id="contactMessage" name="contactMessage" rows="6" placeholder="Tell us how we can help you..." required></textarea>
-              <span class="char-count"><span id="contactCharCount">0</span> / 1000 characters</span>
+              <label for="contactMessage"><i class="fa-solid fa-message"></i> <span data-key="contact_label_message">Message</span></label>
+              <textarea id="contactMessage" name="contactMessage" rows="6" placeholder="Tell us how we can help you..." data-key="contact_message_placeholder" required></textarea>
+              <span class="char-count"><span id="contactCharCount">0</span> / 1000 <span data-key="join_char_count_suffix">characters</span></span>
             </div>
 
             <button type="submit" class="contact-submit-btn">
-              <span class="btn-text">Send Message</span>
+              <span class="btn-text" data-key="contact_send_btn">Send Message</span>
               <i class="fa-solid fa-paper-plane btn-icon"></i>
             </button>
           </form>
@@ -188,40 +188,40 @@
         <!-- Social Media & Quick Links -->
         <div class="contact-sidebar">
           <div class="sidebar-card">
-            <h3><i class="fa-solid fa-share-alt"></i> Follow Us</h3>
+            <h3><i class="fa-solid fa-share-alt"></i> <span data-key="contact_follow_us">Follow Us</span></h3>
             <div class="social-links">
               <a href="https://www.facebook.com/profile.php?id=61569753516399" class="social-link facebook" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-facebook"></i>
-                <span>Facebook</span>
+                <span data-key="contact_facebook">Facebook</span>
               </a>
               <a href="https://www.instagram.com/emta_club/" class="social-link instagram" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-instagram"></i>
-                <span>Instagram</span>
+                <span data-key="contact_instagram">Instagram</span>
               </a>
               <a href="#" class="social-link telegram" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-telegram"></i>
-                <span>Telegram</span>
+                <span data-key="contact_telegram">Telegram</span>
               </a>
               <a href="https://www.linkedin.com/in/e-m-t-a-club-1b0409345/" class="social-link linkedin" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-linkedin"></i>
-                <span>LinkedIn</span>
+                <span data-key="contact_linkedin">LinkedIn</span>
               </a>
             </div>
           </div>
 
           <div class="sidebar-card">
-            <h3><i class="fa-solid fa-question-circle"></i> Quick Links</h3>
+            <h3><i class="fa-solid fa-question-circle"></i> <span data-key="contact_quick_links">Quick Links</span></h3>
             <ul class="quick-links">
-              <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
-              <li><a href="join.html"><i class="fa-solid fa-chevron-right"></i> Join the Club</a></li>
-              <li><a href="activities.html"><i class="fa-solid fa-chevron-right"></i> Upcoming Events</a></li>
-              <li><a href="#"><i class="fa-solid fa-chevron-right"></i> FAQ</a></li>
+              <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> <span data-key="contact_about_us">About Us</span></a></li>
+              <li><a href="join.html"><i class="fa-solid fa-chevron-right"></i> <span data-key="contact_join_club">Join the Club</span></a></li>
+              <li><a href="activities.html"><i class="fa-solid fa-chevron-right"></i> <span data-key="contact_upcoming_events_link">Upcoming Events</span></a></li>
+              <li><a href="#"><i class="fa-solid fa-chevron-right"></i> <span data-key="contact_faq_link">FAQ</span></a></li>
             </ul>
           </div>
 
           <div class="sidebar-card">
-            <h3><i class="fa-solid fa-info-circle"></i> Need Help?</h3>
-            <p>If you have urgent questions or need immediate assistance, feel free to reach out through our social media channels or visit our office during working hours.</p>
+            <h3><i class="fa-solid fa-info-circle"></i> <span data-key="contact_need_help">Need Help?</span></h3>
+            <p data-key="contact_need_help_text">If you have urgent questions or need immediate assistance, feel free to reach out through our social media channels or visit our office during working hours.</p>
           </div>
         </div>
       </div>
@@ -229,12 +229,13 @@
 
     <!-- FAQ Section -->
     <section class="faq-section" data-aos="fade-up">
-      <div class="section-header">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <p class="section-subtitle">Find answers to common questions</p>
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title" data-key="contact_faq_title">Frequently Asked Questions</h2>
+        <p class="section-subtitle" data-key="contact_faq_subtitle">Find answers to common questions about E-MTA Club</p>
       </div>
+      
       <div class="faq-container" id="faqContainer">
-        <!-- FAQs will be injected by JS -->
+        <!-- FAQ items will be dynamically generated by JavaScript -->
       </div>
     </section>
   </main>
@@ -261,10 +262,22 @@
 
   <!-- ===== SCRIPTS ===== -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/contact.js"></script>
   <script src="assets/js/i18n.js"></script>
-
+  <script>
+    // Initialize AOS and i18n
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        once: true
+      });
+      
+      // Apply translations when language changes
+      document.getElementById('en-btn').addEventListener('click', () => window.EMTA_I18N.setLanguage('en'));
+      document.getElementById('ar-btn').addEventListener('click', () => window.EMTA_I18N.setLanguage('ar'));
+    });
+  </script>
+  <script src="assets/js/contact.js"></script>
 
 </body>
 </html>

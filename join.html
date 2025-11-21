@@ -64,7 +64,7 @@
     <div class="hero-inner">
       <div class="hero-badge fade-up">
         <i class="fa-solid fa-user-plus"></i>
-        <span>Join Our Community</span>
+        <span data-key="join_hero_badge">Join Our Community</span>
       </div>
       <h1 data-key="joinTitle" class="fade-up">Join E-MTA Club</h1>
       <p data-key="joinIntro" class="fade-up">
@@ -73,15 +73,15 @@
       <div class="hero-stats fade-up">
         <div class="stat-item">
           <div class="stat-number" data-target="30">0</div>
-          <div class="stat-label">Active Members</div>
+          <div class="stat-label" data-key="join_hero_active_members">Active Members</div>
         </div>
         <div class="stat-item">
           <div class="stat-number" data-target="15">0</div>
-          <div class="stat-label">Workshops</div>
+          <div class="stat-label" data-key="join_hero_workshops">Workshops</div>
         </div>
         <div class="stat-item">
           <div class="stat-number" data-target="10">0</div>
-          <div class="stat-label">Projects</div>
+          <div class="stat-label" data-key="join_hero_projects">Projects</div>
         </div>
       </div>
     </div>
@@ -100,22 +100,22 @@
           <div class="info-icon">
             <i class="fa-solid fa-rocket"></i>
           </div>
-          <h3>Quick Process</h3>
-          <p>Simple application form that takes just a few minutes to complete</p>
+          <h3 data-key="join_info_quick_title">Quick Process</h3>
+          <p data-key="join_info_quick_desc">Simple application form that takes just a few minutes to complete</p>
         </div>
         <div class="info-card" data-aos="fade-up" data-aos-delay="200">
           <div class="info-icon">
             <i class="fa-solid fa-shield-halved"></i>
           </div>
-          <h3>Secure & Private</h3>
-          <p>Your information is safe and will only be used for club purposes</p>
+          <h3 data-key="join_info_secure_title">Secure & Private</h3>
+          <p data-key="join_info_secure_desc">Your information is safe and will only be used for club purposes</p>
         </div>
         <div class="info-card" data-aos="fade-up" data-aos-delay="300">
           <div class="info-icon">
             <i class="fa-solid fa-clock"></i>
           </div>
-          <h3>Fast Response</h3>
-          <p>We'll review your application and get back to you within 48 hours</p>
+          <h3 data-key="join_info_fast_title">Fast Response</h3>
+          <p data-key="join_info_fast_desc">We'll review your application and get back to you within 48 hours</p>
         </div>
       </div>
     </div>
@@ -128,8 +128,8 @@
         <div class="header-icon">
           <i class="fa-solid fa-user-plus"></i>
         </div>
-        <h2 class="section-title">Membership Application</h2>
-        <p class="section-subtitle">
+        <h2 class="section-title" data-key="join_form_title">Membership Application</h2>
+        <p class="section-subtitle" data-key="join_form_subtitle">
           Fill in the form below to apply for joining <strong>E-MTA Club</strong>.  
           We'll get back to you soon!
         </p>
@@ -138,41 +138,41 @@
       <div class="form-features">
         <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
           <i class="fa-solid fa-check-circle"></i>
-          <span>Free Membership</span>
+          <span data-key="join_feature_free">Free Membership</span>
         </div>
         <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
           <i class="fa-solid fa-check-circle"></i>
-          <span>Workshops & Events</span>
+          <span data-key="join_feature_events">Workshops & Events</span>
         </div>
         <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
           <i class="fa-solid fa-check-circle"></i>
-          <span>Networking Opportunities</span>
+          <span data-key="join_feature_networking">Networking Opportunities</span>
         </div>
       </div>
 
       <form id="joinForm" class="join-form">
         <div class="form-row">
           <div class="form-group">
-            <label for="name"><i class="fa-solid fa-user"></i> Full Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            <label for="name"><i class="fa-solid fa-user"></i> <span data-key="join_label_full_name">Full Name</span></label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required data-i18n-attr="placeholder" data-key="join_placeholder_full_name">
           </div>
 
           <div class="form-group">
-            <label for="registration"><i class="fa-solid fa-id-card"></i> Registration Number</label>
-            <input type="text" id="registration" name="registration" placeholder="e.g. 202136012345" required pattern="[0-9]{8,12}" title="Enter your university registration number">
+            <label for="registration"><i class="fa-solid fa-id-card"></i> <span data-key="join_label_registration">Registration Number</span></label>
+            <input type="text" id="registration" name="registration" placeholder="e.g. 202136012345" required pattern="[0-9]{8,12}" title="Enter your university registration number" data-i18n-attr="placeholder" data-key="join_placeholder_registration">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="email"><i class="fa-solid fa-envelope"></i> University Email</label>
-            <input type="email" id="email" name="email" placeholder="example@univ-guelma.dz" required>
+            <label for="email"><i class="fa-solid fa-envelope"></i> <span data-key="join_label_email">University Email</span></label>
+            <input type="email" id="email" name="email" placeholder="example@univ-guelma.dz" required data-i18n-attr="placeholder" data-key="join_placeholder_email">
           </div>
 
           <div class="form-group">
-            <label for="level"><i class="fa-solid fa-layer-group"></i> Academic Level</label>
+            <label for="level"><i class="fa-solid fa-layer-group"></i> <span data-key="join_label_level">Academic Level</span></label>
             <select id="level" name="level" required>
-              <option value="">Select your level</option>
+              <option value="" data-key="join_select_level_placeholder">Select your level</option>
               <option value="L1">L1 (First Year)</option>
               <option value="L2">L2 (Second Year)</option>
               <option value="L3">L3 (Third Year)</option>
@@ -186,17 +186,17 @@
         </div>
 
         <div class="form-group">
-          <label for="specialty"><i class="fa-solid fa-graduation-cap"></i> Specialty</label>
+          <label for="specialty"><i class="fa-solid fa-graduation-cap"></i> <span data-key="join_label_specialty">Specialty</span></label>
           <select id="specialty" name="specialty" required>
-            <option value="">Please select your academic level first</option>
+            <option value="" data-key="join_select_specialty_placeholder">Please select your academic level first</option>
           </select>
-          <small class="field-hint">Select your academic level above to see available specialties</small>
+          <small class="field-hint" data-key="join_specialty_hint">Select your academic level above to see available specialties</small>
         </div>
 
         <div class="form-group">
-          <label for="message"><i class="fa-solid fa-pen"></i> Motivation</label>
-          <textarea id="message" name="message" rows="4" placeholder="Tell us briefly why you want to join..." required></textarea>
-          <span class="char-count"><span id="charCount">0</span> / 500 characters</span>
+          <label for="message"><i class="fa-solid fa-pen"></i> <span data-key="join_label_motivation">Motivation</span></label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell us briefly why you want to join..." required data-i18n-attr="placeholder" data-key="join_placeholder_motivation"></textarea>
+          <span class="char-count"><span id="charCount">0</span> / 500 <span data-key="join_char_count_suffix">characters</span></span>
         </div>
 
         <div class="form-progress">
@@ -205,7 +205,7 @@
         </div>
 
         <button type="submit" class="join-btn">
-          <span class="btn-text">Send Application</span>
+          <span class="btn-text" data-key="join_send_application">Send Application</span>
           <i class="fa-solid fa-paper-plane btn-icon"></i>
         </button>
       </form>
@@ -221,7 +221,7 @@
       </div>
       <div class="footer-right">
         <div class="rating-widget" id="ratingWidget" aria-label="Rate E-MTA Club" data-aos="fade-up">
-          <p class="rating-title">Rate E-MTA Club</p>
+          <p class="rating-title" data-key="rating_title">Rate E-MTA Club</p>
           <div class="stars" role="radiogroup" aria-label="Rate 1 to 5 stars">
             <button class="star" data-value="1" aria-label="1 star"><i class="fa-solid fa-star"></i></button>
             <button class="star" data-value="2" aria-label="2 stars"><i class="fa-solid fa-star"></i></button>
@@ -230,10 +230,10 @@
             <button class="star" data-value="5" aria-label="5 stars"><i class="fa-solid fa-star"></i></button>
           </div>
           <div class="rating-summary">
-            <span id="yourRatingLabel">Your rating:</span>
-            <span id="yourRatingValue">Not rated yet</span>
+            <span id="yourRatingLabel" data-key="rating_label">Your rating:</span>
+            <span id="yourRatingValue" data-key="rating_not_rated">Not rated yet</span>
           </div>
-          <div class="rating-message" id="ratingMessage" hidden>Thanks for your rating!</div>
+          <div class="rating-message" id="ratingMessage" data-key="rating_thanks" hidden>Thanks for your rating!</div>
         </div>
         <div class="socials">
           <a href="https://www.facebook.com/profile.php?id=61569753516399" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>

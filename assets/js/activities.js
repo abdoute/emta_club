@@ -171,6 +171,13 @@
     
     const date = formatDate(event.date);
     const typeIcon = getTypeIcon(event.type);
+    const t = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+      ? window.EMTA_I18N.t
+      : (k => k);
+    const statusLabel = event.status === 'upcoming'
+      ? t('events_status_upcoming')
+      : t('events_status_past');
+    const learnMoreLabel = t('events_learn_more');
     
     card.innerHTML = `
       <div class="event-header">
@@ -198,9 +205,9 @@
       <div class="event-footer">
         <span class="event-status ${event.status}">
           <i class="fa-solid ${event.status === 'upcoming' ? 'fa-clock' : 'fa-check-circle'}"></i>
-          ${event.status === 'upcoming' ? 'Upcoming' : 'Past'}
+          ${statusLabel}
         </span>
-        ${event.status === 'upcoming' ? '<a href="#" class="event-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>' : ''}
+        ${event.status === 'upcoming' ? `<a href="#" class="event-link">${learnMoreLabel} <i class="fa-solid fa-arrow-right"></i></a>` : ''}
       </div>
     `;
     
@@ -250,11 +257,14 @@
           upcomingGrid.appendChild(card);
         });
       } else {
+        const t = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+          ? window.EMTA_I18N.t
+          : (k => k);
         upcomingGrid.innerHTML = `
           <div class="empty-state">
             <i class="fa-solid fa-calendar-xmark"></i>
-            <h3>No Upcoming Events</h3>
-            <p>Check back soon for new activities!</p>
+            <h3>${t('events_no_upcoming_title')}</h3>
+            <p>${t('events_no_upcoming_desc')}</p>
           </div>
         `;
       }
@@ -269,11 +279,14 @@
           pastGrid.appendChild(card);
         });
       } else {
+        const t = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+          ? window.EMTA_I18N.t
+          : (k => k);
         pastGrid.innerHTML = `
           <div class="empty-state">
             <i class="fa-solid fa-history"></i>
-            <h3>No Past Events</h3>
-            <p>We're just getting started!</p>
+            <h3>${t('events_no_past_title')}</h3>
+            <p>${t('events_no_past_desc')}</p>
           </div>
         `;
       }
@@ -294,11 +307,14 @@
         gallery.appendChild(item);
       });
     } else {
+      const t = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+        ? window.EMTA_I18N.t
+        : (k => k);
       gallery.innerHTML = `
         <div class="empty-state" style="grid-column: 1 / -1;">
           <i class="fa-solid fa-images"></i>
-          <h3>No Gallery Images</h3>
-          <p>Gallery images will appear here soon!</p>
+          <h3>${t('gallery_no_images_title')}</h3>
+          <p>${t('gallery_no_images_desc')}</p>
         </div>
       `;
     }

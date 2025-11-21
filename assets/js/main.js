@@ -138,7 +138,7 @@
     widget.setAttribute('aria-label', 'Rate E-MTA Club');
     widget.setAttribute('data-aos', 'fade-up');
     widget.innerHTML = `
-      <p class="rating-title">Rate E-MTA Club</p>
+      <p class="rating-title" data-key="rating_title">Rate E-MTA Club</p>
       <div class="stars" role="radiogroup" aria-label="Rate 1 to 5 stars">
         <button class="star" data-value="1" aria-label="1 star"><i class="fa-solid fa-star"></i></button>
         <button class="star" data-value="2" aria-label="2 stars"><i class="fa-solid fa-star"></i></button>
@@ -147,10 +147,10 @@
         <button class="star" data-value="5" aria-label="5 stars"><i class="fa-solid fa-star"></i></button>
       </div>
       <div class="rating-summary">
-        <span id="yourRatingLabel">Your rating:</span>
-        <span id="yourRatingValue">Not rated yet</span>
+        <span id="yourRatingLabel" data-key="rating_label">Your rating:</span>
+        <span id="yourRatingValue" data-key="rating_not_rated">Not rated yet</span>
       </div>
-      <div class="rating-message" id="ratingMessage" hidden>Thanks for your rating!</div>
+      <div class="rating-message" id="ratingMessage" data-key="rating_thanks" hidden>Thanks for your rating!</div>
     `;
     footerRight.prepend(widget);
 

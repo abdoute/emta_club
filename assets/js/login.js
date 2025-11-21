@@ -34,12 +34,22 @@
       e.preventDefault();
       const email = (emailEl.value||'').trim();
       const password = (passEl.value||'').trim();
-      if(!email || !password){ showToast('Email and password are required','error'); return; }
+      if(!email || !password){
+        const msg = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+          ? window.EMTA_I18N.t('login_required')
+          : 'Email and password are required';
+        showToast(msg,'error');
+        return;
+      }
 
       const btn = form.querySelector('button[type="submit"]');
       const original = btn.querySelector('.btn-text');
       const originalText = original ? original.textContent : btn.textContent;
-      btn.disabled = true; if(original) original.textContent = 'Signing in...'; else btn.textContent='Signing in...';
+      btn.disabled = true;
+      const signingText = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+        ? window.EMTA_I18N.t('login_signing_in')
+        : 'Signing in...';
+      if(original) original.textContent = signingText; else btn.textContent = signingText;
 
       fetch(`${API_BASE}/api/auth/login`, {
         method:'POST', headers:{'Content-Type':'application/json'},
@@ -48,7 +58,10 @@
       .then(async (res)=>{ const data = await res.json().catch(()=>({})); if(!res.ok){ throw new Error(data.error||`Login failed (${res.status})`);} return data; })
       .then(async (data)=>{
         if(data && data.token){ localStorage.setItem(TOKEN_KEY, data.token); }
-        showToast('Logged in successfully','success');
+        const msgOk = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+          ? window.EMTA_I18N.t('login_success')
+          : 'Logged in successfully';
+        showToast(msgOk,'success');
         // This login page is reserved for admins; always send to admin panel
         try {
           const token = localStorage.getItem(TOKEN_KEY);
@@ -56,7 +69,10 @@
           const me = await resMe.json().catch(()=>({}));
           const isAdmin = !!(me && me.user && me.user.is_admin);
           if (!isAdmin) {
-            showToast('This login is reserved for admin accounts only.','error');
+            const msg = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+              ? window.EMTA_I18N.t('login_admin_only')
+              : 'This login is reserved for admin accounts only.';
+            showToast(msg,'error');
           }
         } catch(_) { /* ignore, still redirect to admin */ }
         window.location.href = 'admin.html';

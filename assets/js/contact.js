@@ -12,28 +12,28 @@
   // ===== FAQ Data =====
   const faqData = [
     {
-      question: "How can I join E-MTA Club?",
-      answer: "You can join by filling out the membership application form on our Join page. We'll review your application and get back to you within 48 hours."
+      questionKey: "faq_join_question",
+      answerKey: "faq_join_answer"
     },
     {
-      question: "Do I need to be a student at Université 8 Mai 1945 to join?",
-      answer: "Yes, E-MTA Club is exclusively for students of Université 8 Mai 1945 – Guelma. You'll need to provide your university email address during registration."
+      questionKey: "faq_student_requirement_question",
+      answerKey: "faq_student_requirement_answer"
     },
     {
-      question: "Is membership free?",
-      answer: "Yes, membership is completely free! We believe in making technology education accessible to all students."
+      questionKey: "faq_membership_cost_question",
+      answerKey: "faq_membership_cost_answer"
     },
     {
-      question: "What activities does the club organize?",
-      answer: "We organize workshops on various topics (Arduino, Web Development, AI, etc.), hackathons, scientific conferences, and collaborative projects. Check our Activities page for upcoming events."
+      questionKey: "faq_activities_question",
+      answerKey: "faq_activities_answer"
     },
     {
-      question: "How often are workshops held?",
-      answer: "We typically hold workshops every 2-3 weeks during the academic year. Follow us on social media to stay updated with our schedule."
+      questionKey: "faq_workshop_frequency_question",
+      answerKey: "faq_workshop_frequency_answer"
     },
     {
-      question: "Can I participate if I'm a beginner?",
-      answer: "Absolutely! We welcome students of all skill levels. Our workshops are designed to accommodate beginners as well as advanced students."
+      questionKey: "faq_beginner_friendly_question",
+      answerKey: "faq_beginner_friendly_answer"
     }
   ];
 
@@ -138,13 +138,17 @@
       item.setAttribute('data-aos', 'fade-up');
       item.setAttribute('data-aos-delay', (index * 50).toString());
 
+      // Get translations using i18n system with fallback to keys
+      const question = window.EMTA_I18N ? window.EMTA_I18N.t(faq.questionKey) : faq.questionKey;
+      const answer = window.EMTA_I18N ? window.EMTA_I18N.t(faq.answerKey) : faq.answerKey;
+
       item.innerHTML = `
         <div class="faq-question">
-          <span>${escapeHtml(faq.question)}</span>
+          <span data-key="${faq.questionKey}">${escapeHtml(question)}</span>
           <i class="fa-solid fa-chevron-down"></i>
         </div>
-        <div class="faq-answer">
-          ${escapeHtml(faq.answer)}
+        <div class="faq-answer" data-key="${faq.answerKey}">
+          ${escapeHtml(answer)}
         </div>
       `;
 
@@ -181,14 +185,18 @@
     const statusParent = statusElement.parentElement;
     
     if (isOpen) {
-      statusElement.textContent = 'Open Now';
+      statusElement.textContent = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+        ? window.EMTA_I18N.t('office_open')
+        : 'Open Now';
       statusParent.className = 'contact-status';
       statusParent.style.background = 'rgba(16, 185, 129, 0.15)';
       statusParent.style.borderColor = 'rgba(16, 185, 129, 0.3)';
       statusParent.style.color = '#10b981';
       statusParent.querySelector('i').style.color = '#10b981';
     } else {
-      statusElement.textContent = 'Closed';
+      statusElement.textContent = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+        ? window.EMTA_I18N.t('office_closed')
+        : 'Closed';
       statusParent.style.background = 'rgba(239, 68, 68, 0.15)';
       statusParent.style.borderColor = 'rgba(239, 68, 68, 0.3)';
       statusParent.style.color = '#ef4444';

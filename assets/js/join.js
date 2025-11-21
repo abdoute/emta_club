@@ -277,12 +277,18 @@
 
       // Validation
       if (!name || !email || !registration || !level || !specialty || !message) {
-        showMessage("⚠️ Please fill in all fields.", "error");
+        const msg = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+          ? window.EMTA_I18N.t('join_fill_required')
+          : "⚠️ Please fill in all fields.";
+        showMessage(msg, "error");
         return;
       }
 
       if (!validateEmail(email)) {
-        showMessage("📧 Please enter a valid email address.", "error");
+        const msg = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+          ? window.EMTA_I18N.t('join_invalid_email')
+          : "📧 Please enter a valid email address.";
+        showMessage(msg, "error");
         form.email.focus();
         return;
       }
@@ -290,7 +296,10 @@
       // University email not required; skipping domain enforcement
 
       if (!validateRegistrationNumber(registration)) {
-        showMessage("🆔 Please enter a valid registration number (8-12 digits).", "error");
+        const msg = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+          ? window.EMTA_I18N.t('join_invalid_registration')
+          : "🆔 Please enter a valid registration number (8-12 digits).";
+        showMessage(msg, "error");
         form.registration.focus();
         return;
       }
@@ -299,7 +308,9 @@
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
-      submitBtn.textContent = "Sending...";
+      submitBtn.textContent = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+        ? window.EMTA_I18N.t('join_sending')
+        : "Sending...";
 
       // 1) Sign up the user (password = registration). If exists, login.
       const TOKEN_KEY = 'emta_token';
@@ -333,14 +344,20 @@
             const meRes = await fetch(`${API_BASE}/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } });
             const meData = await meRes.json().catch(()=>({}));
             if (meRes.ok && meData && meData.user && meData.user.is_admin) {
-              showMessage(`🔐 Welcome admin ${name}. Redirecting to Admin...`, 'success');
+              const msg = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+                ? window.EMTA_I18N.t('admin_welcome_redirect', { name })
+                : `🔐 Welcome admin ${name}. Redirecting to Admin...`;
+              showMessage(msg, 'success');
               setTimeout(()=>{ window.location.href = 'admin.html'; }, 600);
               return null; // signal to skip application
             }
           } catch(_) { /* fall through to application */ }
           // Fallback: if email matches fixed admin email, redirect directly
           if ((email||'').trim().toLowerCase() === 'abdou.temaini@gmail.com') {
-            showMessage(`🔐 Welcome admin ${name}. Redirecting to Admin...`, 'success');
+            const msg = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+              ? window.EMTA_I18N.t('admin_welcome_redirect', { name })
+              : `🔐 Welcome admin ${name}. Redirecting to Admin...`;
+            showMessage(msg, 'success');
             setTimeout(()=>{ window.location.href = 'admin.html'; }, 600);
             return null;
           }
@@ -354,7 +371,10 @@
           return data2;
         })
         .then(async () => {
-          showMessage(`✅ Thank you, ${name}! Your application has been received.`, 'success');
+          const msg = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
+            ? window.EMTA_I18N.t('join_success_generic', { name })
+            : `✅ Thank you, ${name}! Your application has been received.`;
+          showMessage(msg, 'success');
           form.reset();
           updateProgress();
           // No automatic dashboard redirect for members; they stay on public pages

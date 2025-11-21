@@ -30,9 +30,18 @@
 
     if (value && Number(value) > 0) {
       valueEl.textContent = `${value}/5`;
-      if (msgEl) msgEl.hidden = false;
+      if (msgEl) {
+        if (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function') {
+          msgEl.textContent = window.EMTA_I18N.t('rating_thanks');
+        }
+        msgEl.hidden = false;
+      }
     } else {
-      valueEl.textContent = 'Not rated yet';
+      if (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function') {
+        valueEl.textContent = window.EMTA_I18N.t('rating_not_rated');
+      } else {
+        valueEl.textContent = 'Not rated yet';
+      }
       if (msgEl) msgEl.hidden = true;
     }
   }
