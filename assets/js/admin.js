@@ -661,8 +661,146 @@
     }
   }
 
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded', loadData);
-  } else {
-    loadData();
+function initAddUserForm(token){
+  const btn = document.getElementById('addUserSubmit');
+  const form = document.getElementById('addUserForm');
+  if(!btn || !form) return;
+  btn.addEventListener('click', async ()=>{
+    const name = document.getElementById('addUserName')?.value.trim() || '';
+    const email = document.getElementById('addUserEmail')?.value.trim() || '';
+    const registration = document.getElementById('addUserRegistration')?.value.trim() || '';
+    const level = document.getElementById('addUserLevel')?.value.trim() || '';
+    const specialty = document.getElementById('addUserSpecialty')?.value.trim() || '';
+    if(!name || !email || !registration){
+      alert('Please fill Name, Email and Registration');
+      return;
+    }
+    try{
+      await fetchJSON(`${API_BASE}/api/auth/signup`, {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({ name, email, registration, level, specialty })
+      });
+      alert('User added');
+      form.reset();
+      window.location.reload();
+    } catch(err){
+      alert(err.message || 'Failed to add user');
+    }
+  });
+}
+
+async function loadData(){
+  const token = getToken();
+  if(!token){
+    window.location.href = 'login.html?redirect=admin.html';
+    return;
   }
+
+  // Check admin
+  let me;
+  try{
+    const meResp = await fetchJSON(`${API_BASE}/api/auth/me`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    me = meResp.user;
+    setAdminMeta(me);
+    if(!me || !me.is_admin){
+      alert('Admin only');
+      window.location.href = 'index.html';
+      return;
+    }
+  } catch(err){
+    console.error(err);
+    window.location.href = 'login.html?redirect=admin.html';
+    return;
+  }
+
+  // Fetch all admin data in parallel
+  try{
+    const [users, apps, msgs] = await Promise.all([
+      fetchJSON(`${API_BASE}/api/admin/users`, { headers: { 'Authorization': `Bearer ${token}` } }),
+      fetchJSON(`${API_BASE}/api/admin/applications`, { headers: { 'Authorization': `Bearer ${token}` } }),
+      fetchJSON(`${API_BASE}/api/admin/messages`, { headers: { 'Authorization': `Bearer ${token}` } }),
+    ]);
+
+    // Users
+    const usersTable = document.getElementById('usersTable') || document.querySelector('#usersTable');
+    const usersTbody = usersTable.querySelector('tbody');
+    renderUsers(usersTbody, (users.items||[]), me);
+    attachUserActions(usersTbody, token);
+    makeUsersSortable(usersTable);
+    initUsersSearch();
+
+    // Applications
+    const appsTbody = document.querySelector('#appsTable tbody');
+    appsTbody.innerHTML = (apps.items||[]).map(a=>`
+      <tr data-id="${a.id}">
+        <td>${a.id}</td>
+        <td contenteditable="true" data-field="name">${a.name||''}</td>
+        <td contenteditable="true" data-field="email">${a.email||''}</td>
+        <td contenteditable="true" data-field="registration">${a.registration||''}</td>
+        <td contenteditable="true" data-field="level">${a.level||''}</td>
+        <td contenteditable="true" data-field="specialty">${a.specialty||''}</td>
+        <td contenteditable="true" data-field="message">${(a.message||'').replace(/</g,'&lt;')}</td>
+        <td>${fmtDate(a.created_at)}</td>
+        <td>
+          <button class="btn btn-sm btn-outline btn-icon" data-action="app-edit"><i class="fa-solid fa-pen"></i><span>Edit</span></button>
+          <button class="btn btn-sm btn-primary btn-icon" data-action="app-save"><i class="fa-solid fa-floppy-disk"></i><span>Save</span></button>
+          <button class="btn btn-sm btn-danger btn-icon" data-action="app-delete"><i class="fa-solid fa-trash"></i><span>Delete</span></button>
+        </td>
+      </tr>`).join('');
+    attachAppActions(appsTbody, token);
+
+    // Messages
+    const msgsTbody = document.querySelector('#msgsTable tbody');
+    const msgsRows = (msgs.items||[]).map(m=>({
+      id: m.id,
+      name: m.name,
+      email: m.email,
+      subject: m.subject,
+      phone: m.phone || '',
+      message: m.message,
+      created: fmtDate(m.created_at)
+    }));
+    renderTableBody(msgsTbody, msgsRows, ['id','name','email','subject','phone','message','created']);
+    // Export / Import initialisation after tables are rendered
+    initUsersExport();
+    initAppsExport();
+    initMsgsExport();
+    initUsersImport(token);
+    initAppsImport();
+    initMsgsImport();
+    initAddUserForm(token);
+    initAddAppForm();
+  } catch(err){
+    console.error(err);
+    alert('Failed to load admin data');
+  }
+
+  // Admin password change
+  const formPwd = document.getElementById('adminPasswordForm');
+  if(formPwd){
+    formPwd.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const current_password = document.getElementById('currentPassword').value.trim();
+      const new_password = document.getElementById('newPassword').value.trim();
+      if(!current_password || !new_password){ alert('Fill both fields'); return; }
+      try{
+        await fetch(`${API_BASE}/api/admin/change_password`, {
+          method:'POST', headers:{ 'Content-Type':'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ current_password, new_password })
+        }).then(async r=>{ const d=await r.json().catch(()=>({})); if(!r.ok||!d.ok) throw new Error(d.error||'Change password failed'); });
+        alert('Password changed');
+        formPwd.reset();
+      } catch(err){ alert(err.message||'Error'); }
+    });
+  }
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', loadData);
+} else {
+  loadData();
+}
+})();

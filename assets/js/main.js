@@ -426,8 +426,8 @@
 
   // ===== Buttons Ripple Effect =====
   function initButtonsRipple() {
-    function addRipple(e) {
-      const button = e.currentTarget;
+    function addRipple(target, e) {
+      const button = target;
       const rect = button.getBoundingClientRect();
       const circle = document.createElement('span');
       const size = Math.max(rect.width, rect.height);
@@ -445,7 +445,7 @@
     const selectors = ['.btn', '.cta-btn', '.join-btn', '.contact-submit-btn'];
     document.addEventListener('click', (e) => {
       const target = e.target.closest(selectors.join(','));
-      if (target) addRipple.call({ currentTarget: target }, e);
+      if (target) addRipple(target, e);
     });
   }
 
