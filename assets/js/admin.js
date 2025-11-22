@@ -3,6 +3,22 @@
 
   const TOKEN_KEY = 'emta_token';
   const API_BASE = (typeof window!=='undefined'&&window.API_BASE) || (function(){ try { return localStorage.getItem('emta_api_base'); } catch { return null; } })() || 'http://127.0.0.1:5000';
+  function showToast(msg, type='info'){
+    const wrapId = 'emta-toast-wrap';
+    let wrap = document.getElementById(wrapId);
+    if(!wrap){
+      wrap = document.createElement('div');
+      wrap.id = wrapId;
+      wrap.style.cssText = 'position:fixed;top:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:99999';
+      document.body.appendChild(wrap);
+    }
+    const el = document.createElement('div');
+    const colors = type==='success'?['#10b981','#064e3b'] : type==='error'?['#ef4444','#7f1d1d'] : ['#3b82f6','#1e3a8a'];
+    el.style.cssText = `min-width:260px;max-width:480px;background:${colors[0]};color:#fff;padding:12px 14px;border-radius:10px;box-shadow:0 10px 25px rgba(0,0,0,.25);border:1px solid ${colors[1]};opacity:.98`;
+    el.innerHTML = `<div style="display:flex;align-items:flex-start;gap:10px;"><span style="margin-top:2px">${type==='success'?'✅':type==='error'?'❌':'ℹ️'}</span><div style="line-height:1.35">${msg}</div></div>`;
+    wrap.appendChild(el);
+    setTimeout(()=>{ el.style.transition='opacity .25s ease, transform .25s ease'; el.style.opacity='0'; el.style.transform='translateY(-6px)'; setTimeout(()=> el.remove(), 280); }, 3600);
+  }
 
   function getToken(){
     try { return localStorage.getItem(TOKEN_KEY); } catch { return null; }
@@ -396,7 +412,7 @@
             failCount++;
           }
         }
-        alert(`Users import finished. Success: ${okCount}, Failed: ${failCount}.`);
+        showToast(`Users import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount? (okCount? 'info':'error') : 'success');
         if(okCount) window.location.reload();
       } finally {
         input.value = '';
@@ -457,7 +473,7 @@
             failCount++;
           }
         }
-        alert(`Applications import finished. Success: ${okCount}, Failed: ${failCount}.`);
+        showToast(`Applications import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount? (okCount? 'info':'error') : 'success');
         if(okCount) window.location.reload();
       } finally {
         input.value = '';
@@ -516,7 +532,7 @@
             failCount++;
           }
         }
-        alert(`Messages import finished. Success: ${okCount}, Failed: ${failCount}.`);
+        showToast(`Messages import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount? (okCount? 'info':'error') : 'success');
         if(okCount) window.location.reload();
       } finally {
         input.value = '';
