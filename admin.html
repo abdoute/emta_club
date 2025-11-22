@@ -265,5 +265,20 @@
       </div>
     </div>
   </div>
+  <!-- Import Result Modal -->
+  <div id="importOverlay" class="site-modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="site-modal" role="document">
+      <div class="site-modal-header">
+        <h3><i class="fa-solid fa-file-import"></i> Import Summary</h3>
+        <button id="importClose" class="site-modal-close" aria-label="Close">Close</button>
+      </div>
+      <div class="site-modal-body">
+        <div id="importSummary" style="line-height:1.5"></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
+          <button id="importOk" class="btn btn-primary">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

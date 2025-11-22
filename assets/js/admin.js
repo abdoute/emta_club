@@ -12,6 +12,31 @@
       wrap.style.cssText = 'position:fixed;top:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:99999';
       document.body.appendChild(wrap);
     }
+
+  // Glassy modal for import summaries (reuses site's modal styles)
+  function showImportModal(html, onOk){
+    const overlay = document.getElementById('importOverlay');
+    const body = document.getElementById('importSummary');
+    const btnOk = document.getElementById('importOk');
+    const btnClose = document.getElementById('importClose');
+    if(!overlay || !body){ alert(html.replace(/<[^>]+>/g,' ')); return; }
+    body.innerHTML = html;
+    overlay.style.display = 'flex';
+    requestAnimationFrame(()=> overlay.classList.add('open'));
+    const cleanup = ()=>{
+      overlay.classList.remove('open');
+      setTimeout(()=>{ overlay.style.display='none'; }, 150);
+      btnOk.removeEventListener('click', onOkWrap);
+      btnClose.removeEventListener('click', onClose);
+      overlay.removeEventListener('click', onBackdrop);
+    };
+    const onOkWrap = ()=>{ if(typeof onOk==='function') try{ onOk(); }catch{} cleanup(); };
+    const onClose = ()=> cleanup();
+    const onBackdrop = (e)=>{ if(e.target===overlay) cleanup(); };
+    btnOk.addEventListener('click', onOkWrap);
+    btnClose.addEventListener('click', onClose);
+    overlay.addEventListener('click', onBackdrop);
+  }
     const el = document.createElement('div');
     const colors = type==='success'?['#10b981','#064e3b'] : type==='error'?['#ef4444','#7f1d1d'] : ['#3b82f6','#1e3a8a'];
     el.style.cssText = `min-width:260px;max-width:480px;background:${colors[0]};color:#fff;padding:12px 14px;border-radius:10px;box-shadow:0 10px 25px rgba(0,0,0,.25);border:1px solid ${colors[1]};opacity:.98`;
@@ -412,8 +437,12 @@
             failCount++;
           }
         }
-        showToast(`Users import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount? (okCount? 'info':'error') : 'success');
-        if(okCount) window.location.reload();
+        showImportModal(`
+          <div>
+            <div style="font-weight:600;margin-bottom:6px;">Users import finished</div>
+            <div>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b></div>
+          </div>
+        `, ()=>{ if(okCount) window.location.reload(); });
       } finally {
         input.value = '';
       }
@@ -473,8 +502,12 @@
             failCount++;
           }
         }
-        showToast(`Applications import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount? (okCount? 'info':'error') : 'success');
-        if(okCount) window.location.reload();
+        showImportModal(`
+          <div>
+            <div style=\"font-weight:600;margin-bottom:6px;\">Applications import finished</div>
+            <div>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b></div>
+          </div>
+        `, ()=>{ if(okCount) window.location.reload(); });
       } finally {
         input.value = '';
       }
@@ -532,8 +565,12 @@
             failCount++;
           }
         }
-        showToast(`Messages import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount? (okCount? 'info':'error') : 'success');
-        if(okCount) window.location.reload();
+        showImportModal(`
+          <div>
+            <div style=\"font-weight:600;margin-bottom:6px;\">Messages import finished</div>
+            <div>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b></div>
+          </div>
+        `, ()=>{ if(okCount) window.location.reload(); });
       } finally {
         input.value = '';
       }
