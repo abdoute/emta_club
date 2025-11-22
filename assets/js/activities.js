@@ -7,6 +7,8 @@
   'use strict';
   // Backend API base URL
   const API_BASE = (typeof window!=='undefined'&&window.API_BASE) || (function(){ try { return localStorage.getItem('emta_api_base'); } catch { return null; } })() || 'http://127.0.0.1:5000';
+  const IS_LOCAL = (location.hostname === '127.0.0.1' || location.hostname === 'localhost' || location.protocol === 'file:');
+  const FORCE_API = (function(){ try { return localStorage.getItem('emta_force_api_events') === '1'; } catch { return false; } })();
   // ===== Events Data =====
   const upcomingEvents = [
     
@@ -325,12 +327,16 @@
       document.addEventListener('DOMContentLoaded', () => {
         renderEvents();
         renderGallery();
-        loadEventsFromAPI();
+        if (IS_LOCAL || FORCE_API) {
+          loadEventsFromAPI();
+        }
       });
     } else {
       renderEvents();
       renderGallery();
-      loadEventsFromAPI();
+      if (IS_LOCAL || FORCE_API) {
+        loadEventsFromAPI();
+      }
     }
   }
 
