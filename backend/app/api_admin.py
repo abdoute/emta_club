@@ -115,6 +115,52 @@ def update_user(user_id: int):
     return jsonify(ok=True)
 
 
+@admin.put('/applications/<int:app_id>')
+@jwt_required()
+def update_application(app_id: int):
+    ok, res = _require_admin()
+    if not ok:
+        return res
+    app_obj = MemberApplication.query.get(app_id)
+    if not app_obj:
+        return jsonify(ok=False, error='Application not found'), 404
+    data = request.get_json(silent=True) or {}
+    name = str(data.get('name', '')).strip()
+    email = str(data.get('email', '')).strip()
+    registration = str(data.get('registration', '')).strip()
+    level = str(data.get('level', '')).strip()
+    specialty = str(data.get('specialty', '')).strip()
+    message = str(data.get('message', '')).strip()
+    if name:
+        app_obj.name = name
+    if email:
+        app_obj.email = email
+    if registration:
+        app_obj.registration = registration
+    if level:
+        app_obj.level = level
+    if specialty:
+        app_obj.specialty = specialty
+    if message:
+        app_obj.message = message
+    db.session.commit()
+    return jsonify(ok=True)
+
+
+@admin.delete('/applications/<int:app_id>')
+@jwt_required()
+def delete_application(app_id: int):
+    ok, res = _require_admin()
+    if not ok:
+        return res
+    app_obj = MemberApplication.query.get(app_id)
+    if not app_obj:
+        return jsonify(ok=False, error='Application not found'), 404
+    db.session.delete(app_obj)
+    db.session.commit()
+    return jsonify(ok=True)
+
+
 @admin.delete('/users/<int:user_id>')
 @jwt_required()
 def delete_user(user_id: int):

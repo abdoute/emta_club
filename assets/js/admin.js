@@ -8,6 +8,85 @@
     try { return localStorage.getItem(TOKEN_KEY); } catch { return null; }
   }
 
+  // Applications actions: edit/save/delete
+  function attachAppActions(tbody, token){
+    if(!tbody) return;
+    tbody.addEventListener('click', async (e)=>{
+      const btn = e.target.closest('button[data-action]');
+      if(!btn) return;
+      const tr = btn.closest('tr');
+      const id = Number(tr?.getAttribute('data-id'));
+      const action = btn.getAttribute('data-action');
+      if(!id) return;
+      if(action==='app-edit'){
+        const firstEditable = tr.querySelector('[data-field]');
+        tr.classList.add('editing');
+        if(firstEditable){ firstEditable.focus(); document.getSelection()?.selectAllChildren(firstEditable); }
+        return;
+      }
+      if(action==='app-save'){
+        const payload = {
+          name: tr.querySelector('[data-field="name"]').textContent.trim(),
+          email: tr.querySelector('[data-field="email"]').textContent.trim(),
+          registration: tr.querySelector('[data-field="registration"]').textContent.trim(),
+          level: tr.querySelector('[data-field="level"]').textContent.trim(),
+          specialty: tr.querySelector('[data-field="specialty"]').textContent.trim(),
+          message: tr.querySelector('[data-field="message"]').textContent.trim(),
+        };
+        try{
+          await fetch(`${API_BASE}/api/admin/applications/${id}`, {
+            method:'PUT', headers:{ 'Content-Type':'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify(payload)
+          }).then(r=>{ if(!r.ok) throw new Error('Update failed'); });
+          alert('Application saved');
+          tr.classList.remove('editing');
+        }catch(err){ alert(err.message||'Error'); }
+        return;
+      }
+      if(action==='app-delete'){
+        const ok = await confirmModal('Delete this application?','Delete');
+        if(!ok) return;
+        try{
+          await fetch(`${API_BASE}/api/admin/applications/${id}`, {
+            method:'DELETE', headers:{ 'Authorization': `Bearer ${token}` }
+          }).then(r=>{ if(!r.ok) throw new Error('Delete failed'); });
+          tr.remove();
+        }catch(err){ alert(err.message||'Error'); }
+        return;
+      }
+    });
+  }
+
+  // Manual add for applications (uses public apply endpoint)
+  function initAddAppForm(){
+    const btn = document.getElementById('addAppSubmit');
+    const form = document.getElementById('addAppForm');
+    if(!btn || !form) return;
+    btn.addEventListener('click', async ()=>{
+      const name = document.getElementById('addAppName')?.value.trim() || '';
+      const email = document.getElementById('addAppEmail')?.value.trim() || '';
+      const registration = document.getElementById('addAppRegistration')?.value.trim() || '';
+      const level = document.getElementById('addAppLevel')?.value.trim() || '';
+      const specialty = document.getElementById('addAppSpecialty')?.value.trim() || '';
+      const message = document.getElementById('addAppMessage')?.value.trim() || '';
+      if(!name || !email || !registration || !level || !specialty){
+        alert('Please fill Name, Email, Registration, Level, and Specialty');
+        return;
+      }
+      try{
+        await fetchJSON(`${API_BASE}/api/members/apply`, {
+          method:'POST', headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify({ name, email, registration, level, specialty, message })
+        });
+        alert('Application added');
+        form.reset();
+        window.location.reload();
+      } catch(err){
+        alert(err.message || 'Failed to add application');
+      }
+    });
+  }
+
   async function fetchJSON(url, opts={}){
     const res = await fetch(url, opts);
     const data = await res.json().catch(()=>({}));
@@ -521,15 +600,20 @@
       appsTbody.innerHTML = (apps.items||[]).map(a=>`
         <tr data-id="${a.id}">
           <td>${a.id}</td>
-          <td>${a.name||''}</td>
-          <td>${a.email||''}</td>
-          <td>${a.registration||''}</td>
-          <td>${a.level||''}</td>
-          <td>${a.specialty||''}</td>
-          <td>${(a.message||'').replace(/</g,'&lt;')}</td>
+          <td contenteditable="true" data-field="name">${a.name||''}</td>
+          <td contenteditable="true" data-field="email">${a.email||''}</td>
+          <td contenteditable="true" data-field="registration">${a.registration||''}</td>
+          <td contenteditable="true" data-field="level">${a.level||''}</td>
+          <td contenteditable="true" data-field="specialty">${a.specialty||''}</td>
+          <td contenteditable="true" data-field="message">${(a.message||'').replace(/</g,'&lt;')}</td>
           <td>${fmtDate(a.created_at)}</td>
-          <td><button class="btn btn-sm" data-app-id="${a.id}" disabled>—</button></td>
+          <td>
+            <button class="btn btn-sm btn-outline btn-icon" data-action="app-edit"><i class="fa-solid fa-pen"></i><span>Edit</span></button>
+            <button class="btn btn-sm btn-primary btn-icon" data-action="app-save"><i class="fa-solid fa-floppy-disk"></i><span>Save</span></button>
+            <button class="btn btn-sm btn-danger btn-icon" data-action="app-delete"><i class="fa-solid fa-trash"></i><span>Delete</span></button>
+          </td>
         </tr>`).join('');
+      attachAppActions(appsTbody, token);
 
       // Messages
       const msgsTbody = document.querySelector('#msgsTable tbody');
@@ -551,6 +635,7 @@
       initAppsImport();
       initMsgsImport();
       initAddUserForm(token);
+      initAddAppForm();
     } catch(err){
       console.error(err);
       alert('Failed to load admin data');
@@ -581,4 +666,3 @@
   } else {
     loadData();
   }
-})();
