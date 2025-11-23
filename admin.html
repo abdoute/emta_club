@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>E-MTA Club — Admin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="icon" href="assets/images/logo.png" type="image/png">
-  <script id="emta-api-base-config">
-    (function(){
-      var isLocal = location.hostname === '127.0.0.1' ||
-                    location.hostname === 'localhost' ||
-                    location.protocol === 'file:';
-      var localBase = 'http://127.0.0.1:5000';
-      var prodBase = 'https://emtaclub-production.up.railway.app';
-      window.EMTA_API_BASE = isLocal ? localBase : prodBase;
-      window.API_BASE = window.EMTA_API_BASE;
-    })();
-  </script>
+  <script src="assets/js/config.js"></script>
 </head>
+
 <body>
   <header id="navbar">
     <a href="index.html" class="logo">
@@ -34,7 +28,7 @@
         <li><a href="activities.html">Activities</a></li>
         <li><a href="join.html">Join-Us</a></li>
         <li><a href="contact.html">Contact</a></li>
-        
+
       </ul>
     </nav>
     <div class="lang-switch" role="group" aria-label="Language switcher">
@@ -59,19 +53,25 @@
 
   <section class="container" style="padding: 20px 0 60px">
     <div class="card" data-aos="fade-up">
-      <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div class="card-header"
+        style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
         <h2 style="margin:0;">Users</h2>
         <div class="toolbar" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-          <input id="usersSearch" type="search" placeholder="Search users..." class="input input-search" aria-label="Search users">
-          <button id="exportUsersCsv" class="btn btn-sm btn-icon" aria-label="Export CSV"><i class="fa-solid fa-file-csv"></i><span>Export CSV</span></button>
-          <button id="exportUsersXls" class="btn btn-sm btn-icon" aria-label="Export Excel"><i class="fa-solid fa-file-excel"></i><span>Export Excel</span></button>
-          <button id="importUsersCsvBtn" class="btn btn-sm btn-icon" aria-label="Import CSV"><i class="fa-solid fa-file-import"></i><span>Import CSV</span></button>
+          <input id="usersSearch" type="search" placeholder="Search users..." class="input input-search"
+            aria-label="Search users">
+          <button id="exportUsersCsv" class="btn btn-sm btn-icon" aria-label="Export CSV"><i
+              class="fa-solid fa-file-csv"></i><span>Export CSV</span></button>
+          <button id="exportUsersXls" class="btn btn-sm btn-icon" aria-label="Export Excel"><i
+              class="fa-solid fa-file-excel"></i><span>Export Excel</span></button>
+          <button id="importUsersCsvBtn" class="btn btn-sm btn-icon" aria-label="Import CSV"><i
+              class="fa-solid fa-file-import"></i><span>Import CSV</span></button>
           <input type="file" id="importUsersCsvInput" accept=".csv" style="display:none">
         </div>
         <div id="adminMeta" class="text-muted" style="font-size:.9rem;margin-left:auto;"></div>
       </div>
       <div class="card-body">
-        <form id="addUserForm" class="form" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:flex-end;">
+        <form id="addUserForm" class="form"
+          style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:flex-end;">
           <div class="form-group" style="min-width:160px;">
             <label for="addUserName">Name</label>
             <input class="input" type="text" id="addUserName" placeholder="Full name">
@@ -92,7 +92,8 @@
             <label for="addUserSpecialty">Specialty</label>
             <input class="input" type="text" id="addUserSpecialty" placeholder="Automatique / ...">
           </div>
-          <button type="button" id="addUserSubmit" class="btn btn-primary btn-icon"><i class="fa-solid fa-user-plus"></i><span>Add User</span></button>
+          <button type="button" id="addUserSubmit" class="btn btn-primary btn-icon"><i
+              class="fa-solid fa-user-plus"></i><span>Add User</span></button>
         </form>
         <div class="table-wrap">
           <table class="table" id="usersTable" aria-label="Users table">
@@ -115,19 +116,24 @@
     </div>
 
     <div class="card" data-aos="fade-up" data-aos-delay="100" style="margin-top:24px;">
-      <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div class="card-header"
+        style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
         <h2 style="margin:0;">Member Applications</h2>
         <div class="toolbar" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <button id="exportAppsCsv" class="btn btn-sm btn-icon" aria-label="Export applications CSV"><i class="fa-solid fa-file-csv"></i><span>Export CSV</span></button>
-            <button id="exportAppsXls" class="btn btn-sm btn-icon" aria-label="Export applications Excel"><i class="fa-solid fa-file-excel"></i><span>Export Excel</span></button>
-            <button id="importAppsCsvBtn" class="btn btn-sm btn-icon" aria-label="Import applications CSV"><i class="fa-solid fa-file-import"></i><span>Import CSV</span></button>
+            <button id="exportAppsCsv" class="btn btn-sm btn-icon" aria-label="Export applications CSV"><i
+                class="fa-solid fa-file-csv"></i><span>Export CSV</span></button>
+            <button id="exportAppsXls" class="btn btn-sm btn-icon" aria-label="Export applications Excel"><i
+                class="fa-solid fa-file-excel"></i><span>Export Excel</span></button>
+            <button id="importAppsCsvBtn" class="btn btn-sm btn-icon" aria-label="Import applications CSV"><i
+                class="fa-solid fa-file-import"></i><span>Import CSV</span></button>
             <input type="file" id="importAppsCsvInput" accept=".csv" style="display:none">
           </div>
         </div>
       </div>
       <div class="card-body">
-        <form id="addAppForm" class="form" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:flex-end;">
+        <form id="addAppForm" class="form"
+          style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:flex-end;">
           <div class="form-group" style="min-width:160px;">
             <label for="addAppName">Name</label>
             <input class="input" type="text" id="addAppName" placeholder="Full name">
@@ -152,7 +158,8 @@
             <label for="addAppMessage">Message</label>
             <input class="input" type="text" id="addAppMessage" placeholder="Short message">
           </div>
-          <button type="button" id="addAppSubmit" class="btn btn-primary btn-icon"><i class="fa-solid fa-user-plus"></i><span>Add Application</span></button>
+          <button type="button" id="addAppSubmit" class="btn btn-primary btn-icon"><i
+              class="fa-solid fa-user-plus"></i><span>Add Application</span></button>
         </form>
         <div class="table-wrap">
           <table class="table" id="appsTable" aria-label="Applications table">
@@ -176,13 +183,17 @@
     </div>
 
     <div class="card" data-aos="fade-up" data-aos-delay="150" style="margin-top:24px;">
-      <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div class="card-header"
+        style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
         <h2 style="margin:0;">Contact Messages</h2>
         <div class="toolbar" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <button id="exportMsgsCsv" class="btn btn-sm btn-icon" aria-label="Export messages CSV"><i class="fa-solid fa-file-csv"></i><span>Export CSV</span></button>
-            <button id="exportMsgsXls" class="btn btn-sm btn-icon" aria-label="Export messages Excel"><i class="fa-solid fa-file-excel"></i><span>Export Excel</span></button>
-            <button id="importMsgsCsvBtn" class="btn btn-sm btn-icon" aria-label="Import messages CSV"><i class="fa-solid fa-file-import"></i><span>Import CSV</span></button>
+            <button id="exportMsgsCsv" class="btn btn-sm btn-icon" aria-label="Export messages CSV"><i
+                class="fa-solid fa-file-csv"></i><span>Export CSV</span></button>
+            <button id="exportMsgsXls" class="btn btn-sm btn-icon" aria-label="Export messages Excel"><i
+                class="fa-solid fa-file-excel"></i><span>Export Excel</span></button>
+            <button id="importMsgsCsvBtn" class="btn btn-sm btn-icon" aria-label="Import messages CSV"><i
+                class="fa-solid fa-file-import"></i><span>Import CSV</span></button>
             <input type="file" id="importMsgsCsvInput" accept=".csv" style="display:none">
           </div>
         </div>
@@ -208,7 +219,9 @@
     </div>
 
     <div class="card" data-aos="fade-up" data-aos-delay="200" style="margin-top:24px;">
-      <div class="card-header"><h2 style="margin:0;">Admin Settings</h2></div>
+      <div class="card-header">
+        <h2 style="margin:0;">Admin Settings</h2>
+      </div>
       <div class="card-body">
         <form id="adminPasswordForm" class="form" style="max-width:520px;">
           <div class="form-group">
@@ -219,7 +232,8 @@
             <label for="newPassword">New Password</label>
             <input class="input" type="password" id="newPassword" required placeholder="New password (min 6 chars)" />
           </div>
-          <button type="submit" class="btn btn-primary btn-icon"><i class="fa-solid fa-key"></i><span>Change Password</span></button>
+          <button type="submit" class="btn btn-primary btn-icon"><i class="fa-solid fa-key"></i><span>Change
+              Password</span></button>
         </form>
       </div>
     </div>
@@ -234,9 +248,12 @@
       <div class="footer-right">
         <!-- rating widget injected by main.js -->
         <div class="socials">
-          <a href="https://www.facebook.com/profile.php?id=61569753516399" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-          <a href="https://www.instagram.com/emta_club/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+          <a href="https://www.facebook.com/profile.php?id=61569753516399" aria-label="Facebook" target="_blank"
+            rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/emta_club/" aria-label="Instagram" target="_blank"
+            rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i
+              class="fab fa-telegram"></i></a>
         </div>
         <div class="copyright">
           © 2025 E-MTA Club — Université 8 Mai 1945 Guelma
@@ -266,4 +283,5 @@
     </div>
   </div>
 </body>
+
 </html>

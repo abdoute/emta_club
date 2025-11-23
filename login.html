@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-MTA Club | Login</title>
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script id="emta-api-base-config">
-    (function(){
-      var isLocal = location.hostname === '127.0.0.1' ||
-                    location.hostname === 'localhost' ||
-                    location.protocol === 'file:';
-      var localBase = 'http://127.0.0.1:5000';
-      var prodBase = 'https://emtaclub-production.up.railway.app';
-      window.EMTA_API_BASE = isLocal ? localBase : prodBase;
-      window.API_BASE = window.EMTA_API_BASE;
-    })();
-  </script>
+  <script src="assets/js/config.js"></script>
 </head>
+
 <body>
   <!-- Header (reuse site navbar) -->
   <header id="header" class="header">
@@ -28,7 +20,7 @@
         <a href="about.html">About</a>
         <a href="activities.html">Activities</a>
         <a href="join.html">Join-Us</a>
-     </nav>
+      </nav>
     </div>
   </header>
 
@@ -40,18 +32,21 @@
           <p class="section-subtitle" style="margin-bottom: 8px; color: var(--error-color, #ef4444); font-weight: 600;">
             هذه الصفحة مخصصة لفريق الإدارة فقط.
           </p>
-          <p class="section-subtitle" style="margin-bottom: 24px; color: var(--text-secondary);" data-key="login_to_profile">Login to your profile (admin only)</p>
+          <p class="section-subtitle" style="margin-bottom: 24px; color: var(--text-secondary);"
+            data-key="login_to_profile">Login to your profile (admin only)</p>
 
           <form id="loginForm" class="form">
             <div class="form-group">
               <label for="loginEmail" data-key="email">Email</label>
-              <input type="email" id="loginEmail" required placeholder="you@example.com" data-i18n-attr="placeholder" data-key="email" />
+              <input type="email" id="loginEmail" required placeholder="you@example.com" data-i18n-attr="placeholder"
+                data-key="email" />
             </div>
 
             <div class="form-group">
               <label for="loginPassword" data-key="password">Password</label>
               <div class="input-with-icon">
-                <input type="password" id="loginPassword" required placeholder="Your password" data-i18n-attr="placeholder" data-key="your_password" />
+                <input type="password" id="loginPassword" required placeholder="Your password"
+                  data-i18n-attr="placeholder" data-key="your_password" />
                 <button type="button" id="togglePassword" class="icon-btn" aria-label="Show/Hide password">
                   <i class="fa-solid fa-eye"></i>
                 </button>
@@ -62,7 +57,8 @@
               <label style="display:flex; gap:8px; align-items:center;">
                 <input type="checkbox" id="rememberMe" /> <span data-key="remember_me">Remember me</span>
               </label>
-              <a href="#" style="color: var(--primary-color); text-decoration: none;" data-key="forgot_password">Forgot password?</a>
+              <a href="#" style="color: var(--primary-color); text-decoration: none;" data-key="forgot_password">Forgot
+                password?</a>
             </div>
 
             <button type="submit" class="btn primary" style="width: 100%; margin-top: 16px;">
@@ -70,7 +66,9 @@
             </button>
 
             <p style="margin-top:16px; text-align:center; color: var(--text-secondary);">
-              <span data-key="new_here">New here?</span> <a href="join.html" style="color: var(--primary-color); text-decoration: none;" data-key="create_account">Create an account</a>
+              <span data-key="new_here">New here?</span> <a href="join.html"
+                style="color: var(--primary-color); text-decoration: none;" data-key="create_account">Create an
+                account</a>
             </p>
           </form>
         </div>
@@ -93,15 +91,64 @@
   </script>
 
   <style>
-    .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display:block; margin-bottom: 8px; color: var(--text-secondary); }
-    .form-group input { width: 100%; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 10px; background: rgba(255,255,255,0.06); color: var(--text-color); }
-    .input-with-icon { display: flex; align-items: center; gap: 8px; }
-    .input-with-icon input { flex: 1; }
-    .icon-btn { background: transparent; border: 1px solid var(--border-color); width: 42px; height: 42px; border-radius: 10px; color: var(--text-secondary); }
-    .btn.primary { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: #fff; border: none; padding: 12px 16px; border-radius: 10px; cursor: pointer; }
-    .btn.primary:disabled { opacity: .7; cursor: not-allowed; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-color);
+    }
+
+    .input-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .input-with-icon input {
+      flex: 1;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      color: var(--text-secondary);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .btn.primary:disabled {
+      opacity: .7;
+      cursor: not-allowed;
+    }
   </style>
 </body>
+
 </html>

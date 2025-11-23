@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.port": 5591
+    "liveServer.settings.port": 5001,
+    "liveServer.settings.multiRootWorkspaceName": "emta-club"
 }

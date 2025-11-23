@@ -1,46 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="E-MTA Club Member Dashboard - Access your profile, activities, projects, and more">
+    <meta name="description"
+        content="E-MTA Club Member Dashboard - Access your profile, activities, projects, and more">
     <meta name="keywords" content="E-MTA Club, Dashboard, Member Portal, Profile, Activities">
     <meta name="author" content="E-MTA Club">
     <title>Member Dashboard - E-MTA Club</title>
     <meta property="og:title" content="Member Dashboard — E-MTA Club">
-    <meta property="og:description" content="Access your profile, activities, projects, and achievements in E-MTA Club.">
+    <meta property="og:description"
+        content="Access your profile, activities, projects, and achievements in E-MTA Club.">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Member Dashboard — E-MTA Club">
-    <meta name="twitter:description" content="Access your profile, activities, projects, and achievements in E-MTA Club.">
+    <meta name="twitter:description"
+        content="Access your profile, activities, projects, and achievements in E-MTA Club.">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"
+        crossorigin="anonymous">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- AOS (Animate on Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/dashboard.css">
     <link rel="icon" href="assets/images/logo.png" type="image/png">
-    <script id="emta-api-base-config">
-      window.EMTA_API_BASE = 'https://emtaclub-production.up.railway.app';
-      window.API_BASE = window.EMTA_API_BASE;
-    </script>
+    <script src="assets/js/config.js"></script>
     <script>
-      // Dashboard temporarily disabled for members
-      (function(){
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', function(){
-            alert('The member dashboard is currently disabled. You will be redirected to the home page.');
-            window.location.replace('index.html');
-          });
-        } else {
-          alert('The member dashboard is currently disabled. You will be redirected to the home page.');
-          window.location.replace('index.html');
-        }
-      })();
+        // Dashboard temporarily disabled for members
+        (function () {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function () {
+                    alert('The member dashboard is currently disabled. You will be redirected to the home page.');
+                    window.location.replace('index.html');
+                });
+            } else {
+                alert('The member dashboard is currently disabled. You will be redirected to the home page.');
+                window.location.replace('index.html');
+            }
+        })();
     </script>
 </head>
+
 <body>
     <header id="navbar">
         <a href="index.html" class="logo">
@@ -162,8 +166,9 @@
                                 <span id="profileJoinDate">Joined: January 2024</span>
                             </div>
                         </div>
-                        <div class="profile-bio" id="profileBio" style="margin-top:16px;color:var(--text-secondary);font-size:0.95rem;"></div>
-                        
+                        <div class="profile-bio" id="profileBio"
+                            style="margin-top:16px;color:var(--text-secondary);font-size:0.95rem;"></div>
+
                         <div class="profile-stats" id="profileStats"></div>
                         <div class="profile-skills" id="profileSkills"></div>
                         <div class="profile-links" id="profileLinks"></div>
@@ -463,7 +468,8 @@
                     <p style="color:var(--text-secondary)">Are you sure? This action cannot be undone.</p>
                 </div>
                 <div class="modal-actions">
-                    <button class="edit-btn btn-danger" id="deleteConfirmBtn"><i class="fa-solid fa-trash"></i> Delete</button>
+                    <button class="edit-btn btn-danger" id="deleteConfirmBtn"><i class="fa-solid fa-trash"></i>
+                        Delete</button>
                     <button class="edit-btn" id="deleteCancelBtn">Cancel</button>
                 </div>
             </div>
@@ -478,9 +484,12 @@
             </div>
             <div class="footer-right">
                 <div class="socials">
-                    <a href="https://www.facebook.com/profile.php?id=61569753516399" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/emta_club/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61569753516399" aria-label="Facebook"
+                        target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/emta_club/" aria-label="Instagram" target="_blank"
+                        rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i
+                            class="fab fa-telegram"></i></a>
                 </div>
                 <div class="copyright">
                     &copy; 2025 E-MTA Club — Université 8 Mai 1945 Guelma
@@ -495,4 +504,5 @@
     <script src="assets/js/dashboard-enhanced.js"></script>
     <script src="assets/js/i18n.js"></script>
 </body>
+
 </html>

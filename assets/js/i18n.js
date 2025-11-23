@@ -1,4 +1,4 @@
-(function(){
+(function () {
   const STORAGE_KEY = 'emta_lang';
   const DEFAULT_LANG = 'en';
 
@@ -202,13 +202,17 @@
       join_feature_networking: 'Networking Opportunities',
       join_label_full_name: 'Full Name',
       join_label_registration: 'Registration Number',
-      join_label_email: 'University Email',
+      join_label_email: 'E-mail',
+      join_label_phone: 'Phone Number',
       join_label_level: 'Academic Level',
       join_label_specialty: 'Specialty',
+      join_label_other_specialty: 'Specify Specialty',
       join_label_motivation: 'Motivation',
       join_placeholder_full_name: 'Enter your full name',
       join_placeholder_registration: 'e.g. 202136012345',
       join_placeholder_email: 'example@univ-guelma.dz',
+      join_placeholder_phone: '06 12 34 56 78',
+      join_placeholder_other_specialty: 'Enter your specialty...',
       join_placeholder_motivation: 'Tell us briefly why you want to join...',
       join_select_level_placeholder: 'Select your level',
       join_select_specialty_placeholder: 'Please select your academic level first',
@@ -216,6 +220,7 @@
       join_char_count_suffix: 'characters',
       join_progress_template: '{percent}% Complete',
       join_send_application: 'Send Application',
+      join_invalid_phone: '📱 Please enter a valid phone number (10 digits).',
 
       // Contact page
       contactHeroBadge: 'Get In Touch',
@@ -472,18 +477,25 @@
       join_feature_networking: 'فرص للتعارف وبناء العلاقات',
       join_label_full_name: 'الاسم الكامل',
       join_label_registration: 'رقم التسجيل',
-      join_label_email: 'البريد الجامعي',
+      join_label_email: 'البريد الإلكتروني',
+      join_label_phone: 'رقم الهاتف',
       join_label_level: 'المستوى الدراسي',
       join_label_specialty: 'التخصص',
+      join_label_other_specialty: 'حدد التخصص',
       join_label_motivation: 'دافع الانضمام',
       join_placeholder_full_name: 'اكتب اسمك الكامل',
       join_placeholder_registration: 'مثال: 202136012345',
       join_placeholder_email: 'example@univ-guelma.dz',
+      join_placeholder_phone: '06 12 34 56 78',
+      join_placeholder_other_specialty: 'أدخل تخصصك...',
       join_placeholder_motivation: 'أخبرنا باختصار لماذا تريد الانضمام...',
       join_select_level_placeholder: 'اختر مستواك',
       join_select_specialty_placeholder: 'يرجى اختيار المستوى الدراسي أولاً',
-      
-      // Contact page FAQ
+      join_specialty_hint: 'اختر مستواك الدراسي أعلاه لعرض التخصصات المتاحة',
+      join_char_count_suffix: 'حرفاً',
+      join_progress_template: '{percent}% مكتمل',
+      join_send_application: 'إرسال طلب الانضمام',
+      join_invalid_phone: '📱 يرجى إدخال رقم هاتف صحيح (10 أرقام).',
       contactHeroBadge: 'تواصل معنا',
       contactTitle: 'اتصل بنا',
       contactIntro: 'هل لديك أسئلة؟ تريد التعاون؟',
@@ -512,7 +524,7 @@
       contact_youtube: 'يوتيوب',
       contact_faq_title: 'الأسئلة الشائعة',
       contact_faq_subtitle: 'إجابات على الأسئلة المتداولة',
-      
+
       // FAQ Questions and Answers in Arabic
       faq_join_question: 'كيف يمكنني الانضمام إلى نادي E-MTA؟',
       faq_join_answer: 'يمكنك الانضمام عن طريق ملء استمارة العضوية في صفحة \'انضم إلينا\'. سنراجع طلبك وسنرد عليك في غضون 48 ساعة.',
@@ -581,7 +593,7 @@
     return saved === 'ar' ? 'ar' : 'en';
   }
 
-  function setDir(lang){
+  function setDir(lang) {
     const html = document.documentElement;
     const isAr = lang === 'ar';
     html.setAttribute('lang', isAr ? 'ar' : 'en');
@@ -589,7 +601,7 @@
     document.body.classList.toggle('rtl', isAr);
   }
 
-  function t(key, vars){
+  function t(key, vars) {
     const lang = getCurrentLang();
     const d = dict[lang] || {};
     let val = d[key] || key;
@@ -602,13 +614,13 @@
     return val;
   }
 
-  function translateAttr(el, key, attr){
+  function translateAttr(el, key, attr) {
     const lang = getCurrentLang();
     const val = dict[lang][key];
     if (val && el) el.setAttribute(attr, val);
   }
 
-  function applyTranslations(){
+  function applyTranslations() {
     const lang = getCurrentLang();
     setDir(lang);
     const d = dict[lang] || {};
@@ -651,7 +663,7 @@
 
     // Buttons by known IDs (if present)
     const joinCtas = document.querySelectorAll('.cta-btn span');
-    joinCtas.forEach(s => { 
+    joinCtas.forEach(s => {
       const k = s.getAttribute('data-key');
       const val = d[k];
       if (k && val) s.textContent = val;
@@ -686,7 +698,7 @@
     }
   }
 
-  function setLanguage(lang){
+  function setLanguage(lang) {
     const final = lang === 'ar' ? 'ar' : 'en';
     localStorage.setItem(STORAGE_KEY, final);
     // Toggle active state on known language buttons if they exist

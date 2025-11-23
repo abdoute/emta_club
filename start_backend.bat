@@ -53,8 +53,9 @@ if exist backend\requirements.txt (
 )
 
 REM 4) Run the Flask app via backend/run.py (loads .env automatically)
-echo [run] Starting backend on http://127.0.0.1:5590 ...
+echo [run] Starting backend on http://127.0.0.1:5592 ...
 echo [hint] Close this window to stop the server.
+set PORT=5592
 "%VENV_PY%" backend\run.py
 if errorlevel 1 (
   echo.

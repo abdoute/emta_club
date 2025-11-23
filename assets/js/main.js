@@ -3,23 +3,23 @@
  * Handles navbar scroll effect and active link highlighting
  */
 
-(function() {
+(function () {
   'use strict';
 
   // Configurable API base for production without local server
-  const API_BASE = (typeof window!=='undefined'&&window.API_BASE) || (function(){ try { return localStorage.getItem('emta_api_base'); } catch { return null; } })() || 'http://127.0.0.1:5000';
+  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) || (function () { try { return localStorage.getItem('emta_api_base'); } catch { return null; } })() || 'http://127.0.0.1:5000';
   const DASHBOARD_ENABLED = false;
 
   // ===== Navbar Scroll Effect =====
   function initNavbarScroll() {
-  const navbar = document.getElementById("navbar");
+    const navbar = document.getElementById("navbar");
     if (!navbar) return;
 
     let lastScrollY = window.scrollY;
     let ticking = false;
 
     function updateNavbar() {
-  navbar.classList.toggle("scrolled", window.scrollY > 50);
+      navbar.classList.toggle("scrolled", window.scrollY > 50);
       ticking = false;
     }
 
@@ -86,7 +86,7 @@
         btn.style.background = 'transparent';
         btn.style.color = 'var(--text-secondary)';
         btn.addEventListener('click', () => {
-          try { localStorage.removeItem(TOKEN_KEY); } catch {}
+          try { localStorage.removeItem(TOKEN_KEY); } catch { }
           window.location.href = 'login.html';
         });
         li.appendChild(btn);
@@ -98,22 +98,22 @@
         fetch(`${API_BASE}/api/auth/me`, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
-        .then(r => r.ok ? r.json() : null)
-        .then(data => {
-          const isAdmin = !!(data && data.user && data.user.is_admin);
-          if (isAdmin) {
-            if (!adminLi) ensureLiLink('admin.html', 'Admin');
-            // Hide Dashboard link on admin page only
-            const onAdminPage = /(^|\/)admin\.html$/i.test(window.location.pathname);
-            if (onAdminPage && findLiByHref('dashboard.html')) {
-              const dli = findLiByHref('dashboard.html');
-              if (dli) removeLi(dli);
+          .then(r => r.ok ? r.json() : null)
+          .then(data => {
+            const isAdmin = !!(data && data.user && data.user.is_admin);
+            if (isAdmin) {
+              if (!adminLi) ensureLiLink('admin.html', 'Admin');
+              // Hide Dashboard link on admin page only
+              const onAdminPage = /(^|\/)admin\.html$/i.test(window.location.pathname);
+              if (onAdminPage && findLiByHref('dashboard.html')) {
+                const dli = findLiByHref('dashboard.html');
+                if (dli) removeLi(dli);
+              }
+            } else {
+              if (adminLi) removeLi(adminLi);
             }
-          } else {
-            if (adminLi) removeLi(adminLi);
-          }
-        })
-        .catch(() => { /* ignore */ });
+          })
+          .catch(() => { /* ignore */ });
       } catch (_) { /* ignore */ }
     } else {
       // Hide Dashboard, show Login & Join, remove Logout
@@ -189,11 +189,11 @@
   function setActiveLink() {
     const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll('nav a[href]');
-    
+
     navLinks.forEach(link => {
       const linkPath = link.getAttribute('href');
-      if (currentPath.endsWith(linkPath) || 
-          (currentPath.endsWith('/') && linkPath === 'index.html')) {
+      if (currentPath.endsWith(linkPath) ||
+        (currentPath.endsWith('/') && linkPath === 'index.html')) {
         link.classList.add('active');
       } else {
         link.classList.remove('active');
@@ -205,7 +205,7 @@
   function initLanguageSwitcher() {
     const enBtn = document.getElementById('en-btn');
     const arBtn = document.getElementById('ar-btn');
-    
+
     if (!enBtn || !arBtn) return;
 
     enBtn.addEventListener('click', () => {
@@ -283,12 +283,29 @@
     searchBtn.className = 'nav-search-btn';
     searchBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>';
 
-    // Insert before language switch if available, else append
-    const langSwitch = navbar.querySelector('.lang-switch');
-    if (langSwitch && langSwitch.parentElement) {
-      langSwitch.parentElement.insertBefore(searchBtn, langSwitch);
+    // Insert search button next to logo
+    const logo = document.querySelector('.logo');
+    if (logo) {
+      // Create wrapper if not exists
+      let wrapper = logo.parentElement.querySelector('.logo-group');
+      if (!wrapper) {
+        wrapper = document.createElement('div');
+        wrapper.className = 'logo-group';
+        wrapper.style.display = 'flex';
+        wrapper.style.alignItems = 'center';
+        wrapper.style.gap = '15px';
+        logo.parentElement.insertBefore(wrapper, logo);
+        wrapper.appendChild(logo);
+      }
+      wrapper.appendChild(searchBtn);
     } else {
-      navbar.appendChild(searchBtn);
+      // Fallback
+      const langSwitch = document.querySelector('.lang-switch');
+      if (langSwitch) {
+        langSwitch.parentElement.insertBefore(searchBtn, langSwitch);
+      } else {
+        navbar.appendChild(searchBtn);
+      }
     }
 
     // Inject minimal styles to reuse theme vars
@@ -296,7 +313,7 @@
       const style = document.createElement('style');
       style.id = 'global-search-styles';
       style.textContent = `
-        .nav-search-btn{margin-left:12px;background:transparent;border:1px solid var(--border-color);color:var(--text-secondary);padding:8px 12px;border-radius:10px;cursor:pointer;transition:all var(--transition)}
+        .nav-search-btn{background:transparent;border:1px solid var(--border-color);color:var(--text-secondary);padding:8px 12px;border-radius:10px;cursor:pointer;transition:all var(--transition)}
         .nav-search-btn:hover{border-color:var(--primary-color);color:var(--text-primary);transform:translateY(-2px)}
         .search-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);display:none;align-items:flex-start;justify-content:center;z-index:11000;padding-top:120px}
         .search-overlay.open{display:flex}
@@ -336,19 +353,19 @@
     const results = overlay.querySelector('#globalSearchResults');
     const closeBtn = overlay.querySelector('.search-close');
 
-    function openSearch(){
+    function openSearch() {
       overlay.classList.add('open');
-      setTimeout(()=>input.focus(), 50);
+      setTimeout(() => input.focus(), 50);
       renderResults('');
     }
-    function closeSearch(){
+    function closeSearch() {
       overlay.classList.remove('open');
-      input.value='';
+      input.value = '';
     }
     searchBtn.addEventListener('click', openSearch);
     closeBtn.addEventListener('click', closeSearch);
-    overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeSearch(); });
-    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeSearch(); });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeSearch(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSearch(); });
 
     // Expose controls globally for shortcuts
     window.emta = window.emta || {};
@@ -357,23 +374,23 @@
 
     // Simple content index
     const index = [
-      {title:'Home',desc:'Landing page',icon:'fa-house',href:'index.html'},
-      {title:'About',desc:'About E-MTA Club',icon:'fa-users',href:'about.html'},
-      {title:'Activities',desc:'Workshops, projects, competitions',icon:'fa-calendar-check',href:'activities.html'},
-      {title:'Join Us',desc:'Membership form',icon:'fa-user-plus',href:'join.html'},
-      {title:'Contact',desc:'Get in touch',icon:'fa-envelope',href:'contact.html'},
-      {title:'Blog',desc:'News and articles',icon:'fa-newspaper',href:'404.html'},
-      {title:'Resources',desc:'Guides, tools, links',icon:'fa-folder-open',href:'404.html'},
-      {title:'Gallery',desc:'Photos and videos',icon:'fa-images',href:'404.html'}
+      { title: 'Home', desc: 'Landing page', icon: 'fa-house', href: 'index.html' },
+      { title: 'About', desc: 'About E-MTA Club', icon: 'fa-users', href: 'about.html' },
+      { title: 'Activities', desc: 'Workshops, projects, competitions', icon: 'fa-calendar-check', href: 'activities.html' },
+      { title: 'Join Us', desc: 'Membership form', icon: 'fa-user-plus', href: 'join.html' },
+      { title: 'Contact', desc: 'Get in touch', icon: 'fa-envelope', href: 'contact.html' },
+      { title: 'Blog', desc: 'News and articles', icon: 'fa-newspaper', href: '404.html' },
+      { title: 'Resources', desc: 'Guides, tools, links', icon: 'fa-folder-open', href: '404.html' },
+      { title: 'Gallery', desc: 'Photos and videos', icon: 'fa-images', href: '404.html' }
     ];
 
-    function renderResults(query){
-      const q = (query||'').toLowerCase().trim();
+    function renderResults(query) {
+      const q = (query || '').toLowerCase().trim();
       const items = !q ? index : index.filter(it =>
         it.title.toLowerCase().includes(q) ||
         it.desc.toLowerCase().includes(q)
       );
-      if(items.length===0){
+      if (items.length === 0) {
         results.innerHTML = `<div class="search-empty">No results found.</div>`;
         return;
       }
@@ -458,7 +475,7 @@
     btn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
     document.body.appendChild(btn);
 
-    function toggleBtn(){
+    function toggleBtn() {
       btn.classList.toggle('visible', window.scrollY > 300);
     }
     window.addEventListener('scroll', toggleBtn, { passive: true });
@@ -495,9 +512,9 @@
     try {
       AOS.init(cfg);
       // Extra safety: refresh after full load and minor layout changes
-      window.addEventListener('load', () => { try { AOS.refreshHard(); } catch {} });
-      window.addEventListener('resize', () => { try { AOS.refresh(); } catch {} });
-      document.addEventListener('readystatechange', () => { if (document.readyState === 'complete') { try { AOS.refresh(); } catch {} } });
+      window.addEventListener('load', () => { try { AOS.refreshHard(); } catch { } });
+      window.addEventListener('resize', () => { try { AOS.refresh(); } catch { } });
+      document.addEventListener('readystatechange', () => { if (document.readyState === 'complete') { try { AOS.refresh(); } catch { } } });
     } catch (_) { /* no-op */ }
   }
 

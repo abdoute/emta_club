@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Contact E-MTA Club - Get in touch with us for questions, collaborations, or inquiries">
+  <meta name="description"
+    content="Contact E-MTA Club - Get in touch with us for questions, collaborations, or inquiries">
   <meta name="keywords" content="E-MTA Club, Contact, Get in touch, University Club, Guelma">
   <title>Contact — E-MTA Club</title>
   <meta property="og:title" content="Contact — E-MTA Club">
   <meta property="og:description" content="Get in touch with E-MTA Club — questions, collaborations, or inquiries.">
   <meta property="og:type" content="website">
-  
+
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Contact — E-MTA Club">
   <meta name="twitter:description" content="Get in touch with E-MTA Club — questions, collaborations, or inquiries.">
-  
+
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- AOS (Animate on Scroll) -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -26,19 +30,10 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/contact.css">
   <link rel="icon" href="assets/images/logo.png" type="image/png">
-  <script id="emta-api-base-config">
-    (function(){
-      var isLocal = location.hostname === '127.0.0.1' ||
-                    location.hostname === 'localhost' ||
-                    location.protocol === 'file:';
-      var localBase = 'http://127.0.0.1:5000';
-      var prodBase = 'https://emtaclub-production.up.railway.app';
-      window.EMTA_API_BASE = isLocal ? localBase : prodBase;
-      window.API_BASE = window.EMTA_API_BASE;
-    })();
-  </script>
-  
+  <script src="assets/js/config.js"></script>
+
 </head>
+
 <body>
 
   <!-- ===== Navbar ===== -->
@@ -55,11 +50,11 @@
         <li><a href="activities.html" data-key="activities">Activities</a></li>
         <li><a href="join.html" data-key="join">Join-Us</a></li>
         <li><a href="contact.html" data-key="contact" class="active">Contact</a></li>
-       
-       </ul>
+
+      </ul>
     </nav>
 
-    
+
     <div class="lang-switch" role="group" aria-label="Language switcher">
       <button id="en-btn" aria-label="English" class="active">EN</button>
       <button id="ar-btn" aria-label="Arabic">AR</button>
@@ -93,7 +88,8 @@
           <h3 data-key="contact_location_title">Location</h3>
           <p data-key="contact_location_university">University of 8 Mai 1945 </p>
           <p data-key="contact_location_city">Guelma, Algeria</p>
-          <a href="https://maps.app.goo.gl/Akx29gU8TKZNjxe69" class="contact-link"><span data-key="contact_location_view_map">View on Map</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://maps.app.goo.gl/Akx29gU8TKZNjxe69" class="contact-link"><span
+              data-key="contact_location_view_map">View on Map</span> <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
         <div class="contact-card" data-aos="zoom-in" data-aos-delay="200">
@@ -102,8 +98,9 @@
           </div>
           <h3 data-key="contact_email_title">Email</h3>
           <p>emtaclub@gmail.com</p>
-          
-          <a href="mailto:emta.club@univ-guelma.dz" class="contact-link"><span data-key="contact_email_cta">Send Email</span> <i class="fa-solid fa-arrow-right"></i></a>
+
+          <a href="mailto:emta.club@univ-guelma.dz" class="contact-link"><span data-key="contact_email_cta">Send
+              Email</span> <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
         <div class="contact-card" data-aos="zoom-in" data-aos-delay="300">
@@ -113,7 +110,8 @@
           <h3 data-key="contact_phone_title">Phone</h3>
           <p>+213 672494793</p>
           <p data-key="contact_phone_available">Available: Mon-Fri, 9AM-5PM</p>
-          <a href="tel:+213" class="contact-link"><span data-key="contact_phone_cta">Call Now</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="tel:+213" class="contact-link"><span data-key="contact_phone_cta">Call Now</span> <i
+              class="fa-solid fa-arrow-right"></i></a>
         </div>
 
         <div class="contact-card" data-aos="zoom-in" data-aos-delay="400">
@@ -138,25 +136,29 @@
         <div class="contact-form-container">
           <div class="form-header">
             <h2 class="section-title" data-key="contact_form_title">Send Us a Message</h2>
-            <p class="section-subtitle" data-key="contact_form_subtitle">Fill out the form below and we'll get back to you as soon as possible</p>
+            <p class="section-subtitle" data-key="contact_form_subtitle">Fill out the form below and we'll get back to
+              you as soon as possible</p>
           </div>
 
           <form id="contactForm" class="contact-form">
             <div class="form-row">
               <div class="form-group">
-                <label for="contactName"><i class="fa-solid fa-user"></i> <span data-key="contact_label_name">Your Name</span></label>
+                <label for="contactName"><i class="fa-solid fa-user"></i> <span data-key="contact_label_name">Your
+                    Name</span></label>
                 <input type="text" id="contactName" name="contactName" placeholder="Enter your name" required>
               </div>
 
               <div class="form-group">
-                <label for="contactEmail"><i class="fa-solid fa-envelope"></i> <span data-key="contact_label_email">Email Address</span></label>
+                <label for="contactEmail"><i class="fa-solid fa-envelope"></i> <span
+                    data-key="contact_label_email">Email Address</span></label>
                 <input type="email" id="contactEmail" name="contactEmail" placeholder="your.email@example.com" required>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label for="contactSubject"><i class="fa-solid fa-tag"></i> <span data-key="contact_label_subject">Subject</span></label>
+                <label for="contactSubject"><i class="fa-solid fa-tag"></i> <span
+                    data-key="contact_label_subject">Subject</span></label>
                 <select id="contactSubject" name="contactSubject" required>
                   <option value="" data-key="contact_select_subject">Select a subject</option>
                   <option value="general" data-key="contact_subject_general">General Inquiry</option>
@@ -168,15 +170,19 @@
               </div>
 
               <div class="form-group">
-                <label for="contactPhone"><i class="fa-solid fa-phone"></i> <span data-key="contact_label_phone">Phone (Optional)</span></label>
+                <label for="contactPhone"><i class="fa-solid fa-phone"></i> <span data-key="contact_label_phone">Phone
+                    (Optional)</span></label>
                 <input type="tel" id="contactPhone" name="contactPhone" placeholder="+213 XXX XXX XXX">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="contactMessage"><i class="fa-solid fa-message"></i> <span data-key="contact_label_message">Message</span></label>
-              <textarea id="contactMessage" name="contactMessage" rows="6" placeholder="Tell us how we can help you..." data-key="contact_message_placeholder" required></textarea>
-              <span class="char-count"><span id="contactCharCount">0</span> / 1000 <span data-key="join_char_count_suffix">characters</span></span>
+              <label for="contactMessage"><i class="fa-solid fa-message"></i> <span
+                  data-key="contact_label_message">Message</span></label>
+              <textarea id="contactMessage" name="contactMessage" rows="6" placeholder="Tell us how we can help you..."
+                data-key="contact_message_placeholder" required></textarea>
+              <span class="char-count"><span id="contactCharCount">0</span> / 1000 <span
+                  data-key="join_char_count_suffix">characters</span></span>
             </div>
 
             <button type="submit" class="contact-submit-btn">
@@ -191,11 +197,13 @@
           <div class="sidebar-card">
             <h3><i class="fa-solid fa-share-alt"></i> <span data-key="contact_follow_us">Follow Us</span></h3>
             <div class="social-links">
-              <a href="https://www.facebook.com/profile.php?id=61569753516399" class="social-link facebook" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.facebook.com/profile.php?id=61569753516399" class="social-link facebook"
+                target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-facebook"></i>
                 <span data-key="contact_facebook">Facebook</span>
               </a>
-              <a href="https://www.instagram.com/emta_club/" class="social-link instagram" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/emta_club/" class="social-link instagram" target="_blank"
+                rel="noopener noreferrer">
                 <i class="fab fa-instagram"></i>
                 <span data-key="contact_instagram">Instagram</span>
               </a>
@@ -203,7 +211,8 @@
                 <i class="fab fa-telegram"></i>
                 <span data-key="contact_telegram">Telegram</span>
               </a>
-              <a href="https://www.linkedin.com/in/e-m-t-a-club-1b0409345/" class="social-link linkedin" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/e-m-t-a-club-1b0409345/" class="social-link linkedin" target="_blank"
+                rel="noopener noreferrer">
                 <i class="fab fa-linkedin"></i>
                 <span data-key="contact_linkedin">LinkedIn</span>
               </a>
@@ -213,16 +222,21 @@
           <div class="sidebar-card">
             <h3><i class="fa-solid fa-question-circle"></i> <span data-key="contact_quick_links">Quick Links</span></h3>
             <ul class="quick-links">
-              <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> <span data-key="contact_about_us">About Us</span></a></li>
-              <li><a href="join.html"><i class="fa-solid fa-chevron-right"></i> <span data-key="contact_join_club">Join the Club</span></a></li>
-              <li><a href="activities.html"><i class="fa-solid fa-chevron-right"></i> <span data-key="contact_upcoming_events_link">Upcoming Events</span></a></li>
-              <li><a href="#"><i class="fa-solid fa-chevron-right"></i> <span data-key="contact_faq_link">FAQ</span></a></li>
+              <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> <span data-key="contact_about_us">About
+                    Us</span></a></li>
+              <li><a href="join.html"><i class="fa-solid fa-chevron-right"></i> <span data-key="contact_join_club">Join
+                    the Club</span></a></li>
+              <li><a href="activities.html"><i class="fa-solid fa-chevron-right"></i> <span
+                    data-key="contact_upcoming_events_link">Upcoming Events</span></a></li>
+              <li><a href="#"><i class="fa-solid fa-chevron-right"></i> <span data-key="contact_faq_link">FAQ</span></a>
+              </li>
             </ul>
           </div>
 
           <div class="sidebar-card">
             <h3><i class="fa-solid fa-info-circle"></i> <span data-key="contact_need_help">Need Help?</span></h3>
-            <p data-key="contact_need_help_text">If you have urgent questions or need immediate assistance, feel free to reach out through our social media channels or visit our office during working hours.</p>
+            <p data-key="contact_need_help_text">If you have urgent questions or need immediate assistance, feel free to
+              reach out through our social media channels or visit our office during working hours.</p>
           </div>
         </div>
       </div>
@@ -232,9 +246,10 @@
     <section class="faq-section" data-aos="fade-up">
       <div class="section-header" data-aos="fade-up">
         <h2 class="section-title" data-key="contact_faq_title">Frequently Asked Questions</h2>
-        <p class="section-subtitle" data-key="contact_faq_subtitle">Find answers to common questions about E-MTA Club</p>
+        <p class="section-subtitle" data-key="contact_faq_subtitle">Find answers to common questions about E-MTA Club
+        </p>
       </div>
-      
+
       <div class="faq-container" id="faqContainer">
         <!-- FAQ items will be dynamically generated by JavaScript -->
       </div>
@@ -250,9 +265,12 @@
       </div>
       <div class="footer-right">
         <div class="socials">
-          <a href="https://www.facebook.com/profile.php?id=61569753516399" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-          <a href="https://www.instagram.com/emta_club/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+          <a href="https://www.facebook.com/profile.php?id=61569753516399" aria-label="Facebook" target="_blank"
+            rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/emta_club/" aria-label="Instagram" target="_blank"
+            rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i
+              class="fab fa-telegram"></i></a>
         </div>
         <div class="copyright">
           © 2025 E-MTA Club — Université 8 Mai 1945 Guelma
@@ -267,13 +285,13 @@
   <script src="assets/js/main.js"></script>
   <script>
     // Initialize AOS and i18n
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       // Initialize AOS
       AOS.init({
         duration: 800,
         once: true
       });
-      
+
       // Ensure current language is applied immediately (so FAQ renders in correct language)
       if (window.EMTA_I18N && typeof window.EMTA_I18N.getCurrentLang === 'function' && typeof window.EMTA_I18N.setLanguage === 'function') {
         var cur = window.EMTA_I18N.getCurrentLang();
@@ -287,7 +305,7 @@
       // Search button
       var sbtn = document.getElementById('search-btn');
       if (sbtn) {
-        sbtn.addEventListener('click', function(e){
+        sbtn.addEventListener('click', function (e) {
           e.preventDefault();
           if (window.emta && typeof window.emta.openSearch === 'function') {
             window.emta.openSearch();
@@ -299,4 +317,5 @@
   <script src="assets/js/contact.js"></script>
 
 </body>
+
 </html>

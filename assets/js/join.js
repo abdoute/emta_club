@@ -3,11 +3,11 @@
  * Validates and processes membership application form
  */
 
-(function() {
+(function () {
   'use strict';
 
   // Backend API base URL
-  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) || (function() { try { return localStorage.getItem('emta_api_base'); } catch { return null; } })() || 'http://127.0.0.1:5000';
+  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) || (function () { try { return localStorage.getItem('emta_api_base'); } catch { return null; } })() || 'http://127.0.0.1:5000';
 
   function showMessage(message, type = 'info') {
     // Create a more user-friendly notification
@@ -27,9 +27,9 @@
       animation: slideIn 0.3s ease;
       max-width: 400px;
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
       notification.style.animation = 'slideOut 0.3s ease';
       setTimeout(() => notification.remove(), 300);
@@ -45,11 +45,16 @@
     // Allow any domain (university domain not required)
     return true;
   }
-  
+
 
   function validateRegistrationNumber(regNum) {
     const regRegex = /^[0-9]{8,12}$/;
     return regRegex.test(regNum);
+  }
+
+  function validatePhone(phone) {
+    const phoneRegex = /^[0-9]{10}$/;
+    return phoneRegex.test(phone);
   }
 
   // Calculate form completion percentage
@@ -90,43 +95,51 @@
   const specialtyOptions = {
     'L1': [
       { value: 'ST', label: 'ST (Science and Technology)' },
-      { value: 'INFO', label: 'Informatique' }
+      { value: 'INFO', label: 'Informatique' },
+      { value: 'OTHER', label: 'Other (Autre)' }
     ],
     'L2': [
       { value: 'AUT', label: 'Automatique (AUT)' },
       { value: 'ELM-TECH', label: 'Electrotechnique (ELM)' },
       { value: 'ELM-MEC', label: 'Electromécanique (ELM)' },
-      { value: 'INFO', label: 'Informatique' }
+      { value: 'INFO', label: 'Informatique' },
+      { value: 'OTHER', label: 'Other (Autre)' }
     ],
     'L3': [
       { value: 'AUT', label: 'Automatique (AUT)' },
       { value: 'ELM-TECH', label: 'Electrotechnique (ELM)' },
       { value: 'ELM-MEC', label: 'Electromécanique (ELM)' },
-      { value: 'INFO', label: 'Informatique' }
+      { value: 'INFO', label: 'Informatique' },
+      { value: 'OTHER', label: 'Other (Autre)' }
     ],
     'LP1-Pro': [
       { value: 'PRE', label: 'Protection des Réseaux Electriques' },
-      { value: 'INFO', label: 'Informatique' }
+      { value: 'INFO', label: 'Informatique' },
+      { value: 'OTHER', label: 'Other (Autre)' }
     ],
     'LP2-Pro': [
       { value: 'PRE', label: 'Protection des Réseaux Electriques' },
-      { value: 'INFO', label: 'Informatique' }
+      { value: 'INFO', label: 'Informatique' },
+      { value: 'OTHER', label: 'Other (Autre)' }
     ],
     'LP3-Pro': [
       { value: 'PRE', label: 'Protection des Réseaux Electriques' },
-      { value: 'INFO', label: 'Informatique' }
+      { value: 'INFO', label: 'Informatique' },
+      { value: 'OTHER', label: 'Other (Autre)' }
     ],
     'M1': [
       { value: 'AII', label: 'AII (Automatique et Informatique Industrielle)' },
       { value: 'ELM-MEC', label: 'Electromécanique (ELM)' },
       { value: 'RE', label: 'Réseaux Électrique (RE)' },
-      { value: 'INFO', label: 'Informatique' }
+      { value: 'INFO', label: 'Informatique' },
+      { value: 'OTHER', label: 'Other (Autre)' }
     ],
     'M2': [
       { value: 'AII', label: 'AII (Automatique et Informatique Industrielle)' },
       { value: 'ELM-MEC', label: 'Electromécanique (ELM)' },
       { value: 'RE', label: 'Réseaux Électrique (RE)' },
-      { value: 'INFO', label: 'Informatique' }
+      { value: 'INFO', label: 'Informatique' },
+      { value: 'OTHER', label: 'Other (Autre)' }
     ]
   };
 
@@ -134,41 +147,61 @@
   function updateSpecialtyOptions() {
     const levelSelect = document.getElementById('level');
     const specialtySelect = document.getElementById('specialty');
-    
+
     if (!levelSelect || !specialtySelect) return;
 
     const selectedLevel = levelSelect.value;
-    
+
     // Clear existing options
     specialtySelect.innerHTML = '<option value="">Select your specialty</option>';
-    
-      // Add options based on selected level
-      if (selectedLevel && specialtyOptions[selectedLevel]) {
-        specialtyOptions[selectedLevel].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option.value;
-          optionElement.textContent = option.label;
-          specialtySelect.appendChild(optionElement);
-        });
-        
-        // Enable specialty select and hide hint
-        specialtySelect.disabled = false;
-        specialtySelect.style.opacity = '1';
-        specialtySelect.closest('.form-group').style.display = 'block';
-        const hint = specialtySelect.closest('.form-group').querySelector('.field-hint');
-        if (hint) hint.style.display = 'none';
-        
-        // Add smooth transition
-        specialtySelect.style.transition = 'opacity 0.3s ease';
+
+    // Add options based on selected level
+    if (selectedLevel && specialtyOptions[selectedLevel]) {
+      specialtyOptions[selectedLevel].forEach(option => {
+        const optionElement = document.createElement('option');
+        optionElement.value = option.value;
+        optionElement.textContent = option.label;
+        specialtySelect.appendChild(optionElement);
+      });
+
+      // Enable specialty select and hide hint
+      specialtySelect.disabled = false;
+      specialtySelect.style.opacity = '1';
+      specialtySelect.closest('.form-group').style.display = 'block';
+      const hint = specialtySelect.closest('.form-group').querySelector('.field-hint');
+      if (hint) hint.style.display = 'none';
+
+      // Add smooth transition
+      specialtySelect.style.transition = 'opacity 0.3s ease';
+    } else {
+      // Disable specialty select and show hint
+      specialtySelect.disabled = true;
+      specialtySelect.value = '';
+      specialtySelect.style.opacity = '0.5';
+      const hint = specialtySelect.closest('.form-group').querySelector('.field-hint');
+      if (hint) hint.style.display = 'block';
+    }
+
+    // Handle Other option
+    const otherGroup = document.getElementById('otherSpecialtyGroup');
+    const otherInput = document.getElementById('otherSpecialty');
+
+    specialtySelect.addEventListener('change', function () {
+      if (this.value === 'OTHER') {
+        otherGroup.style.display = 'block';
+        otherInput.setAttribute('required', 'required');
+        setTimeout(() => {
+          otherGroup.style.opacity = '1';
+          otherGroup.style.transform = 'translateY(0)';
+        }, 10);
       } else {
-        // Disable specialty select and show hint
-        specialtySelect.disabled = true;
-        specialtySelect.value = '';
-        specialtySelect.style.opacity = '0.5';
-        const hint = specialtySelect.closest('.form-group').querySelector('.field-hint');
-        if (hint) hint.style.display = 'block';
+        otherGroup.style.display = 'none';
+        otherInput.removeAttribute('required');
+        otherInput.value = '';
       }
-    
+      updateProgress();
+    });
+
     updateProgress();
   }
 
@@ -179,7 +212,7 @@
 
     // Listen for level changes
     levelSelect.addEventListener('change', updateSpecialtyOptions);
-    
+
     // Initial update
     updateSpecialtyOptions();
   }
@@ -200,11 +233,11 @@
 
       if (charCountContainer) {
         charCountContainer.classList.remove('warning', 'error');
-        
+
         if (length > maxLength * 0.9) {
           charCountContainer.classList.add('warning');
         }
-        
+
         if (length > maxLength) {
           charCountContainer.classList.add('error');
           textarea.setCustomValidity('Message is too long (max 500 characters)');
@@ -260,6 +293,19 @@
           }
         });
       }
+
+      // Phone validation
+      if (input.id === 'phone') {
+        input.addEventListener('blur', () => {
+          const value = input.value.trim();
+          if (value && !validatePhone(value)) {
+            input.style.borderColor = '#ef4444';
+            input.setCustomValidity('Phone number must be 10 digits');
+          } else {
+            input.setCustomValidity('');
+          }
+        });
+      }
     });
 
     // Initial progress update
@@ -270,13 +316,17 @@
 
       const name = form.name.value.trim();
       const email = form.email.value.trim();
+      const phone = form.phone.value.trim();
       const registration = form.registration.value.trim();
       const level = form.level.value;
-      const specialty = form.specialty.value;
+      let specialty = form.specialty.value;
+      if (specialty === 'OTHER') {
+        specialty = form.otherSpecialty.value.trim();
+      }
       const message = form.message.value.trim();
 
       // Validation
-      if (!name || !email || !registration || !level || !specialty || !message) {
+      if (!name || !email || !phone || !registration || !level || !specialty || !message) {
         const msg = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
           ? window.EMTA_I18N.t('join_fill_required')
           : "⚠️ Please fill in all fields.";
@@ -316,7 +366,7 @@
       const TOKEN_KEY = 'emta_token';
       const signup = () => fetch(`${API_BASE}/api/auth/signup`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, registration, level, specialty })
+        body: JSON.stringify({ name, email, phone, registration, level, specialty })
       });
       const login = () => fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -342,29 +392,29 @@
           try {
             const token = localStorage.getItem(TOKEN_KEY);
             const meRes = await fetch(`${API_BASE}/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } });
-            const meData = await meRes.json().catch(()=>({}));
+            const meData = await meRes.json().catch(() => ({}));
             if (meRes.ok && meData && meData.user && meData.user.is_admin) {
               const msg = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
                 ? window.EMTA_I18N.t('admin_welcome_redirect', { name })
                 : `🔐 Welcome admin ${name}. Redirecting to Admin...`;
               showMessage(msg, 'success');
-              setTimeout(()=>{ window.location.href = 'admin.html'; }, 600);
+              setTimeout(() => { window.location.href = 'admin.html'; }, 600);
               return null; // signal to skip application
             }
-          } catch(_) { /* fall through to application */ }
+          } catch (_) { /* fall through to application */ }
           // Fallback: if email matches fixed admin email, redirect directly
-          if ((email||'').trim().toLowerCase() === 'abdou.temaini@gmail.com') {
+          if ((email || '').trim().toLowerCase() === 'abdou.temaini@gmail.com') {
             const msg = (window.EMTA_I18N && typeof window.EMTA_I18N.t === 'function')
               ? window.EMTA_I18N.t('admin_welcome_redirect', { name })
               : `🔐 Welcome admin ${name}. Redirecting to Admin...`;
             showMessage(msg, 'success');
-            setTimeout(()=>{ window.location.href = 'admin.html'; }, 600);
+            setTimeout(() => { window.location.href = 'admin.html'; }, 600);
             return null;
           }
           // 2) Submit member application for normal users
           const res2 = await fetch(`${API_BASE}/api/members/apply`, {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, registration, level, specialty, message })
+            body: JSON.stringify({ name, email, phone, registration, level, specialty, message })
           });
           const data2 = await res2.json().catch(() => ({}));
           if (!res2.ok) throw new Error(data2 && data2.error ? data2.error : `Request failed (${res2.status})`);
