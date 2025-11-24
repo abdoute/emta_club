@@ -21,6 +21,7 @@ class MemberApplication(db.Model):
     registration = db.Column(db.String(20), nullable=False, index=True)
     level = db.Column(db.String(20), nullable=False)
     specialty = db.Column(db.String(50), nullable=False)
+    phone = db.Column(db.String(30))
     message = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, server_default=db.func.now())
 

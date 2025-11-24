@@ -1,265 +1,267 @@
-(function(){
+(function () {
   'use strict';
 
   const TOKEN_KEY = 'emta_token';
-  const API_BASE = (typeof window!=='undefined'&&window.API_BASE) || (function(){ try { return localStorage.getItem('emta_api_base'); } catch { return null; } })() || 'http://127.0.0.1:5000';
-  function showToast(msg, type='info'){
+  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) || (function () { try { return localStorage.getItem('emta_api_base'); } catch { return null; } })() || 'http://127.0.0.1:5000';
+  function showToast(msg, type = 'info') {
     const wrapId = 'emta-toast-wrap';
     let wrap = document.getElementById(wrapId);
-    if(!wrap){
+    if (!wrap) {
       wrap = document.createElement('div');
       wrap.id = wrapId;
       wrap.style.cssText = 'position:fixed;top:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:99999';
       document.body.appendChild(wrap);
     }
     const el = document.createElement('div');
-    const colors = type==='success'?['#10b981','#064e3b'] : type==='error'?['#ef4444','#7f1d1d'] : ['#3b82f6','#1e3a8a'];
+    const colors = type === 'success' ? ['#10b981', '#064e3b'] : type === 'error' ? ['#ef4444', '#7f1d1d'] : ['#3b82f6', '#1e3a8a'];
     el.style.cssText = `min-width:260px;max-width:480px;background:${colors[0]};color:#fff;padding:12px 14px;border-radius:10px;box-shadow:0 10px 25px rgba(0,0,0,.25);border:1px solid ${colors[1]};opacity:.98`;
-    el.innerHTML = `<div style="display:flex;align-items:flex-start;gap:10px;"><span style="margin-top:2px">${type==='success'?'✅':type==='error'?'❌':'ℹ️'}</span><div style="line-height:1.35">${msg}</div></div>`;
+    el.innerHTML = `<div style="display:flex;align-items:flex-start;gap:10px;"><span style="margin-top:2px">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span><div style="line-height:1.35">${msg}</div></div>`;
     wrap.appendChild(el);
-    setTimeout(()=>{ el.style.transition='opacity .25s ease, transform .25s ease'; el.style.opacity='0'; el.style.transform='translateY(-6px)'; setTimeout(()=> el.remove(), 280); }, 3600);
+    setTimeout(() => { el.style.transition = 'opacity .25s ease, transform .25s ease'; el.style.opacity = '0'; el.style.transform = 'translateY(-6px)'; setTimeout(() => el.remove(), 280); }, 3600);
   }
 
-  function getToken(){
+  function getToken() {
     try { return localStorage.getItem(TOKEN_KEY); } catch { return null; }
   }
 
   // Applications actions: edit/save/delete
-  function attachAppActions(tbody, token){
-    if(!tbody) return;
-    tbody.addEventListener('click', async (e)=>{
+  function attachAppActions(tbody, token) {
+    if (!tbody) return;
+    tbody.addEventListener('click', async (e) => {
       const btn = e.target.closest('button[data-action]');
-      if(!btn) return;
+      if (!btn) return;
       const tr = btn.closest('tr');
       const id = Number(tr?.getAttribute('data-id'));
       const action = btn.getAttribute('data-action');
-      if(!id) return;
-      if(action==='app-edit'){
+      if (!id) return;
+      if (action === 'app-edit') {
         const firstEditable = tr.querySelector('[data-field]');
         tr.classList.add('editing');
-        if(firstEditable){ firstEditable.focus(); document.getSelection()?.selectAllChildren(firstEditable); }
+        if (firstEditable) { firstEditable.focus(); document.getSelection()?.selectAllChildren(firstEditable); }
         return;
       }
-      if(action==='app-save'){
+      if (action === 'app-save') {
         const payload = {
           name: tr.querySelector('[data-field="name"]').textContent.trim(),
           email: tr.querySelector('[data-field="email"]').textContent.trim(),
           registration: tr.querySelector('[data-field="registration"]').textContent.trim(),
           level: tr.querySelector('[data-field="level"]').textContent.trim(),
           specialty: tr.querySelector('[data-field="specialty"]').textContent.trim(),
+          phone: tr.querySelector('[data-field="phone"]').textContent.trim(),
           message: tr.querySelector('[data-field="message"]').textContent.trim(),
         };
-        try{
+        try {
           await fetch(`${API_BASE}/api/admin/applications/${id}`, {
-            method:'PUT', headers:{ 'Content-Type':'application/json', 'Authorization': `Bearer ${token}` },
+            method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify(payload)
-          }).then(r=>{ if(!r.ok) throw new Error('Update failed'); });
+          }).then(r => { if (!r.ok) throw new Error('Update failed'); });
           alert('Application saved');
           tr.classList.remove('editing');
-        }catch(err){ alert(err.message||'Error'); }
+        } catch (err) { alert(err.message || 'Error'); }
         return;
       }
-      if(action==='app-delete'){
-        const ok = await confirmModal('Delete this application?','Delete');
-        if(!ok) return;
-        try{
+      if (action === 'app-delete') {
+        const ok = await confirmModal('Delete this application?', 'Delete');
+        if (!ok) return;
+        try {
           await fetch(`${API_BASE}/api/admin/applications/${id}`, {
-            method:'DELETE', headers:{ 'Authorization': `Bearer ${token}` }
-          }).then(r=>{ if(!r.ok) throw new Error('Delete failed'); });
+            method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` }
+          }).then(r => { if (!r.ok) throw new Error('Delete failed'); });
           tr.remove();
-        }catch(err){ alert(err.message||'Error'); }
+        } catch (err) { alert(err.message || 'Error'); }
         return;
       }
     });
   }
 
   // Manual add for applications (uses public apply endpoint)
-  function initAddAppForm(){
+  function initAddAppForm() {
     const btn = document.getElementById('addAppSubmit');
     const form = document.getElementById('addAppForm');
-    if(!btn || !form) return;
-    btn.addEventListener('click', async ()=>{
+    if (!btn || !form) return;
+    btn.addEventListener('click', async () => {
       const name = document.getElementById('addAppName')?.value.trim() || '';
       const email = document.getElementById('addAppEmail')?.value.trim() || '';
       const registration = document.getElementById('addAppRegistration')?.value.trim() || '';
       const level = document.getElementById('addAppLevel')?.value.trim() || '';
       const specialty = document.getElementById('addAppSpecialty')?.value.trim() || '';
+      const phone = document.getElementById('addAppPhone')?.value.trim() || '';
       const message = document.getElementById('addAppMessage')?.value.trim() || '';
-      if(!name || !email || !registration || !level || !specialty){
+      if (!name || !email || !registration || !level || !specialty) {
         alert('Please fill Name, Email, Registration, Level, and Specialty');
         return;
       }
-      try{
+      try {
         await fetchJSON(`${API_BASE}/api/members/apply`, {
-          method:'POST', headers:{ 'Content-Type':'application/json' },
-          body: JSON.stringify({ name, email, registration, level, specialty, message })
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, registration, level, specialty, phone, message })
         });
         alert('Application added');
         form.reset();
         window.location.reload();
-      } catch(err){
+      } catch (err) {
         alert(err.message || 'Failed to add application');
       }
     });
   }
 
-  async function fetchJSON(url, opts={}){
+  async function fetchJSON(url, opts = {}) {
     const res = await fetch(url, opts);
-    const data = await res.json().catch(()=>({}));
-    if(!res.ok){
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
       const msg = data && (data.error || data.message);
-      throw new Error(msg || ('HTTP '+res.status));
+      throw new Error(msg || ('HTTP ' + res.status));
     }
     return data;
   }
 
-  function fmtDate(iso){
-    if(!iso) return '';
+  function fmtDate(iso) {
+    if (!iso) return '';
     try { return new Date(iso).toLocaleString(); } catch { return iso; }
   }
 
   // Modal confirm utility
-  function confirmModal(message='Are you sure?', confirmText='Delete'){
-    return new Promise((resolve)=>{
+  function confirmModal(message = 'Are you sure?', confirmText = 'Delete') {
+    return new Promise((resolve) => {
       const overlay = document.getElementById('confirmOverlay');
       const msgEl = document.getElementById('confirmMessage');
       const btnOk = document.getElementById('confirmOk');
       const btnCancel = document.getElementById('confirmCancel');
       const btnClose = document.getElementById('confirmClose');
-      if(!overlay){ resolve(window.confirm(message)); return; }
+      if (!overlay) { resolve(window.confirm(message)); return; }
       msgEl.textContent = message;
       btnOk.textContent = confirmText;
       overlay.style.display = 'flex';
-      requestAnimationFrame(()=> overlay.classList.add('open'));
-      const cleanup = ()=>{
+      requestAnimationFrame(() => overlay.classList.add('open'));
+      const cleanup = () => {
         overlay.classList.remove('open');
-        setTimeout(()=>{ overlay.style.display='none'; }, 150);
+        setTimeout(() => { overlay.style.display = 'none'; }, 150);
         btnOk.removeEventListener('click', onOk);
         btnCancel.removeEventListener('click', onCancel);
         btnClose.removeEventListener('click', onCancel);
       };
-      const onOk = ()=>{ cleanup(); resolve(true); };
-      const onCancel = ()=>{ cleanup(); resolve(false); };
+      const onOk = () => { cleanup(); resolve(true); };
+      const onCancel = () => { cleanup(); resolve(false); };
       btnOk.addEventListener('click', onOk);
       btnCancel.addEventListener('click', onCancel);
       btnClose.addEventListener('click', onCancel);
     });
   }
 
-  function setAdminMeta(user){
+  function setAdminMeta(user) {
     const meta = document.getElementById('adminMeta');
-    if(!meta || !user) return;
+    if (!meta || !user) return;
     meta.textContent = `Signed in as ${user.name} (${user.email})`;
   }
 
-  function renderTableBody(tbody, rows, cols){
-    if(!tbody) return;
+  function renderTableBody(tbody, rows, cols) {
+    if (!tbody) return;
     tbody.innerHTML = rows.map(r => {
-      const tds = cols.map(c => `<td>${(r[c]!==undefined && r[c]!==null)? String(r[c]) : ''}</td>`).join('');
+      const tds = cols.map(c => `<td>${(r[c] !== undefined && r[c] !== null) ? String(r[c]) : ''}</td>`).join('');
       return `<tr>${tds}</tr>`;
     }).join('');
   }
 
-  function renderUsers(tbody, items, me){
-    const cols = ['id','name','email','registration','level','specialty','created'];
-    if(!tbody) return;
+  function renderUsers(tbody, items, me) {
+    const cols = ['id', 'name', 'email', 'registration', 'level', 'specialty', 'created'];
+    if (!tbody) return;
     tbody.innerHTML = items.map(u => {
       const isSelf = me && me.email && (String(u.email).toLowerCase() === String(me.email).toLowerCase());
       return `<tr data-id="${u.id}">
         <td>${u.id}</td>
-        <td contenteditable="true" data-field="name">${u.name||''}</td>
-        <td>${u.email||''}</td>
-        <td>${u.registration||''}</td>
-        <td contenteditable="true" data-field="level">${u.level||''}</td>
-        <td contenteditable="true" data-field="specialty">${u.specialty||''}</td>
+        <td contenteditable="true" data-field="name">${u.name || ''}</td>
+        <td>${u.email || ''}</td>
+        <td>${u.registration || ''}</td>
+        <td contenteditable="true" data-field="level">${u.level || ''}</td>
+        <td contenteditable="true" data-field="specialty">${u.specialty || ''}</td>
         <td>${fmtDate(u.created_at)}</td>
         <td>
           <button class="btn btn-sm btn-outline btn-icon" data-action="edit"><i class="fa-solid fa-pen"></i><span>Edit</span></button>
           <button class="btn btn-sm btn-primary btn-icon" data-action="save"><i class="fa-solid fa-floppy-disk"></i><span>Save</span></button>
-          <button class="btn btn-sm btn-danger btn-icon" data-action="delete" ${isSelf? 'disabled':''}><i class="fa-solid fa-trash"></i><span>Delete</span></button>
+          <button class="btn btn-sm btn-danger btn-icon" data-action="delete" ${isSelf ? 'disabled' : ''}><i class="fa-solid fa-trash"></i><span>Delete</span></button>
         </td>
       </tr>`;
     }).join('');
   }
 
-  function attachUserActions(tbody, token){
-    tbody.addEventListener('click', async (e)=>{
+  function attachUserActions(tbody, token) {
+    tbody.addEventListener('click', async (e) => {
       const btn = e.target.closest('button[data-action]');
-      if(!btn) return;
+      if (!btn) return;
       const tr = btn.closest('tr');
       const id = Number(tr?.getAttribute('data-id'));
-      if(!id) return;
+      if (!id) return;
       const action = btn.getAttribute('data-action');
-      if(action==='edit'){
+      if (action === 'edit') {
         const firstEditable = tr.querySelector('[data-field]');
         tr.classList.add('editing');
-        if(firstEditable){
+        if (firstEditable) {
           firstEditable.focus();
           document.getSelection()?.selectAllChildren(firstEditable);
         }
         return;
       }
-      if(action==='save'){
+      if (action === 'save') {
         const name = tr.querySelector('[data-field="name"]').textContent.trim();
         const level = tr.querySelector('[data-field="level"]').textContent.trim();
         const specialty = tr.querySelector('[data-field="specialty"]').textContent.trim();
-        try{
+        try {
           await fetch(`${API_BASE}/api/admin/users/${id}`, {
-            method:'PUT', headers:{ 'Content-Type':'application/json', 'Authorization': `Bearer ${token}` },
+            method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify({ name, level, specialty })
-          }).then(r=>{ if(!r.ok) throw new Error('Update failed'); });
+          }).then(r => { if (!r.ok) throw new Error('Update failed'); });
           alert('Saved');
           tr.classList.remove('editing');
-        }catch(err){ alert(err.message||'Error'); }
-      } else if(action==='delete'){
-        const ok = await confirmModal('Delete this user?','Delete');
-        if(!ok) return;
-        try{
+        } catch (err) { alert(err.message || 'Error'); }
+      } else if (action === 'delete') {
+        const ok = await confirmModal('Delete this user?', 'Delete');
+        if (!ok) return;
+        try {
           await fetch(`${API_BASE}/api/admin/users/${id}`, {
-            method:'DELETE', headers:{ 'Authorization': `Bearer ${token}` }
-          }).then(r=>{ if(!r.ok) throw new Error('Delete failed'); });
+            method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` }
+          }).then(r => { if (!r.ok) throw new Error('Delete failed'); });
           tr.remove();
-        }catch(err){ alert(err.message||'Error'); }
+        } catch (err) { alert(err.message || 'Error'); }
       }
     });
   }
 
   // Simple sorting for users table
-  function makeUsersSortable(table){
-    if(!table) return;
+  function makeUsersSortable(table) {
+    if (!table) return;
     const thead = table.querySelector('thead');
     const tbody = table.querySelector('tbody');
     const headers = Array.from(thead.querySelectorAll('th'));
-    headers.forEach((th, idx)=>{
-      if(idx === headers.length-1) return; // skip Actions
+    headers.forEach((th, idx) => {
+      if (idx === headers.length - 1) return; // skip Actions
       th.classList.add('sortable');
-      th.addEventListener('click', ()=>{
+      th.addEventListener('click', () => {
         const current = th.classList.contains('asc') ? 'asc' : th.classList.contains('desc') ? 'desc' : null;
-        headers.forEach(h=> h.classList.remove('asc','desc'));
+        headers.forEach(h => h.classList.remove('asc', 'desc'));
         const nextDir = current === 'asc' ? 'desc' : 'asc';
         th.classList.add(nextDir);
         const rows = Array.from(tbody.querySelectorAll('tr'));
-        rows.sort((a,b)=>{
+        rows.sort((a, b) => {
           const av = a.children[idx].textContent.trim().toLowerCase();
           const bv = b.children[idx].textContent.trim().toLowerCase();
-          if(av===bv) return 0;
+          if (av === bv) return 0;
           const res = av < bv ? -1 : 1;
-          return nextDir==='asc' ? res : -res;
+          return nextDir === 'asc' ? res : -res;
         });
-        tbody.innerHTML='';
-        rows.forEach(r=> tbody.appendChild(r));
+        tbody.innerHTML = '';
+        rows.forEach(r => tbody.appendChild(r));
       });
     });
   }
 
   // Search/filter for users table
-  function initUsersSearch(){
+  function initUsersSearch() {
     const input = document.getElementById('usersSearch');
     const tbody = document.querySelector('#usersTable tbody');
-    if(!input || !tbody) return;
-    input.addEventListener('input', ()=>{
+    if (!input || !tbody) return;
+    input.addEventListener('input', () => {
       const q = input.value.trim().toLowerCase();
-      tbody.querySelectorAll('tr').forEach(tr=>{
+      tbody.querySelectorAll('tr').forEach(tr => {
         const text = tr.textContent.toLowerCase();
         tr.style.display = text.includes(q) ? '' : 'none';
       });
@@ -267,117 +269,149 @@
   }
 
   // Export utilities
-  function tableToCSV(table){
+  function tableToCSV(table) {
     const rows = Array.from(table.querySelectorAll('tr'));
     return rows.map(tr => Array.from(tr.children).map(td => {
-      const t = td.textContent.replace(/\"/g,'""');
-      return '"'+t+'"';
+      const t = td.textContent.replace(/\"/g, '""');
+      return '"' + t + '"';
     }).join(',')).join('\r\n');
   }
-  function downloadBlob(content, filename, type){
-    const blob = new Blob([content], {type});
+  function downloadBlob(content, filename, type) {
+    const blob = new Blob([content], { type });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = filename;
     a.click();
-    setTimeout(()=> URL.revokeObjectURL(a.href), 1000);
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   }
-  function initUsersExport(){
+  function initUsersExport() {
     const table = document.getElementById('usersTable');
     const btnCsv = document.getElementById('exportUsersCsv');
     const btnXls = document.getElementById('exportUsersXls');
-    if(btnCsv && table){ btnCsv.addEventListener('click', ()=>{
-      const csv = tableToCSV(table);
-      downloadBlob(csv, 'users.csv', 'text/csv;charset=utf-8;');
-    }); }
-    if(btnXls && table){ btnXls.addEventListener('click', ()=>{
-      const html = `\uFEFF<table>${table.querySelector('thead').outerHTML}${table.querySelector('tbody').outerHTML}</table>`;
-      downloadBlob(html, 'users.xls', 'application/vnd.ms-excel');
-    }); }
+    if (btnCsv && table) {
+      btnCsv.addEventListener('click', () => {
+        const csv = tableToCSV(table);
+        downloadBlob(csv, 'users.csv', 'text/csv;charset=utf-8;');
+      });
+    }
+    if (btnXls && table) {
+      btnXls.addEventListener('click', () => {
+        const html = `\uFEFF<table>${table.querySelector('thead').outerHTML}${table.querySelector('tbody').outerHTML}</table>`;
+        downloadBlob(html, 'users.xls', 'application/vnd.ms-excel');
+      });
+    }
   }
 
-  function initAppsExport(){
+  function initAppsExport() {
     const table = document.getElementById('appsTable');
     const btnCsv = document.getElementById('exportAppsCsv');
     const btnXls = document.getElementById('exportAppsXls');
-    if(btnCsv && table){ btnCsv.addEventListener('click', ()=>{
-      const csv = tableToCSV(table);
-      downloadBlob(csv, 'applications.csv', 'text/csv;charset=utf-8;');
-    }); }
-    if(btnXls && table){ btnXls.addEventListener('click', ()=>{
-      const html = `\uFEFF<table>${table.querySelector('thead').outerHTML}${table.querySelector('tbody').outerHTML}</table>`;
-      downloadBlob(html, 'applications.xls', 'application/vnd.ms-excel');
-    }); }
+    if (btnCsv && table) {
+      btnCsv.addEventListener('click', () => {
+        const csv = tableToCSV(table);
+        downloadBlob(csv, 'applications.csv', 'text/csv;charset=utf-8;');
+      });
+    }
+    if (btnXls && table) {
+      btnXls.addEventListener('click', () => {
+        const html = `\uFEFF<table>${table.querySelector('thead').outerHTML}${table.querySelector('tbody').outerHTML}</table>`;
+        downloadBlob(html, 'applications.xls', 'application/vnd.ms-excel');
+      });
+    }
   }
 
-  function initMsgsExport(){
+  function initMsgsExport() {
     const table = document.getElementById('msgsTable');
     const btnCsv = document.getElementById('exportMsgsCsv');
     const btnXls = document.getElementById('exportMsgsXls');
-    if(btnCsv && table){ btnCsv.addEventListener('click', ()=>{
-      const csv = tableToCSV(table);
-      downloadBlob(csv, 'messages.csv', 'text/csv;charset=utf-8;');
-    }); }
-    if(btnXls && table){ btnXls.addEventListener('click', ()=>{
-      const html = `\uFEFF<table>${table.querySelector('thead').outerHTML}${table.querySelector('tbody').outerHTML}</table>`;
-      downloadBlob(html, 'messages.xls', 'application/vnd.ms-excel');
-    }); }
+    if (btnCsv && table) {
+      btnCsv.addEventListener('click', () => {
+        const csv = tableToCSV(table);
+        downloadBlob(csv, 'messages.csv', 'text/csv;charset=utf-8;');
+      });
+    }
+    if (btnXls && table) {
+      btnXls.addEventListener('click', () => {
+        const html = `\uFEFF<table>${table.querySelector('thead').outerHTML}${table.querySelector('tbody').outerHTML}</table>`;
+        downloadBlob(html, 'messages.xls', 'application/vnd.ms-excel');
+      });
+    }
   }
 
   // Basic CSV parser compatible with tableToCSV output
-  function parseCSV(text){
+  function parseCSV(text) {
     const rows = [];
     let cur = '';
     let inQuotes = false;
     let row = [];
-    for(let i=0;i<text.length;i++){
+    let i = 0;
+    
+    while (i < text.length) {
       const c = text[i];
-      if(c === '"'){
-        if(inQuotes && text[i+1] === '"'){
+      
+      if (c === '"') {
+        if (inQuotes && i + 1 < text.length && text[i + 1] === '"') {
+          // Escaped quote inside quotes
           cur += '"';
-          i++;
+          i += 2;
         } else {
+          // Toggle quote state
           inQuotes = !inQuotes;
+          i++;
         }
-      } else if(c === ',' && !inQuotes){
+      } else if (c === ',' && !inQuotes) {
+        // End of field
         row.push(cur);
         cur = '';
-      } else if((c === '\n' || c === '\r') && !inQuotes){
-        if(c === '\r' && text[i+1] === '\n') i++;
+        i++;
+      } else if ((c === '\n' || c === '\r') && !inQuotes) {
+        // End of row
         row.push(cur);
         cur = '';
-        if(row.length){
-          if(row.some(v => v.trim() !== '')) rows.push(row);
+        if (row.some(v => v.trim() !== '')) {
+          rows.push(row);
         }
         row = [];
+        // Skip \r\n
+        if (c === '\r' && i + 1 < text.length && text[i + 1] === '\n') {
+          i += 2;
+        } else {
+          i++;
+        }
       } else {
         cur += c;
+        i++;
       }
     }
-    if(cur.length || row.length){
+    
+    // Add last field and row if exists
+    if (cur.length || row.length) {
       row.push(cur);
-      if(row.some(v => v.trim() !== '')) rows.push(row);
+      if (row.some(v => v.trim() !== '')) {
+        rows.push(row);
+      }
     }
+    
     return rows;
   }
 
-  function initUsersImport(token){
+  function initUsersImport(token) {
     const btn = document.getElementById('importUsersCsvBtn');
     const input = document.getElementById('importUsersCsvInput');
-    if(!btn || !input) return;
-    btn.addEventListener('click', ()=> input.click());
-    input.addEventListener('change', async (e)=>{
+    if (!btn || !input) return;
+    btn.addEventListener('click', () => input.click());
+    input.addEventListener('change', async (e) => {
       const file = e.target.files && e.target.files[0];
-      if(!file) return;
-      if(!file.name.toLowerCase().endsWith('.csv')){
+      if (!file) return;
+      if (!file.name.toLowerCase().endsWith('.csv')) {
         alert('Please select a .csv file for users import');
         input.value = '';
         return;
       }
-      try{
+      try {
         const text = await file.text();
         const rows = parseCSV(text);
-        if(!rows.length){ alert('CSV file is empty'); return; }
+        if (!rows.length) { alert('CSV file is empty'); return; }
         const header = rows[0].map(h => h.trim().toLowerCase());
         const idxOf = (name) => header.indexOf(name.toLowerCase());
         const nameIdx = idxOf('name');
@@ -385,58 +419,58 @@
         const regIdx = idxOf('registration');
         const levelIdx = idxOf('level');
         const specIdx = idxOf('specialty');
-        if(nameIdx === -1 || emailIdx === -1 || regIdx === -1){
+        if (nameIdx === -1 || emailIdx === -1 || regIdx === -1) {
           alert('CSV header must contain at least Name, Email, and Registration columns.');
           return;
         }
-        if(!window.confirm('Import users from CSV? Existing users with same email/registration will be skipped if backend rejects them.')) return;
+        if (!window.confirm('Import users from CSV? Existing users with same email/registration will be skipped if backend rejects them.')) return;
         let okCount = 0;
         let failCount = 0;
-        for(let i=1;i<rows.length;i++){
+        for (let i = 1; i < rows.length; i++) {
           const r = rows[i];
           const name = (r[nameIdx] || '').trim();
           const email = (r[emailIdx] || '').trim();
           const registration = String(r[regIdx] || '').trim();
           const level = levelIdx !== -1 ? String(r[levelIdx] || '').trim() : '';
           const specialty = specIdx !== -1 ? String(r[specIdx] || '').trim() : '';
-          if(!name && !email) continue;
-          try{
+          if (!name && !email) continue;
+          try {
             await fetchJSON(`${API_BASE}/api/auth/signup`, {
-              method:'POST',
-              headers:{ 'Content-Type':'application/json' },
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ name, email, registration, level, specialty })
             });
             okCount++;
-          } catch(err){
+          } catch (err) {
             console.error('Import user failed', err);
             failCount++;
           }
         }
-        showToast(`Users import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount? (okCount? 'info':'error') : 'success');
-        if(okCount) window.location.reload();
+        showToast(`Users import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount ? (okCount ? 'info' : 'error') : 'success');
+        if (okCount) window.location.reload();
       } finally {
         input.value = '';
       }
     });
   }
 
-  function initAppsImport(){
+  function initAppsImport() {
     const btn = document.getElementById('importAppsCsvBtn');
     const input = document.getElementById('importAppsCsvInput');
-    if(!btn || !input) return;
-    btn.addEventListener('click', ()=> input.click());
-    input.addEventListener('change', async (e)=>{
+    if (!btn || !input) return;
+    btn.addEventListener('click', () => input.click());
+    input.addEventListener('change', async (e) => {
       const file = e.target.files && e.target.files[0];
-      if(!file) return;
-      if(!file.name.toLowerCase().endsWith('.csv')){
+      if (!file) return;
+      if (!file.name.toLowerCase().endsWith('.csv')) {
         alert('Please select a .csv file for applications import');
         input.value = '';
         return;
       }
-      try{
+      try {
         const text = await file.text();
         const rows = parseCSV(text);
-        if(!rows.length){ alert('CSV file is empty'); return; }
+        if (!rows.length) { alert('CSV file is empty'); return; }
         const header = rows[0].map(h => h.trim().toLowerCase());
         const idxOf = (name) => header.indexOf(name.toLowerCase());
         const nameIdx = idxOf('name');
@@ -444,60 +478,134 @@
         const regIdx = idxOf('registration');
         const levelIdx = idxOf('level');
         const specIdx = idxOf('specialty');
+        const phoneIdx = idxOf('phone');
         const msgIdx = idxOf('message');
-        if(nameIdx === -1 || emailIdx === -1 || regIdx === -1 || levelIdx === -1 || specIdx === -1){
-          alert('CSV header must contain Name, Email, Registration, Level, Specialty (and optionally Message).');
+        
+        // Check if we have the minimum required columns
+        if (nameIdx === -1 || emailIdx === -1 || regIdx === -1 || levelIdx === -1 || specIdx === -1) {
+          alert('CSV header must contain Name, Email, Registration, Level, Specialty (and optionally Phone, Message).');
           return;
         }
-        if(!window.confirm('Import member applications from CSV?')) return;
+        
+        // Check for column alignment issues by looking at the first data row
+        if (rows.length > 1) {
+          const firstRow = rows[1];
+          console.log('First data row:', firstRow);
+          console.log('Expected columns:', header.length, 'Actual columns:', firstRow.length);
+          
+          // Auto-fix column alignment if needed
+          if (firstRow.length !== header.length) {
+            console.log('Column mismatch detected, attempting to fix...');
+            
+            // Try to identify common patterns and fix alignment
+            const expectedColumns = ['id', 'name', 'email', 'registration', 'level', 'specialty', 'phone', 'message', 'created', 'actions'];
+            
+            // If we have more columns than expected, try to merge problematic ones
+            if (firstRow.length > header.length) {
+              // Look for columns that might contain commas (like messages)
+              for (let i = header.length - 1; i < firstRow.length - 1; i++) {
+                if (firstRow[i] && firstRow[i].includes(',')) {
+                  // This might be a split field, merge it with the next one
+                  firstRow[i] = firstRow[i] + ',' + (firstRow[i + 1] || '');
+                  firstRow.splice(i + 1, 1);
+                  i--; // Check this index again
+                }
+              }
+            }
+          }
+          
+          const hasPhoneInCSV = phoneIdx !== -1 && firstRow[phoneIdx] && firstRow[phoneIdx].trim();
+          const phoneLooksValid = hasPhoneInCSV && /^\d{8,15}$/.test(firstRow[phoneIdx].trim());
+          
+          console.log('CSV Analysis:', {
+            hasPhoneColumn: phoneIdx !== -1,
+            phoneValue: hasPhoneInCSV ? firstRow[phoneIdx].trim() : 'empty',
+            phoneLooksValid: phoneLooksValid,
+            headerLength: header.length,
+            dataLength: firstRow.length
+          });
+        }
+        
+        if (!window.confirm('Import member applications from CSV? Phone numbers will be set to 1234567890 if not provided.')) return;
         let okCount = 0;
         let failCount = 0;
-        for(let i=1;i<rows.length;i++){
+        for (let i = 1; i < rows.length; i++) {
           const r = rows[i];
+          
+          // Skip empty rows
+          if (!r || r.length === 0 || r.every(cell => !cell || !cell.trim())) {
+            continue;
+          }
+          
+          // Ensure row has enough columns
+          while (r.length < header.length) {
+            r.push('');
+          }
+          
           const name = (r[nameIdx] || '').trim();
           const email = (r[emailIdx] || '').trim();
           const registration = String(r[regIdx] || '').trim();
           const level = String(r[levelIdx] || '').trim();
           const specialty = String(r[specIdx] || '').trim();
+          
+          // Handle phone number - use CSV value if valid, otherwise use default
+          let phone = '';
+          if (phoneIdx !== -1 && r[phoneIdx]) {
+            phone = String(r[phoneIdx] || '').trim();
+            // Check if phone looks like a valid phone number (digits only, reasonable length)
+            if (!/^\d{8,15}$/.test(phone)) {
+              phone = ''; // Invalid phone format, will use default
+            }
+          }
+          
+          // Always use default phone number for CSV imports to ensure consistency
+          phone = phone || '1234567890';
+          
           const message = msgIdx !== -1 ? String(r[msgIdx] || '').trim() : '';
-          if(!name && !email) continue;
-          try{
+          
+          // Validate required fields
+          if (!name || !email || !registration || !level || !specialty) {
+            console.warn(`Skipping row ${i} - missing required fields:`, { name, email, registration, level, specialty });
+            continue;
+          }
+          
+          try {
             await fetchJSON(`${API_BASE}/api/members/apply`, {
-              method:'POST',
-              headers:{ 'Content-Type':'application/json' },
-              body: JSON.stringify({ name, email, registration, level, specialty, message })
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, email, registration, level, specialty, phone, message })
             });
             okCount++;
-          } catch(err){
+          } catch (err) {
             console.error('Import application failed', err);
             failCount++;
           }
         }
-        showToast(`Applications import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount? (okCount? 'info':'error') : 'success');
-        if(okCount) window.location.reload();
+        showToast(`Applications import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount ? (okCount ? 'info' : 'error') : 'success');
+        if (okCount) window.location.reload();
       } finally {
         input.value = '';
       }
     });
   }
 
-  function initMsgsImport(){
+  function initMsgsImport() {
     const btn = document.getElementById('importMsgsCsvBtn');
     const input = document.getElementById('importMsgsCsvInput');
-    if(!btn || !input) return;
-    btn.addEventListener('click', ()=> input.click());
-    input.addEventListener('change', async (e)=>{
+    if (!btn || !input) return;
+    btn.addEventListener('click', () => input.click());
+    input.addEventListener('change', async (e) => {
       const file = e.target.files && e.target.files[0];
-      if(!file) return;
-      if(!file.name.toLowerCase().endsWith('.csv')){
+      if (!file) return;
+      if (!file.name.toLowerCase().endsWith('.csv')) {
         alert('Please select a .csv file for messages import');
         input.value = '';
         return;
       }
-      try{
+      try {
         const text = await file.text();
         const rows = parseCSV(text);
-        if(!rows.length){ alert('CSV file is empty'); return; }
+        if (!rows.length) { alert('CSV file is empty'); return; }
         const header = rows[0].map(h => h.trim().toLowerCase());
         const idxOf = (name) => header.indexOf(name.toLowerCase());
         const nameIdx = idxOf('name');
@@ -505,98 +613,98 @@
         const subjectIdx = idxOf('subject');
         const phoneIdx = idxOf('phone');
         const msgIdx = idxOf('message');
-        if(nameIdx === -1 || emailIdx === -1 || subjectIdx === -1 || msgIdx === -1){
+        if (nameIdx === -1 || emailIdx === -1 || subjectIdx === -1 || msgIdx === -1) {
           alert('CSV header must contain Name, Email, Subject, Message (and optionally Phone).');
           return;
         }
-        if(!window.confirm('Import contact messages from CSV?')) return;
+        if (!window.confirm('Import contact messages from CSV?')) return;
         let okCount = 0;
         let failCount = 0;
-        for(let i=1;i<rows.length;i++){
+        for (let i = 1; i < rows.length; i++) {
           const r = rows[i];
           const name = (r[nameIdx] || '').trim();
           const email = (r[emailIdx] || '').trim();
           const subject = String(r[subjectIdx] || '').trim();
           const phone = phoneIdx !== -1 ? String(r[phoneIdx] || '').trim() : '';
           const message = String(r[msgIdx] || '').trim();
-          if(!name && !email && !message) continue;
-          try{
+          if (!name && !email && !message) continue;
+          try {
             await fetchJSON(`${API_BASE}/api/contact/messages`, {
-              method:'POST',
-              headers:{ 'Content-Type':'application/json' },
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ name, email, subject, phone, message })
             });
             okCount++;
-          } catch(err){
+          } catch (err) {
             console.error('Import message failed', err);
             failCount++;
           }
         }
-        showToast(`Messages import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount? (okCount? 'info':'error') : 'success');
-        if(okCount) window.location.reload();
+        showToast(`Messages import finished<br>Success: <b>${okCount}</b> • Failed: <b>${failCount}</b>`, failCount ? (okCount ? 'info' : 'error') : 'success');
+        if (okCount) window.location.reload();
       } finally {
         input.value = '';
       }
     });
   }
 
-  function initAddUserForm(token){
+  function initAddUserForm(token) {
     const btn = document.getElementById('addUserSubmit');
     const form = document.getElementById('addUserForm');
-    if(!btn || !form) return;
-    btn.addEventListener('click', async ()=>{
+    if (!btn || !form) return;
+    btn.addEventListener('click', async () => {
       const name = document.getElementById('addUserName')?.value.trim() || '';
       const email = document.getElementById('addUserEmail')?.value.trim() || '';
       const registration = document.getElementById('addUserRegistration')?.value.trim() || '';
       const level = document.getElementById('addUserLevel')?.value.trim() || '';
       const specialty = document.getElementById('addUserSpecialty')?.value.trim() || '';
-      if(!name || !email || !registration){
+      if (!name || !email || !registration) {
         alert('Please fill Name, Email and Registration');
         return;
       }
-      try{
+      try {
         await fetchJSON(`${API_BASE}/api/auth/signup`, {
-          method:'POST',
-          headers:{ 'Content-Type':'application/json' },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, registration, level, specialty })
         });
         alert('User added');
         form.reset();
         window.location.reload();
-      } catch(err){
+      } catch (err) {
         alert(err.message || 'Failed to add user');
       }
     });
   }
 
-  async function loadData(){
+  async function loadData() {
     const token = getToken();
-    if(!token){
+    if (!token) {
       window.location.href = 'login.html?redirect=admin.html';
       return;
     }
 
     // Check admin
     let me;
-    try{
+    try {
       const meResp = await fetchJSON(`${API_BASE}/api/auth/me`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       me = meResp.user;
       setAdminMeta(me);
-      if(!me || !me.is_admin){
+      if (!me || !me.is_admin) {
         alert('Admin only');
         window.location.href = 'index.html';
         return;
       }
-    } catch(err){
+    } catch (err) {
       console.error(err);
       window.location.href = 'login.html?redirect=admin.html';
       return;
     }
 
     // Fetch all admin data in parallel
-    try{
+    try {
       const [users, apps, msgs] = await Promise.all([
         fetchJSON(`${API_BASE}/api/admin/users`, { headers: { 'Authorization': `Bearer ${token}` } }),
         fetchJSON(`${API_BASE}/api/admin/applications`, { headers: { 'Authorization': `Bearer ${token}` } }),
@@ -606,22 +714,23 @@
       // Users
       const usersTable = document.getElementById('usersTable') || document.querySelector('#usersTable');
       const usersTbody = usersTable.querySelector('tbody');
-      renderUsers(usersTbody, (users.items||[]), me);
+      renderUsers(usersTbody, (users.items || []), me);
       attachUserActions(usersTbody, token);
       makeUsersSortable(usersTable);
       initUsersSearch();
 
       // Applications
       const appsTbody = document.querySelector('#appsTable tbody');
-      appsTbody.innerHTML = (apps.items||[]).map(a=>`
+      appsTbody.innerHTML = (apps.items || []).map(a => `
         <tr data-id="${a.id}">
           <td>${a.id}</td>
-          <td contenteditable="true" data-field="name">${a.name||''}</td>
-          <td contenteditable="true" data-field="email">${a.email||''}</td>
-          <td contenteditable="true" data-field="registration">${a.registration||''}</td>
-          <td contenteditable="true" data-field="level">${a.level||''}</td>
-          <td contenteditable="true" data-field="specialty">${a.specialty||''}</td>
-          <td contenteditable="true" data-field="message">${(a.message||'').replace(/</g,'&lt;')}</td>
+          <td contenteditable="true" data-field="name">${a.name || ''}</td>
+          <td contenteditable="true" data-field="email">${a.email || ''}</td>
+          <td contenteditable="true" data-field="registration">${a.registration || ''}</td>
+          <td contenteditable="true" data-field="level">${a.level || ''}</td>
+          <td contenteditable="true" data-field="specialty">${a.specialty || ''}</td>
+          <td contenteditable="true" data-field="phone">${a.phone || ''}</td>
+          <td contenteditable="true" data-field="message">${(a.message || '').replace(/</g, '&lt;')}</td>
           <td>${fmtDate(a.created_at)}</td>
           <td>
             <button class="btn btn-sm btn-outline btn-icon" data-action="app-edit"><i class="fa-solid fa-pen"></i><span>Edit</span></button>
@@ -633,7 +742,7 @@
 
       // Messages
       const msgsTbody = document.querySelector('#msgsTable tbody');
-      const msgsRows = (msgs.items||[]).map(m=>({
+      const msgsRows = (msgs.items || []).map(m => ({
         id: m.id,
         name: m.name,
         email: m.email,
@@ -642,7 +751,7 @@
         message: m.message,
         created: fmtDate(m.created_at)
       }));
-      renderTableBody(msgsTbody, msgsRows, ['id','name','email','subject','phone','message','created']);
+      renderTableBody(msgsTbody, msgsRows, ['id', 'name', 'email', 'subject', 'phone', 'message', 'created']);
       // Export / Import initialisation after tables are rendered
       initUsersExport();
       initAppsExport();
@@ -652,171 +761,34 @@
       initMsgsImport();
       initAddUserForm(token);
       initAddAppForm();
-    } catch(err){
+    } catch (err) {
       console.error(err);
       alert('Failed to load admin data');
     }
 
     // Admin password change
     const formPwd = document.getElementById('adminPasswordForm');
-    if(formPwd){
-      formPwd.addEventListener('submit', async (e)=>{
+    if (formPwd) {
+      formPwd.addEventListener('submit', async (e) => {
         e.preventDefault();
         const current_password = document.getElementById('currentPassword').value.trim();
         const new_password = document.getElementById('newPassword').value.trim();
-        if(!current_password || !new_password){ alert('Fill both fields'); return; }
-        try{
+        if (!current_password || !new_password) { alert('Fill both fields'); return; }
+        try {
           await fetch(`${API_BASE}/api/admin/change_password`, {
-            method:'POST', headers:{ 'Content-Type':'application/json', 'Authorization': `Bearer ${token}` },
+            method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify({ current_password, new_password })
-          }).then(async r=>{ const d=await r.json().catch(()=>({})); if(!r.ok||!d.ok) throw new Error(d.error||'Change password failed'); });
+          }).then(async r => { const d = await r.json().catch(() => ({})); if (!r.ok || !d.ok) throw new Error(d.error || 'Change password failed'); });
           alert('Password changed');
           formPwd.reset();
-        } catch(err){ alert(err.message||'Error'); }
+        } catch (err) { alert(err.message || 'Error'); }
       });
     }
   }
 
-function initAddUserForm(token){
-  const btn = document.getElementById('addUserSubmit');
-  const form = document.getElementById('addUserForm');
-  if(!btn || !form) return;
-  btn.addEventListener('click', async ()=>{
-    const name = document.getElementById('addUserName')?.value.trim() || '';
-    const email = document.getElementById('addUserEmail')?.value.trim() || '';
-    const registration = document.getElementById('addUserRegistration')?.value.trim() || '';
-    const level = document.getElementById('addUserLevel')?.value.trim() || '';
-    const specialty = document.getElementById('addUserSpecialty')?.value.trim() || '';
-    if(!name || !email || !registration){
-      alert('Please fill Name, Email and Registration');
-      return;
-    }
-    try{
-      await fetchJSON(`${API_BASE}/api/auth/signup`, {
-        method:'POST',
-        headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({ name, email, registration, level, specialty })
-      });
-      alert('User added');
-      form.reset();
-      window.location.reload();
-    } catch(err){
-      alert(err.message || 'Failed to add user');
-    }
-  });
-}
-
-async function loadData(){
-  const token = getToken();
-  if(!token){
-    window.location.href = 'login.html?redirect=admin.html';
-    return;
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadData);
+  } else {
+    loadData();
   }
-
-  // Check admin
-  let me;
-  try{
-    const meResp = await fetchJSON(`${API_BASE}/api/auth/me`, {
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-    me = meResp.user;
-    setAdminMeta(me);
-    if(!me || !me.is_admin){
-      alert('Admin only');
-      window.location.href = 'index.html';
-      return;
-    }
-  } catch(err){
-    console.error(err);
-    window.location.href = 'login.html?redirect=admin.html';
-    return;
-  }
-
-  // Fetch all admin data in parallel
-  try{
-    const [users, apps, msgs] = await Promise.all([
-      fetchJSON(`${API_BASE}/api/admin/users`, { headers: { 'Authorization': `Bearer ${token}` } }),
-      fetchJSON(`${API_BASE}/api/admin/applications`, { headers: { 'Authorization': `Bearer ${token}` } }),
-      fetchJSON(`${API_BASE}/api/admin/messages`, { headers: { 'Authorization': `Bearer ${token}` } }),
-    ]);
-
-    // Users
-    const usersTable = document.getElementById('usersTable') || document.querySelector('#usersTable');
-    const usersTbody = usersTable.querySelector('tbody');
-    renderUsers(usersTbody, (users.items||[]), me);
-    attachUserActions(usersTbody, token);
-    makeUsersSortable(usersTable);
-    initUsersSearch();
-
-    // Applications
-    const appsTbody = document.querySelector('#appsTable tbody');
-    appsTbody.innerHTML = (apps.items||[]).map(a=>`
-      <tr data-id="${a.id}">
-        <td>${a.id}</td>
-        <td contenteditable="true" data-field="name">${a.name||''}</td>
-        <td contenteditable="true" data-field="email">${a.email||''}</td>
-        <td contenteditable="true" data-field="registration">${a.registration||''}</td>
-        <td contenteditable="true" data-field="level">${a.level||''}</td>
-        <td contenteditable="true" data-field="specialty">${a.specialty||''}</td>
-        <td contenteditable="true" data-field="message">${(a.message||'').replace(/</g,'&lt;')}</td>
-        <td>${fmtDate(a.created_at)}</td>
-        <td>
-          <button class="btn btn-sm btn-outline btn-icon" data-action="app-edit"><i class="fa-solid fa-pen"></i><span>Edit</span></button>
-          <button class="btn btn-sm btn-primary btn-icon" data-action="app-save"><i class="fa-solid fa-floppy-disk"></i><span>Save</span></button>
-          <button class="btn btn-sm btn-danger btn-icon" data-action="app-delete"><i class="fa-solid fa-trash"></i><span>Delete</span></button>
-        </td>
-      </tr>`).join('');
-    attachAppActions(appsTbody, token);
-
-    // Messages
-    const msgsTbody = document.querySelector('#msgsTable tbody');
-    const msgsRows = (msgs.items||[]).map(m=>({
-      id: m.id,
-      name: m.name,
-      email: m.email,
-      subject: m.subject,
-      phone: m.phone || '',
-      message: m.message,
-      created: fmtDate(m.created_at)
-    }));
-    renderTableBody(msgsTbody, msgsRows, ['id','name','email','subject','phone','message','created']);
-    // Export / Import initialisation after tables are rendered
-    initUsersExport();
-    initAppsExport();
-    initMsgsExport();
-    initUsersImport(token);
-    initAppsImport();
-    initMsgsImport();
-    initAddUserForm(token);
-    initAddAppForm();
-  } catch(err){
-    console.error(err);
-    alert('Failed to load admin data');
-  }
-
-  // Admin password change
-  const formPwd = document.getElementById('adminPasswordForm');
-  if(formPwd){
-    formPwd.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const current_password = document.getElementById('currentPassword').value.trim();
-      const new_password = document.getElementById('newPassword').value.trim();
-      if(!current_password || !new_password){ alert('Fill both fields'); return; }
-      try{
-        await fetch(`${API_BASE}/api/admin/change_password`, {
-          method:'POST', headers:{ 'Content-Type':'application/json', 'Authorization': `Bearer ${token}` },
-          body: JSON.stringify({ current_password, new_password })
-        }).then(async r=>{ const d=await r.json().catch(()=>({})); if(!r.ok||!d.ok) throw new Error(d.error||'Change password failed'); });
-        alert('Password changed');
-        formPwd.reset();
-      } catch(err){ alert(err.message||'Error'); }
-    });
-  }
-}
-
-if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded', loadData);
-} else {
-  loadData();
-}
 })();

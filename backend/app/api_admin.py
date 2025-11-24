@@ -68,6 +68,7 @@ def list_applications():
         'registration': a.registration,
         'level': a.level,
         'specialty': a.specialty,
+        'phone': a.phone,
         'message': a.message,
         'created_at': a.created_at.isoformat() if a.created_at else None,
     } for a in apps])
@@ -130,6 +131,7 @@ def update_application(app_id: int):
     registration = str(data.get('registration', '')).strip()
     level = str(data.get('level', '')).strip()
     specialty = str(data.get('specialty', '')).strip()
+    phone = str(data.get('phone', '')).strip()
     message = str(data.get('message', '')).strip()
     if name:
         app_obj.name = name
@@ -141,6 +143,8 @@ def update_application(app_id: int):
         app_obj.level = level
     if specialty:
         app_obj.specialty = specialty
+    if phone:
+        app_obj.phone = phone
     if message:
         app_obj.message = message
     db.session.commit()

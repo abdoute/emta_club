@@ -22,6 +22,10 @@ def _is_admin_email(email: str) -> bool:
 @api.post('/members/apply')
 def apply_member():
     data = request.get_json(silent=True) or {}
+    
+    # Debug logging
+    print(f"API received data: {data}")
+    print(f"Phone field received: '{data.get('phone', 'NOT_FOUND')}'")
 
     required = ['name', 'email', 'registration', 'level', 'specialty', 'message']
     missing = [k for k in required if not data.get(k)]
@@ -37,16 +41,22 @@ def apply_member():
     if not reg.isdigit() or not (8 <= len(reg) <= 12):
         return jsonify(ok=False, error='Invalid registration'), 400
 
+    phone_value = str(data.get('phone', '')).strip() or None
+    print(f"Phone value to save: '{phone_value}'")
+    
     app_obj = MemberApplication(
         name=data.get('name', '').strip(),
         email=email,
         registration=reg,
         level=str(data.get('level', '')).strip(),
         specialty=str(data.get('specialty', '')).strip(),
+        phone=phone_value,
         message=str(data.get('message', '')).strip(),
     )
     db.session.add(app_obj)
     db.session.commit()
+    
+    print(f"Application saved with ID: {app_obj.id}, Phone: '{app_obj.phone}'")
 
     return jsonify(ok=True, id=app_obj.id), 201
 
@@ -105,6 +115,7 @@ def list_member_applications():
             'registration': r.registration,
             'level': r.level,
             'specialty': r.specialty,
+            'phone': r.phone,
             'message': r.message,
             'created_at': r.created_at.isoformat() if r.created_at else None,
         }
