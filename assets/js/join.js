@@ -59,7 +59,7 @@
 
   // Calculate form completion percentage
   function calculateProgress() {
-    const form = document.getElementById("joinForm");
+  const form = document.getElementById("joinForm");
     if (!form) return 0;
 
     const requiredFields = form.querySelectorAll('input[required], textarea[required], select[required]');
@@ -253,7 +253,7 @@
 
   function initJoinForm() {
     const form = document.getElementById("joinForm");
-    if (!form) return;
+  if (!form) return;
 
     // Initialize specialty field
     initSpecialtyField();
@@ -311,11 +311,11 @@
     // Initial progress update
     updateProgress();
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
       const phone = form.phone.value.trim();
       const registration = form.registration.value.trim();
       const level = form.level.value;
@@ -340,8 +340,8 @@
           : "📧 Please enter a valid email address.";
         showMessage(msg, "error");
         form.email.focus();
-        return;
-      }
+      return;
+    }
 
       // University email not required; skipping domain enforcement
 
@@ -351,8 +351,8 @@
           : "🆔 Please enter a valid registration number (8-12 digits).";
         showMessage(msg, "error");
         form.registration.focus();
-        return;
-      }
+      return;
+    }
 
       // Real API submission
       const submitBtn = form.querySelector('button[type="submit"]');
@@ -425,7 +425,7 @@
             ? window.EMTA_I18N.t('join_success_generic', { name })
             : `✅ Thank you, ${name}! Your application has been received.`;
           showMessage(msg, 'success');
-          form.reset();
+    form.reset();
           updateProgress();
           // No automatic dashboard redirect for members; they stay on public pages
         })
@@ -435,8 +435,8 @@
         .finally(() => {
           submitBtn.disabled = false;
           submitBtn.textContent = originalText;
-        });
-    });
+  });
+});
   }
 
   // Initialize on DOM ready

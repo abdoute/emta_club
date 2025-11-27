@@ -12,14 +12,14 @@
 
   // ===== Navbar Scroll Effect =====
   function initNavbarScroll() {
-    const navbar = document.getElementById("navbar");
+  const navbar = document.getElementById("navbar");
     if (!navbar) return;
 
     let lastScrollY = window.scrollY;
     let ticking = false;
 
     function updateNavbar() {
-      navbar.classList.toggle("scrolled", window.scrollY > 50);
+  navbar.classList.toggle("scrolled", window.scrollY > 50);
       ticking = false;
     }
 
